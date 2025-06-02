@@ -9,10 +9,12 @@ document.addEventListener('click', function (e) {
 const productsItem = document.querySelector('.products-item');
 const btnLeft = document.querySelector('.slider-btn.left');
 const btnRight = document.querySelector('.slider-btn.right');
-
 btnLeft.onclick = () => {
   productsItem.scrollBy({ left: -productsItem.offsetWidth * 0.5, behavior: 'smooth' });
 };
 btnRight.onclick = () => {
   productsItem.scrollBy({ left: productsItem.offsetWidth * 0.5, behavior: 'smooth' });
 };
+
+
+
