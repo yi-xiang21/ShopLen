@@ -1,0 +1,16 @@
+{
+  "firstName": "Emily",
+  "lastName": "Mitchell",
+  "email": "emily.mitchell@example.com",
+  "phone": "(555) 123-4567",
+  "address": "123 Maple Street",
+  "city": "Portland",
+  "avatar": "EM",
+  "workshopsAttended": 8,
+  "upcomingWorkshops": 2,
+  "interests": [
+    "Knitting",
+    "Embroidery",
+    "Macrame"
+  ]
+}

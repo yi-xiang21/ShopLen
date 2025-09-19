@@ -1,0 +1,419 @@
+[
+  {
+    "id": "sp001",
+    "name": "Soft Korean Yarn",
+    "cost": 28.50,
+    "originalCost": 33.50,
+    "tags": ["yarn", "korea", "soft", "scarf"],
+    "description": "Super soft Korean yarn, perfect for cozy scarves and winter hats.",
+    "detailedDescription": "This premium Korean yarn is crafted with the finest materials to provide ultimate softness and comfort. Perfect for creating cozy winter accessories that feel luxurious against your skin. The yarn has excellent stitch definition and works beautifully with various knitting and crochet patterns.",
+    "images": {
+      "main": "img/item1.png",
+      "thumbnails": [
+        "img/item1.png",
+        "img/item1-2.png",
+        "img/item1-3.png",
+        "img/item1-4.png"
+      ],
+      "gallery": [
+        "img/item1-detail1.png",
+        "img/item1-detail2.png",
+        "img/item1-detail3.png"
+      ]
+    },
+    "colors": [
+      {
+        "id": "red",
+        "name": "Cherry Red",
+        "hex": "#ff6b6b",
+        "available": true,
+        "image": "img/item1-red.png"
+      },
+      {
+        "id": "blue",
+        "name": "Ocean Blue", 
+        "hex": "#4ecdc4",
+        "available": true,
+        "image": "img/item1-blue.png"
+      },
+      {
+        "id": "green",
+        "name": "Forest Green",
+        "hex": "#45b7d1",
+        "available": true,
+        "image": "img/item1-green.png"
+      },
+      {
+        "id": "purple",
+        "name": "Lavender Purple",
+        "hex": "#96ceb4",
+        "available": false,
+        "image": "img/item1-purple.png"
+      }
+    ],
+    "sizes": [
+      {
+        "id": "100g",
+        "name": "100g",
+        "price": 28.50,
+        "available": true
+      },
+      {
+        "id": "200g", 
+        "name": "200g",
+        "price": 52.00,
+        "available": true
+      },
+      {
+        "id": "500g",
+        "name": "500g", 
+        "price": 120.00,
+        "available": true
+      }
+    ],
+    "specifications": {
+      "material": "100% Merino Wool",
+      "weight": "100g",
+      "length": "200m",
+      "care": "Hand wash cold, lay flat to dry",
+      "needleSize": "3.5-4.5mm",
+      "gauge": "22-24 stitches per 10cm"
+    },
+    "features": [
+      "Premium quality material",
+      "Extra soft texture",
+      "Hypoallergenic",
+      "Breathable and warm",
+      "Easy to work with"
+    ],
+    "rating": 4.5,
+    "reviewCount": 128,
+    "inStock": true,
+    "category": "yarn"
+  },
+  {
+    "id": "sp002",
+    "name": "Cotton Cloud Yarn",
+    "cost": 27.20,
+    "originalCost": 32.00,
+    "tags": ["yarn", "cotton", "lightweight", "summer"],
+    "description": "Lightweight cotton yarn, ideal for summer tops and baby clothes.",
+    "detailedDescription": "This lightweight cotton yarn is perfect for warm weather projects. The breathable fabric makes it ideal for summer clothing, baby items, and accessories. The yarn has a beautiful drape and works wonderfully for both knitting and crochet projects.",
+    "images": {
+      "main": "img/item2.png",
+      "thumbnails": [
+        "img/item2.png",
+        "img/item2-2.png",
+        "img/item2-3.png",
+        "img/item2-4.png"
+      ],
+      "gallery": [
+        "img/item2-detail1.png",
+        "img/item2-detail2.png"
+      ]
+    },
+    "colors": [
+      {
+        "id": "white",
+        "name": "Cloud White",
+        "hex": "#ffffff",
+        "available": true,
+        "image": "img/item2-white.png"
+      },
+      {
+        "id": "pink",
+        "name": "Blush Pink",
+        "hex": "#ffb3ba",
+        "available": true,
+        "image": "img/item2-pink.png"
+      },
+      {
+        "id": "mint",
+        "name": "Mint Green",
+        "hex": "#98d8c8",
+        "available": true,
+        "image": "img/item2-mint.png"
+      }
+    ],
+    "sizes": [
+      {
+        "id": "100g",
+        "name": "100g",
+        "price": 27.20,
+        "available": true
+      },
+      {
+        "id": "200g",
+        "name": "200g", 
+        "price": 50.00,
+        "available": true
+      }
+    ],
+    "specifications": {
+      "material": "100% Organic Cotton",
+      "weight": "100g",
+      "length": "180m",
+      "care": "Machine wash cold, tumble dry low",
+      "needleSize": "3-4mm",
+      "gauge": "24-26 stitches per 10cm"
+    },
+    "features": [
+      "Lightweight and breathable",
+      "Perfect for summer projects",
+      "Gentle on sensitive skin",
+      "Easy care instructions",
+      "Sustainable material"
+    ],
+    "rating": 4.3,
+    "reviewCount": 95,
+    "inStock": true,
+    "category": "yarn"
+  },
+  {
+    "id": "sp003",
+    "name": "Pastel Dream Yarn",
+    "cost": 29.99,
+    "originalCost": 35.00,
+    "tags": ["yarn", "pastel", "colorful", "blanket"],
+    "description": "Colorful pastel yarn, great for making vibrant blankets and throws.",
+    "detailedDescription": "This beautiful pastel yarn collection features soft, dreamy colors that are perfect for creating stunning blankets, throws, and home decor items. Each skein is carefully dyed to ensure consistent color throughout your project.",
+    "images": {
+      "main": "img/item3.png",
+      "thumbnails": [
+        "img/item3.png",
+        "img/item3-2.png",
+        "img/item3-3.png",
+        "img/item3-4.png"
+      ],
+      "gallery": [
+        "img/item3-detail1.png",
+        "img/item3-detail2.png",
+        "img/item3-detail3.png"
+      ]
+    },
+    "colors": [
+      {
+        "id": "pastel-pink",
+        "name": "Pastel Pink",
+        "hex": "#ffb3ba",
+        "available": true,
+        "image": "img/item3-pink.png"
+      },
+      {
+        "id": "pastel-blue",
+        "name": "Pastel Blue",
+        "hex": "#b3d9ff",
+        "available": true,
+        "image": "img/item3-blue.png"
+      },
+      {
+        "id": "pastel-yellow",
+        "name": "Pastel Yellow",
+        "hex": "#fff2b3",
+        "available": true,
+        "image": "img/item3-yellow.png"
+      },
+      {
+        "id": "pastel-purple",
+        "name": "Pastel Purple",
+        "hex": "#e6b3ff",
+        "available": true,
+        "image": "img/item3-purple.png"
+      },
+      {
+        "id": "pastel-green",
+        "name": "Pastel Green",
+        "hex": "#b3ffb3",
+        "available": false,
+        "image": "img/item3-green.png"
+      }
+    ],
+    "sizes": [
+      {
+        "id": "100g",
+        "name": "100g",
+        "price": 29.99,
+        "available": true
+      },
+      {
+        "id": "200g",
+        "name": "200g",
+        "price": 55.00,
+        "available": true
+      },
+      {
+        "id": "500g",
+        "name": "500g",
+        "price": 125.00,
+        "available": true
+      }
+    ],
+    "specifications": {
+      "material": "75% Acrylic, 25% Wool",
+      "weight": "100g",
+      "length": "220m",
+      "care": "Machine wash cold, lay flat to dry",
+      "needleSize": "4-5mm",
+      "gauge": "20-22 stitches per 10cm"
+    },
+    "features": [
+      "Vibrant pastel colors",
+      "Perfect for blankets",
+      "Soft and cozy",
+      "Easy to care for",
+      "Great for beginners"
+    ],
+    "rating": 4.7,
+    "reviewCount": 156,
+    "inStock": true,
+    "category": "yarn"
+  },
+  {
+    "id": "sp004",
+    "name": "Rainbow Cotton Yarn",
+    "cost": 26.75,
+    "originalCost": 31.00,
+    "tags": ["yarn", "rainbow", "cotton", "shawl"],
+    "description": "Rainbow cotton yarn, perfect for eye-catching shawls and wraps.",
+    "detailedDescription": "This stunning rainbow cotton yarn creates beautiful color transitions that are perfect for making eye-catching shawls, wraps, and accessories. The colors flow seamlessly from one to the next, creating a magical effect in your finished projects.",
+    "images": {
+      "main": "img/item4.png",
+      "thumbnails": [
+        "img/item4.png",
+        "img/item4-2.png",
+        "img/item4-3.png",
+        "img/item4-4.png"
+      ],
+      "gallery": [
+        "img/item4-detail1.png",
+        "img/item4-detail2.png"
+      ]
+    },
+    "colors": [
+      {
+        "id": "rainbow",
+        "name": "Rainbow",
+        "hex": "#ff0000",
+        "available": true,
+        "image": "img/item4-rainbow.png"
+      },
+      {
+        "id": "sunset",
+        "name": "Sunset",
+        "hex": "#ff6b35",
+        "available": true,
+        "image": "img/item4-sunset.png"
+      },
+      {
+        "id": "ocean",
+        "name": "Ocean",
+        "hex": "#0066cc",
+        "available": true,
+        "image": "img/item4-ocean.png"
+      }
+    ],
+    "sizes": [
+      {
+        "id": "100g",
+        "name": "100g",
+        "price": 26.75,
+        "available": true
+      },
+      {
+        "id": "200g",
+        "name": "200g",
+        "price": 48.00,
+        "available": true
+      }
+    ],
+    "specifications": {
+      "material": "100% Cotton",
+      "weight": "100g",
+      "length": "200m",
+      "care": "Machine wash cold, tumble dry low",
+      "needleSize": "3.5-4.5mm",
+      "gauge": "22-24 stitches per 10cm"
+    },
+    "features": [
+      "Beautiful color transitions",
+      "Perfect for shawls",
+      "Breathable cotton",
+      "Easy care instructions",
+      "Eye-catching designs"
+    ],
+    "rating": 4.6,
+    "reviewCount": 89,
+    "inStock": true,
+    "category": "yarn"
+  },
+  {
+    "id": "sp005",
+    "name": "Sunshine Yellow Yarn",
+    "cost": 25.90,
+    "originalCost": 30.00,
+    "tags": ["yarn", "yellow", "bright", "accessory"],
+    "description": "Bright yellow yarn, adds a pop of color to any accessory project.",
+    "detailedDescription": "This vibrant sunshine yellow yarn is perfect for adding a cheerful pop of color to your projects. Whether you're making accessories, home decor, or accent pieces, this bright yellow will bring warmth and happiness to your creations.",
+    "images": {
+      "main": "img/item5.png",
+      "thumbnails": [
+        "img/item5.png",
+        "img/item5-2.png",
+        "img/item5-3.png"
+      ],
+      "gallery": [
+        "img/item5-detail1.png",
+        "img/item5-detail2.png"
+      ]
+    },
+    "colors": [
+      {
+        "id": "yellow",
+        "name": "Sunshine Yellow",
+        "hex": "#ffd700",
+        "available": true,
+        "image": "img/item5-yellow.png"
+      },
+      {
+        "id": "gold",
+        "name": "Golden Yellow",
+        "hex": "#ffb347",
+        "available": true,
+        "image": "img/item5-gold.png"
+      }
+    ],
+    "sizes": [
+      {
+        "id": "100g",
+        "name": "100g",
+        "price": 25.90,
+        "available": true
+      },
+      {
+        "id": "200g",
+        "name": "200g",
+        "price": 45.00,
+        "available": true
+      }
+    ],
+    "specifications": {
+      "material": "100% Acrylic",
+      "weight": "100g",
+      "length": "180m",
+      "care": "Machine wash cold, tumble dry low",
+      "needleSize": "4-5mm",
+      "gauge": "20-22 stitches per 10cm"
+    },
+    "features": [
+      "Bright and cheerful",
+      "Perfect for accessories",
+      "Easy to care for",
+      "Great for beginners",
+      "Affordable price"
+    ],
+    "rating": 4.2,
+    "reviewCount": 67,
+    "inStock": true,
+    "category": "yarn"
+  }
+]

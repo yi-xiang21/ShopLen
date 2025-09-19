@@ -1,0 +1,1202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/account.css">
+    <title>peace chill</title>
+</head>
+
+<body>
+    <header>
+        <div class="direction" id="breadcrumb"></div>
+        <ul>
+            <li><img src="img/Logo.png" alt="Logo"></li>
+            <ul id="nav">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="shop.html">Shop</a></li>
+                <li><a href="workshop.html">Workshops</a></li>
+                <li><a href="#">About</a></li>
+                <li class="search-li">
+                    <input type="checkbox" id="toggle-search" hidden>
+                    <label for="toggle-search" class="search-btn">
+                        <i class="bi bi-search" style="cursor: pointer;"></i>
+                    </label>
+                    <input type="text" class="search-input" placeholder="Search...">
+                </li>
+                <li class="user-menu-li">
+                    <a href="#">
+                        <i class="bi bi-person"></i>
+                    </a>
+                    <ul class="user-dropdown">
+                        <li>
+                            <a class="go-register" href="register.html">
+                                <i class="bi bi-person-plus"></i> Sign up
+                            </a>
+                        </li>
+                        <li>
+                            <a class="go-login" href="login.html">
+                                <i class="bi bi-box-arrow-in-right"></i> Log in
+                            </a>
+                        </li>
+                        <li>
+                            <a class="go-account" href="account.html">
+                                <i class="bi bi-person-circle"></i> Account
+                            </a>
+                        </li>
+                        <li>
+                            <a class="go-logout" href="login.html">
+                                <i class="bi bi-box-arrow-in-left"></i> Log out
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </ul>
+    </header>
+    <main>
+        <div class="account-layout">
+            <!-- Sidebar -->
+            <div class="direction" id="breadcrumb"></div>
+            <aside class="account-sidebar">
+                <div class="sidebar-profile">
+                    <div class="sidebar-avatar"></div>
+                    <div>
+                        <div class="sidebar-name"></div>
+
+                    </div>
+                </div>
+                <ul class="sidebar-menu">
+                    <li class="active" data-section="overview"><i class="bi bi-person"></i> Profile Overview</li>
+                    <li data-section="workshop"><i class="bi bi-clock-history"></i> Workshop History</li>
+                    <li data-section="cart"><i class="bi bi-cart"></i> Cart</li>
+                    <li data-section="settingsaccount"><i class="bi bi-gear"></i> Settings</li>
+                    <li data-section="payment"><i class="bi bi-credit-card"></i> Payment</li>
+                </ul>
+            </aside>
+
+            <!-- Main Content -->
+            <section class="main-section active" data-section="overview">
+                <div class="main-header">
+                    <div class="main-avatar-wrap">
+                        <div class="main-avatar"></div>
+                        <button class="avatar-edit-btn" title="Edit"><i class="bi bi-pencil"></i></button>
+                    </div>
+                    <div>
+                        <div class="main-name"></div>
+                    </div>
+                    <div class="main-badges">
+                        <div class="badge"><i class="bi bi-calendar-check"></i> Workshops Attended <span></span></div>
+                        <div class="badge"><i class="bi bi-calendar-event"></i> Upcoming Workshops <span> </span></div>
+                    </div>
+                </div>
+                <form class="account-form">
+                    <h2 class="form-title">Personal Information</h2>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>First Name</label>
+                            <input type="text" name="firstName" value="">
+                        </div>
+                        <div class="form-group">
+                            <label>Last Name</label>
+                            <input type="text" name="lastName" value="">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Email Address</label>
+                            <input type="email" name="email" value="">
+                        </div>
+                        <div class="form-group">
+                            <label>Phone Number</label>
+                            <input type="text" name="phone" value="">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group" style="flex:2;">
+                            <label>Address</label>
+                            <input type="text" name="address" value="">
+                        </div>
+                        <div class="form-group">
+                            <label>City</label>
+                            <input type="text" name="city" value="">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Interests</label>
+                        <div class="interests-list">
+                            <label><input type="checkbox"> Knitting</label>
+                            <label><input type="checkbox"> Embroidery</label>
+                            <label><input type="checkbox"> Macrame</label>
+                            <label><input type="checkbox"> Candle Making</label>
+                            <label><input type="checkbox"> Watercolor</label>
+                            <label><input type="checkbox"> Pottery</label>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="save-btn">Save Changes</button>
+                    </div>
+                </form>
+            </section>
+            <section class="main-section" data-section="workshop">
+                <h2 class="section-title">Workshop History</h2>
+
+                <div class="workshop-section">
+                    <div class="workshop-header">
+                        <h3>Upcoming Workshops</h3>
+                    </div>
+                    <div class="workshop-list" id="upcoming-workshops">
+                        <!-- Các workshop sắp diễn ra sẽ được render ở đây -->
+                    </div>
+                    
+                </div>
+
+                <div class="workshop-section">
+                    <div class="workshop-header">
+                        <h3>Past Workshops</h3>
+                    </div>
+                    <div class="workshop-list" id="past-workshops">
+                        <!-- Các workshop đã diễn ra sẽ được render ở đây -->
+                        
+                    </div>
+                    <div class="workshop-actions">
+                        <button class="clear-btn">Clear Workshop</button>
+                    </div>
+                </div>
+            </section>
+            <section class="main-section" data-section="cart">
+                <!-- Nội dung Payment Methods -->
+            </section>
+            <section class="main-section" data-section="settingsaccount">
+                <h2 class="section-title">Account Settings</h2>
+                
+                <!-- Change Password Section -->
+                <div class="settings-section">
+                    <div class="settings-header">
+                        <h3><i class="bi bi-shield-lock"></i> Change Password</h3>
+                        <p>Update your password to keep your account secure</p>
+                    </div>
+                    <form class="settings-form" id="changePasswordForm">
+                        <div class="form-group">
+                            <label for="currentPassword">Current Password</label>
+                            <input type="password" id="currentPassword" name="currentPassword" required>
+                            <i class="bi bi-eye-slash toggle-password" data-target="currentPassword"></i>
+                        </div>
+                        <div class="form-group">
+                            <label for="newPassword">New Password</label>
+                            <input type="password" id="newPassword" name="newPassword" required>
+                            
+                            <div class="password-strength" id="passwordStrength">
+                                <div class="strength-bar">
+                                    <div class="strength-fill" id="strengthFill"></div>
+                                </div>
+                                <span class="strength-text" id="strengthText">Password strength</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="confirmPassword">Confirm New Password</label>
+                            <input type="password" id="confirmPassword" name="confirmPassword" required>
+                            <i class="bi bi-eye-slash toggle-password" data-target="confirmPassword"></i>
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="save-btn">Change Password</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Privacy Settings Section -->
+                <div class="settings-section">
+                    <div class="settings-header">
+                        <h3><i class="bi bi-privacy"></i> Privacy Settings</h3>
+                        <p>Control your privacy and data sharing preferences</p>
+                    </div>
+                    <div class="settings-options">
+                        <div class="setting-option">
+                            <div class="setting-info">
+                                <h4>Email Notifications</h4>
+                                <p>Receive email updates about workshops and promotions</p>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="emailNotifications" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                        <div class="setting-option">
+                            <div class="setting-info">
+                                <h4>Workshop Reminders</h4>
+                                <p>Get reminders before your scheduled workshops</p>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="workshopReminders" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Account Actions Section -->
+                <div class="settings-section">
+                    <div class="settings-header">
+                        <h3><i class="bi bi-exclamation-triangle"></i> Account Actions</h3>
+                        <p>Dangerous actions that affect your account</p>
+                    </div>
+                    <div class="danger-actions">
+                        <button class="danger-btn" id="deleteAccountBtn">
+                            <i class="bi bi-trash"></i>
+                            Delete Account
+                        </button>
+                        <p class="danger-note">This action cannot be undone. All your data will be permanently deleted.</p>
+                    </div>
+                </div>
+            </section>
+            <section class="main-section" data-section="payment">
+                <h2 class="section-title">Payment Methods</h2>
+                
+                <div class="payment-layout">
+                    <!-- Left Column - Supported Payment Methods -->
+                    <div class="payment-methods-section">
+                        <h3>Supported Payment Methods</h3>
+                        
+                        <!-- Credit/Debit Cards -->
+                        <div class="payment-category">
+                            <h4><i class="bi bi-credit-card"></i> Credit & Debit Cards</h4>
+                            <div class="payment-methods-grid">
+                                <div class="payment-method">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg" alt="Visa">
+                                    <span>Visa</span>
+                                </div>
+                                <div class="payment-method">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" alt="Mastercard">
+                                    <span>Mastercard</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Digital Wallets -->
+                        <div class="payment-category">
+                            <h4><i class="bi bi-phone"></i> Digital Wallets</h4>
+                            <div class="payment-methods-grid">
+                                <div class="payment-method">
+                                    <img src="https://www.paypalobjects.com/webstatic/mktg/logo/pp_cc_mark_37x23.jpg" alt="PayPal">
+                                    <span>PayPal</span>
+                                </div>
+                                <div class="payment-method">
+                                    <div class="payment-icon-fallback">
+                                        <i class="bi bi-apple"></i>
+                                    </div>
+                                    <span>Apple Pay</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Bank Transfers -->
+                        <div class="payment-category">
+                            <h4><i class="bi bi-bank"></i> Bank Transfers</h4>
+                            <div class="payment-methods-grid">
+                                <div class="payment-method">
+                                    <div class="payment-icon-fallback">
+                                        <i class="bi bi-bank"></i>
+                                    </div>
+                                    <span>Vietcombank</span>
+                                </div>
+                                <div class="payment-method">
+                                    <div class="payment-icon-fallback">
+                                        <i class="bi bi-bank2"></i>
+                                    </div>
+                                    <span>ACB Bank</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Right Column - Payment Form -->
+                    <div class="payment-form-section">
+                        <div class="payment-form-container">
+                            <h3>Add Payment Method</h3>
+                            
+                            <!-- Payment Type Selection -->
+                            <div class="payment-type-selector">
+                                <label>Select Payment Type:</label>
+                                <div class="payment-type-options">
+                                    <label class="payment-type-option">
+                                        <input type="radio" name="paymentType" value="card" checked>
+                                        <span class="option-label">
+                                            <i class="bi bi-credit-card"></i>
+                                            Credit/Debit Card
+                                        </span>
+                                    </label>
+                                    <label class="payment-type-option">
+                                        <input type="radio" name="paymentType" value="paypal">
+                                        <span class="option-label">
+                                            <i class="bi bi-paypal"></i>
+                                            PayPal
+                                        </span>
+                                    </label>
+                                    <label class="payment-type-option">
+                                        <input type="radio" name="paymentType" value="applepay">
+                                        <span class="option-label">
+                                            <i class="bi bi-apple"></i>
+                                            Apple Pay
+                                        </span>
+                                    </label>
+                                    <label class="payment-type-option">
+                                        <input type="radio" name="paymentType" value="bank">
+                                        <span class="option-label">
+                                            <i class="bi bi-bank"></i>
+                                            Bank Transfer
+                                        </span>
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <!-- Credit Card Form -->
+                            <form class="payment-form" id="paymentForm">
+                                <div class="form-section card-section" id="cardSection">
+                                    <h4>Card Information</h4>
+                                    <div class="form-group">
+                                        <label for="cardNumber">Card Number</label>
+                                        <input type="text" id="cardNumber" name="cardNumber" placeholder="1234 5678 9012 3456" maxlength="19">
+                                        <div class="card-icons">
+                                            <i class="bi bi-credit-card"></i>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label for="cardHolder">Cardholder Name</label>
+                                            <input type="text" id="cardHolder" name="cardHolder" placeholder="John Doe">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="cardType">Card Type</label>
+                                            <select id="cardType" name="cardType">
+                                                <option value="">Select card type</option>
+                                                <option value="visa">Visa</option>
+                                                <option value="mastercard">Mastercard</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label for="expiryDate">Expiry Date</label>
+                                            <input type="text" id="expiryDate" name="expiryDate" placeholder="MM/YY" maxlength="5">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="cvv">CVV</label>
+                                            <input type="text" id="cvv" name="cvv" placeholder="123" maxlength="4">
+                                            <i class="bi bi-question-circle cvv-help" title="3-4 digit security code on the back of your card"></i>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="billingAddress">Billing Address</label>
+                                        <input type="text" id="billingAddress" name="billingAddress" placeholder="123 Main Street">
+                                    </div>
+                                    
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label for="billingCity">City</label>
+                                            <input type="text" id="billingCity" name="billingCity" placeholder="New York">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="billingZip">ZIP Code</label>
+                                            <input type="text" id="billingZip" name="billingZip" placeholder="10001">
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- PayPal Form -->
+                                <div class="form-section paypal-section" id="paypalSection" style="display: none;">
+                                    <h4>PayPal Account</h4>
+                                    <div class="form-group">
+                                        <label for="paypalEmail">PayPal Email</label>
+                                        <input type="email" id="paypalEmail" name="paypalEmail" placeholder="your-email@example.com">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="paypalPassword">PayPal Password</label>
+                                        <input type="password" id="paypalPassword" name="paypalPassword" placeholder="Enter your PayPal password">
+                                    </div>
+                                    <p class="form-note">
+                                        <i class="bi bi-info-circle"></i>
+                                        You will be redirected to PayPal to complete the verification.
+                                    </p>
+                                </div>
+                                
+                                <!-- Apple Pay Form -->
+                                <div class="form-section applepay-section" id="applepaySection" style="display: none;">
+                                    <h4>Apple Pay Setup</h4>
+                                    <div class="form-group">
+                                        <label for="applePayEmail">Apple ID Email</label>
+                                        <input type="email" id="applePayEmail" name="applePayEmail" placeholder="your-apple-id@icloud.com">
+                                    </div>
+                                    <p class="form-note">
+                                        <i class="bi bi-info-circle"></i>
+                                        Apple Pay will be set up through your device's wallet app.
+                                    </p>
+                                </div>
+                                
+                                <!-- Bank Transfer Form -->
+                                <div class="form-section bank-section" id="bankSection" style="display: none;">
+                                    <h4>Bank Account Information</h4>
+                                    <div class="form-group">
+                                        <label for="bankName">Bank Name</label>
+                                        <select id="bankName" name="bankName">
+                                            <option value="">Select your bank</option>
+                                            <option value="vietcombank">Vietcombank</option>
+                                            <option value="acb">ACB Bank</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="accountNumber">Account Number</label>
+                                        <input type="text" id="accountNumber" name="accountNumber" placeholder="Enter your account number">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="accountHolder">Account Holder Name</label>
+                                        <input type="text" id="accountHolder" name="accountHolder" placeholder="Name on the account">
+                                    </div>
+                                    <p class="form-note">
+                                        <i class="bi bi-info-circle"></i>
+                                        Bank transfers may take 1-3 business days to process.
+                                    </p>
+                                </div>
+                                
+                                <div class="form-actions">
+                                    <button type="submit" class="save-btn">Add Payment Method</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Verified Payment Methods -->
+                <div class="verified-payments-section">
+                    <h3>Verified Payment Methods</h3>
+                    <div class="verified-payments-list" id="verifiedPaymentsList">
+                        <!-- Verified payments will be displayed here -->
+                        <div class="no-payments-message">
+                            <i class="bi bi-credit-card"></i>
+                            <p>No verified payment methods yet. Add your first payment method above.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+    <footer class="footer">
+        <div class="footer-col">
+            <p class="footer-logo">PeaceChill</p>
+            <p class="footer-desc">Creating beautiful things, one stitch at a time.</p>
+            <div class="footer-social">
+                <a href="#"><i class="bi bi-facebook"></i></a>
+                <a href="#"><i class="bi bi-instagram"></i></a>
+                <a href="#"><i class="bi bi-youtube"></i></a>
+            </div>
+        </div>
+        <div class="footer-col">
+            <p class="footer-title">Shop</p>
+            <ul>
+                <li><a href="#">All Yarns</a></li>
+                <li><a href="#">Merino Wool</a></li>
+                <li><a href="#">Alpaca Blend</a></li>
+                <li><a href="#">Organic Cotton</a></li>
+                <li><a href="#">Hand-Dyed Specialty</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <p class="footer-title">Learn</p>
+            <ul>
+                <li><a href="#">Workshops</a></li>
+                <li><a href="#">Tutorials</a></li>
+                <li><a href="#">Patterns</a></li>
+                <li><a href="#">Blog</a></li>
+                <li><a href="#">Community</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <p class="footer-title">Customer Care</p>
+            <ul>
+                <li><a href="#">Contact Us</a></li>
+                <li><a href="#">Shipping & Returns</a></li>
+                <li><a href="#">FAQ</a></li>
+                <li><a href="#">Store Locations</a></li>
+                <li><a href="#">About Us</a></li>
+            </ul>
+        </div>
+    </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', async function () {
+            if (!window.location.pathname.toLowerCase().includes('account.html')) return;
+
+            try {
+                const res = await fetch('api/account.json');
+                const data = await res.json();
+
+                // Sidebar và avatar
+                document.querySelectorAll('.sidebar-avatar, .main-avatar').forEach(e => e.textContent = data.avatar || '');
+                document.querySelectorAll('.sidebar-name, .main-name').forEach(e => e.textContent = `${data.firstName} ${data.lastName}`);
+
+                // Badges
+                document.querySelector('.badge i.bi-calendar-check').parentElement.querySelector('span').textContent = data.workshopsAttended ?? '';
+                document.querySelector('.badge i.bi-calendar-event').parentElement.querySelector('span').textContent = data.upcomingWorkshops ?? '';
+
+                // Form fields (fetch theo name)
+                const form = document.querySelector('.account-form');
+                if (form) {
+                    form.querySelector('[name="firstName"]').value = data.firstName || '';
+                    form.querySelector('[name="lastName"]').value = data.lastName || '';
+                    form.querySelector('[name="email"]').value = data.email || '';
+                    form.querySelector('[name="phone"]').value = data.phone || '';
+                    form.querySelector('[name="address"]').value = data.address || '';
+                    form.querySelector('[name="city"]').value = data.city || '';
+
+                    // Interests
+                    const allLabels = Array.from(form.querySelectorAll('.interests-list label'));
+                    allLabels.forEach(label => {
+                        const input = label.querySelector('input[type="checkbox"]');
+                        if (input) {
+                            input.checked = data.interests && data.interests.includes(label.textContent.trim());
+                        }
+                    });
+                }
+            } catch (err) {
+                console.error('Không thể tải dữ liệu tài khoản:', err);
+            }
+        });
+
+        function setupSidebarTabs() {
+            const menuItems = document.querySelectorAll('.sidebar-menu li');
+            const sections = document.querySelectorAll('.main-section');
+
+            menuItems.forEach(item => {
+                item.addEventListener('click', function () {
+                    // Xóa active ở tất cả li
+                    menuItems.forEach(li => li.classList.remove('active'));
+                    this.classList.add('active');
+
+                    // Ẩn tất cả section
+                    sections.forEach(sec => sec.classList.remove('active'));
+                    // Hiện section tương ứng với hiệu ứng smooth
+                    const sectionName = this.getAttribute('data-section');
+                    const showSection = document.querySelector(`.main-section[data-section="${sectionName}"]`);
+                    if (showSection) showSection.classList.add('active');
+                });
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', setupSidebarTabs);
+
+        document.addEventListener('DOMContentLoaded', function () {
+            renderWorkshops();
+        });
+        // Render workshops
+        async function renderWorkshops() {
+            const upcomingDiv = document.getElementById('upcoming-workshops');
+            const pastDiv = document.getElementById('past-workshops');
+            if (!upcomingDiv || !pastDiv) return;
+
+            try {
+                const res = await fetch('api/workshop.json');
+                const workshops = await res.json();
+                const now = new Date();
+                const upcoming = [];
+                const past = [];
+
+                workshops.forEach(ws => {
+                    const wsDate = new Date(ws.date);
+                    if (wsDate >= now) {
+                        upcoming.push(ws);
+                    } else {
+                        past.push(ws);
+                    }
+                });
+
+                // Render Upcoming
+                upcomingDiv.innerHTML = upcoming.length ? upcoming.map(ws => `
+            <div class="workshop-card upcoming">
+                <img src="${ws.image || 'img/default.jpg'}" alt="${ws.title}" class="workshop-img">
+                <div class="workshop-info">
+                    <div class="workshop-title">${ws.title}</div>
+                    <div class="workshop-desc">${ws.description || ''}</div>
+                    <div class="workshop-meta">
+                        <span>${ws.time || ''}</span> · <span>${ws.location || ''}</span> ${ws.instructor ? `· <span>Instructor: ${ws.instructor}</span>` : ''}
+                    </div>
+                </div>
+                <div class="workshop-side">
+                    <div class="workshop-date">${formatDate(ws.date)}</div>
+                    <button class="workshop-view-btn">View Details</button>
+                    <button class="workshop-cancel-btn">Cancel</button>
+                </div>
+            </div>
+        `).join('') : '<p style="padding:16px;">No upcoming workshops.</p>';
+
+                // Render Past
+                pastDiv.innerHTML = past.length ? past.map(ws => `
+            <div class="workshop-card past">
+                <img src="${ws.image || 'img/default.jpg'}" alt="${ws.title}" class="workshop-img">
+                <div class="workshop-info">
+                    <div class="workshop-title">${ws.title}</div>
+                    <div class="workshop-desc">${ws.description || ''}</div>
+                    <div class="workshop-meta">
+                        ${ws.rating ? `<span class="workshop-rating">${ws.rating}</span>` : ''}
+                        ${ws.reviewed ? `<span>You rated this workshop</span>` : ''}
+                        ${ws.instructor ? `<span>Instructor: ${ws.instructor}</span>` : ''}
+                    </div>
+                </div>
+                <div class="workshop-side">
+                    <div class="workshop-date">${formatDate(ws.date)}</div>
+                    <a href="#" class="workshop-cert-btn">View Certificate</a>
+                    <a href="#" class="workshop-material-btn">Materials</a>
+                </div>
+            </div>
+        `).join('') : '<p style="padding:16px;">No past workshops.</p>';
+
+                // Cancel button
+                upcomingDiv.querySelectorAll('.workshop-cancel-btn').forEach(btn => {
+                    btn.addEventListener('click', function () {
+                        const card = this.closest('.workshop-card');
+                        const wsTitle = card.querySelector('.workshop-title').textContent;
+                        // Lấy ngày workshop từ DOM
+                        const wsDateStr = card.querySelector('.workshop-date').textContent;
+                        const wsDate = new Date(wsDateStr);
+                        const now = new Date();
+                        const diffDays = Math.ceil((wsDate - now) / (1000 * 60 * 60 * 24));
+                        if (diffDays <= 7) {
+                            alert('Bạn không thể hủy workshop này vì chỉ còn dưới 1 tuần nữa sẽ diễn ra.');
+                            return;
+                        }
+                        if (confirm(`Cancel workshop "${wsTitle}"?`)) {
+                            card.remove();
+                        }
+                    });
+                });
+
+                // View Details button (placeholder for future logic)
+                upcomingDiv.querySelectorAll('.workshop-view-btn').forEach(btn => {
+                    btn.addEventListener('click', function () {
+                        // Add view details logic here if needed
+                    });
+                });
+
+                // Clear Workshop button
+                const clearBtn = document.querySelector('.workshop-actions .clear-btn');
+                if (clearBtn) {
+                    clearBtn.onclick = async function () {
+                        if (confirm('Are you sure you want to clear your workshop history?')) {
+                            try {
+                                await fetch('api/clear-workshop', { method: 'POST' });
+                                pastDiv.innerHTML = '<p style="padding:16px;">No past workshops.</p>';
+                            } catch (err) {
+                                alert('Không thể xóa dữ liệu workshop trên server!');
+                            }
+                        }
+                    };
+                }
+
+            } catch (err) {
+                upcomingDiv.innerHTML = '<p style="color:red;">Không thể tải dữ liệu workshop.</p>';
+                pastDiv.innerHTML = '<p style="color:red;">Không thể tải dữ liệu workshop.</p>';
+            }
+        }
+
+        // Format date helper
+        function formatDate(dateStr) {
+            const d = new Date(dateStr);
+            return d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+        }
+
+        // Settings functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            setupSettings();
+        });
+
+        function setupSettings() {
+            // Password visibility toggle
+            document.querySelectorAll('.toggle-password').forEach(toggle => {
+                toggle.addEventListener('click', function() {
+                    const targetId = this.getAttribute('data-target');
+                    const input = document.getElementById(targetId);
+                    const type = input.type === 'password' ? 'text' : 'password';
+                    input.type = type;
+                    this.classList.toggle('bi-eye');
+                    this.classList.toggle('bi-eye-slash');
+                });
+            });
+
+            // Password strength checker
+            const newPasswordInput = document.getElementById('newPassword');
+            if (newPasswordInput) {
+                newPasswordInput.addEventListener('input', function() {
+                    checkPasswordStrength(this.value);
+                });
+            }
+
+            // Change password form
+            const changePasswordForm = document.getElementById('changePasswordForm');
+            if (changePasswordForm) {
+                changePasswordForm.addEventListener('submit', handlePasswordChange);
+            }
+
+            // Delete account button
+            const deleteAccountBtn = document.getElementById('deleteAccountBtn');
+            if (deleteAccountBtn) {
+                deleteAccountBtn.addEventListener('click', handleDeleteAccount);
+            }
+
+            // Privacy settings toggles
+            document.querySelectorAll('.toggle-switch input').forEach(toggle => {
+                toggle.addEventListener('change', handlePrivacySettingChange);
+            });
+        }
+
+        function checkPasswordStrength(password) {
+            const strengthFill = document.getElementById('strengthFill');
+            const strengthText = document.getElementById('strengthText');
+            
+            if (!strengthFill || !strengthText) return;
+
+            let strength = 0;
+            let feedback = '';
+
+            // Check length
+            if (password.length >= 8) strength += 25;
+            if (password.length >= 12) strength += 25;
+
+            // Check for different character types
+            if (/[a-z]/.test(password)) strength += 25;
+            if (/[A-Z]/.test(password)) strength += 25;
+            if (/[0-9]/.test(password)) strength += 25;
+            if (/[^A-Za-z0-9]/.test(password)) strength += 25;
+
+            // Cap at 100%
+            strength = Math.min(strength, 100);
+
+            // Update Ui
+            strengthFill.style.width = strength + '%';
+            
+            if (strength < 25) {
+                strengthFill.style.backgroundColor = '#ff4444';
+                feedback = 'Very Weak';
+            } else if (strength < 50) {
+                strengthFill.style.backgroundColor = '#ff8800';
+                feedback = 'Weak';
+            } else if (strength < 75) {
+                strengthFill.style.backgroundColor = '#ffbb33';
+                feedback = 'Fair';
+            } else if (strength < 100) {
+                strengthFill.style.backgroundColor = '#00C851';
+                feedback = 'Good';
+            } else {
+                strengthFill.style.backgroundColor = '#007E33';
+                feedback = 'Strong';
+            }
+
+            strengthText.textContent = feedback;
+        }
+
+        async function handlePasswordChange(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(e.target);
+            const currentPassword = formData.get('currentPassword');
+            const newPassword = formData.get('newPassword');
+            const confirmPassword = formData.get('confirmPassword');
+
+            // Validation
+            if (newPassword !== confirmPassword) {
+                alert('New passwords do not match!');
+                return;
+            }
+
+            if (newPassword.length < 8) {
+                alert('New password must be at least 8 characters long!');
+                return;
+            }
+
+            if (currentPassword === newPassword) {
+                alert('New password must be different from current password!');
+                return;
+            }
+
+            try {
+                // Simulate API call
+                await new Promise(resolve => setTimeout(resolve, 1000));
+                
+                // In real app, you would send this to your backend
+                console.log('Password change request:', {
+                    currentPassword,
+                    newPassword
+                });
+
+                alert('Password changed successfully!');
+                e.target.reset();
+                document.getElementById('strengthFill').style.width = '0%';
+                document.getElementById('strengthText').textContent = 'Password strength';
+                
+            } catch (error) {
+                alert('Failed to change password. Please try again.');
+                console.error('Password change error:', error);
+            }
+        }
+
+        function handlePrivacySettingChange(e) {
+            const setting = e.target.id;
+            const enabled = e.target.checked;
+            
+            // In real app, you would save this to your backend
+            console.log(`Privacy setting changed: ${setting} = ${enabled}`);
+            
+            // Show feedback
+            const feedback = document.createElement('div');
+            feedback.className = 'setting-feedback';
+            feedback.textContent = `${setting.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase())} ${enabled ? 'enabled' : 'disabled'}`;
+            feedback.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: #00C851;
+                color: white;
+                padding: 10px 20px;
+                border-radius: 5px;
+                z-index: 1000;
+                animation: slideIn 0.3s ease;
+            `;
+            
+            document.body.appendChild(feedback);
+            
+            setTimeout(() => {
+                feedback.remove();
+            }, 3000);
+        }
+
+        function handleDeleteAccount() {
+            const confirmed = confirm('Are you sure you want to delete your account? This action cannot be undone.');
+            
+            if (confirmed) {
+                const password = prompt('Please enter your password to confirm account deletion:');
+                
+                if (password) {
+                    // In real app, you would send this to your backend
+                    console.log('Account deletion requested with password confirmation');
+                    alert('Account deletion request submitted. You will receive a confirmation email.');
+                }
+            }
+        }
+
+        // Payment functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            setupPayment();
+        });
+
+        function setupPayment() {
+            // Payment form handling
+            const paymentForm = document.getElementById('paymentForm');
+            if (paymentForm) {
+                paymentForm.addEventListener('submit', handlePaymentSubmit);
+            }
+
+            // Payment type selection
+            const paymentTypeRadios = document.querySelectorAll('input[name="paymentType"]');
+            paymentTypeRadios.forEach(radio => {
+                radio.addEventListener('change', handlePaymentTypeChange);
+            });
+
+            // Card number formatting
+            const cardNumberInput = document.getElementById('cardNumber');
+            if (cardNumberInput) {
+                cardNumberInput.addEventListener('input', formatCardNumber);
+            }
+
+            // Expiry date formatting
+            const expiryInput = document.getElementById('expiryDate');
+            if (expiryInput) {
+                expiryInput.addEventListener('input', formatExpiryDate);
+            }
+
+            // CVV validation
+            const cvvInput = document.getElementById('cvv');
+            if (cvvInput) {
+                cvvInput.addEventListener('input', validateCVV);
+            }
+
+            // Load verified payments
+            loadVerifiedPayments();
+        }
+
+        function handlePaymentTypeChange(e) {
+            const selectedType = e.target.value;
+            
+            // Hide all sections
+            document.querySelectorAll('.form-section').forEach(section => {
+                section.style.display = 'none';
+            });
+            
+            // Show selected section
+            const targetSection = document.getElementById(selectedType + 'Section');
+            if (targetSection) {
+                targetSection.style.display = 'block';
+            }
+            
+            // Update form validation
+            updateFormValidation(selectedType);
+        }
+
+        function updateFormValidation(paymentType) {
+            const form = document.getElementById('paymentForm');
+            const inputs = form.querySelectorAll('input, select');
+            
+            inputs.forEach(input => {
+                input.required = false; // Reset all required fields
+            });
+            
+            // Set required fields based on payment type
+            switch(paymentType) {
+                case 'card':
+                    ['cardNumber', 'cardHolder', 'cardType', 'expiryDate', 'cvv', 'billingAddress', 'billingCity', 'billingZip'].forEach(fieldName => {
+                        const field = document.getElementById(fieldName);
+                        if (field) field.required = true;
+                    });
+                    break;
+                case 'paypal':
+                    ['paypalEmail', 'paypalPassword'].forEach(fieldName => {
+                        const field = document.getElementById(fieldName);
+                        if (field) field.required = true;
+                    });
+                    break;
+                case 'applepay':
+                    ['applePayEmail'].forEach(fieldName => {
+                        const field = document.getElementById(fieldName);
+                        if (field) field.required = true;
+                    });
+                    break;
+                case 'bank':
+                    ['bankName', 'accountNumber', 'accountHolder'].forEach(fieldName => {
+                        const field = document.getElementById(fieldName);
+                        if (field) field.required = true;
+                    });
+                    break;
+            }
+        }
+
+        function formatCardNumber(e) {
+            let value = e.target.value.replace(/\s/g, '').replace(/[^0-9]/gi, '');
+            let formattedValue = value.match(/.{1,4}/g)?.join(' ') || value;
+            e.target.value = formattedValue;
+        }
+
+        function formatExpiryDate(e) {
+            let value = e.target.value.replace(/\s/g, '').replace(/[^0-9]/gi, '');
+            if (value.length >= 2) {
+                value = value.slice(0, 2) + '/' + value.slice(2, 4);
+            }
+            e.target.value = value;
+        }
+
+        function validateCVV(e) {
+            let value = e.target.value.replace(/[^0-9]/gi, '');
+            e.target.value = value;
+        }
+
+        async function handlePaymentSubmit(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(e.target);
+            const paymentType = document.querySelector('input[name="paymentType"]:checked').value;
+            
+            let paymentData = {
+                type: paymentType
+            };
+
+            // Get data based on payment type
+            switch(paymentType) {
+                case 'card':
+                    paymentData = {
+                        ...paymentData,
+                        cardNumber: formData.get('cardNumber')?.replace(/\s/g, ''),
+                        cardHolder: formData.get('cardHolder'),
+                        cardType: formData.get('cardType'),
+                        expiryDate: formData.get('expiryDate'),
+                        cvv: formData.get('cvv'),
+                        billingAddress: formData.get('billingAddress'),
+                        billingCity: formData.get('billingCity'),
+                        billingZip: formData.get('billingZip')
+                    };
+                    
+                    // Card validation
+                    if (!paymentData.cardNumber || paymentData.cardNumber.length < 13 || paymentData.cardNumber.length > 19) {
+                        alert('Please enter a valid card number');
+                        return;
+                    }
+                    if (!paymentData.cvv || paymentData.cvv.length < 3 || paymentData.cvv.length > 4) {
+                        alert('Please enter a valid CVV');
+                        return;
+                    }
+                    break;
+                    
+                case 'paypal':
+                    paymentData = {
+                        ...paymentData,
+                        email: formData.get('paypalEmail'),
+                        password: formData.get('paypalPassword')
+                    };
+                    
+                    if (!paymentData.email || !paymentData.password) {
+                        alert('Please enter your PayPal email and password');
+                        return;
+                    }
+                    break;
+                    
+                case 'applepay':
+                    paymentData = {
+                        ...paymentData,
+                        email: formData.get('applePayEmail')
+                    };
+                    
+                    if (!paymentData.email) {
+                        alert('Please enter your Apple ID email');
+                        return;
+                    }
+                    break;
+                    
+                case 'bank':
+                    paymentData = {
+                        ...paymentData,
+                        bankName: formData.get('bankName'),
+                        accountNumber: formData.get('accountNumber'),
+                        accountHolder: formData.get('accountHolder')
+                    };
+                    
+                    if (!paymentData.bankName || !paymentData.accountNumber || !paymentData.accountHolder) {
+                        alert('Please fill in all bank account information');
+                        return;
+                    }
+                    break;
+            }
+
+            try {
+                // Simulate API call
+                await new Promise(resolve => setTimeout(resolve, 1500));
+                
+                // In real app, you would send this to your backend
+                console.log('Payment method added:', paymentData);
+
+                // Add to verified payments
+                addVerifiedPayment(paymentData);
+                
+                alert('Payment method added successfully!');
+                e.target.reset();
+                
+                // Reset to card section
+                document.querySelector('input[name="paymentType"][value="card"]').checked = true;
+                handlePaymentTypeChange({ target: { value: 'card' } });
+                
+            } catch (error) {
+                alert('Failed to add payment method. Please try again.');
+                console.error('Payment error:', error);
+            }
+        }
+
+        function addVerifiedPayment(paymentData) {
+            const verifiedList = document.getElementById('verifiedPaymentsList');
+            const noPaymentsMessage = verifiedList.querySelector('.no-payments-message');
+            
+            if (noPaymentsMessage) {
+                noPaymentsMessage.remove();
+            }
+
+            let icon, title, subtitle;
+            
+            switch(paymentData.type) {
+                case 'card':
+                    icon = 'bi-credit-card';
+                    title = `${paymentData.cardType.charAt(0).toUpperCase() + paymentData.cardType.slice(1)} •••• ${paymentData.cardNumber.slice(-4)}`;
+                    subtitle = `${paymentData.cardHolder} • Expires ${paymentData.expiryDate}`;
+                    break;
+                case 'paypal':
+                    icon = 'bi-paypal';
+                    title = `PayPal • ${paymentData.email}`;
+                    subtitle = 'Digital Wallet';
+                    break;
+                case 'applepay':
+                    icon = 'bi-apple';
+                    title = `Apple Pay • ${paymentData.email}`;
+                    subtitle = 'Digital Wallet';
+                    break;
+                case 'bank':
+                    icon = 'bi-bank';
+                    title = `${paymentData.bankName.charAt(0).toUpperCase() + paymentData.bankName.slice(1)} •••• ${paymentData.accountNumber.slice(-4)}`;
+                    subtitle = `${paymentData.accountHolder} • Bank Transfer`;
+                    break;
+                default:
+                    icon = 'bi-credit-card';
+                    title = 'Payment Method';
+                    subtitle = 'Added successfully';
+            }
+
+            const paymentItem = document.createElement('div');
+            paymentItem.className = 'verified-payment-item';
+            paymentItem.innerHTML = `
+                <div class="payment-info">
+                    <div class="payment-icon">
+                        <i class="bi ${icon}"></i>
+                    </div>
+                    <div class="payment-details">
+                        <h4>${title}</h4>
+                        <p>${subtitle}</p>
+                    </div>
+                </div>
+                <div class="payment-actions">
+                    <button class="payment-action-btn delete" title="Remove payment method" onclick="removePayment(this)">
+                        <i class="bi bi-trash"></i>
+                    </button>
+                </div>
+            `;
+
+            verifiedList.appendChild(paymentItem);
+        }
+
+        function removePayment(button) {
+            const paymentItem = button.closest('.verified-payment-item');
+            const verifiedList = document.getElementById('verifiedPaymentsList');
+            
+            if (confirm('Are you sure you want to remove this payment method?')) {
+                paymentItem.remove();
+                
+                // Show no payments message if no payments left
+                if (verifiedList.children.length === 0) {
+                    verifiedList.innerHTML = `
+                        <div class="no-payments-message">
+                            <i class="bi bi-credit-card"></i>
+                            <p>No verified payment methods yet. Add your first payment method above.</p>
+                        </div>
+                    `;
+                }
+            }
+        }
+
+        function loadVerifiedPayments() {
+            // In real app, you would load verified payments from backend
+            // For demo, we'll show empty state
+            const verifiedList = document.getElementById('verifiedPaymentsList');
+            if (verifiedList && verifiedList.children.length === 0) {
+                verifiedList.innerHTML = `
+                    <div class="no-payments-message">
+                        <i class="bi bi-credit-card"></i>
+                        <p>No verified payment methods yet. Add your first payment method above.</p>
+                    </div>
+                `;
+            }
+        }
+    </script>
+
+    <script src="js/js.js">
+
+    </script>
+</body>
+
+</html>
