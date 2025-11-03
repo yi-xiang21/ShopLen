@@ -99,12 +99,13 @@
                                 <button type="button" class="btn btn-back" id="btnBackToList">Back</button>
                             </div>
                         </div>
-                    </div>  
+                    </div>
                 </div>
 
             </section>
             <section class="main-section" data-section="order-management">
                 <h2 class="section-title">Order Management</h2>
+
             </section>
             <section class="main-section" data-section="account-management">
                 <h2 class="section-title">Account Management</h2>
@@ -127,18 +128,22 @@
             const variantContainer = document.getElementById('variantContainer');
             const btnAddVariant = document.getElementById('btnAddVariant');
             const form = document.getElementById('addProductForm');
+            const back = document.getElementById('btnBackToList');
 
             // Toggle view
             btnAdd.addEventListener('click', () => {
                 listView.style.display = 'none';
                 addView.style.display = 'block';
                 btnAdd.style.display = 'none';
+
+
             });
             btnBack.addEventListener('click', () => {
                 addView.style.display = 'none';
                 listView.style.display = 'block';
                 btnAdd.style.display = 'inline-block';
             });
+
 
             // Thêm biến thể
             btnAddVariant.addEventListener('click', () => {
@@ -166,12 +171,17 @@
             </div>
         `;
                 variantContainer.appendChild(variantDiv);
- 
+
 
                 // Thêm sự kiện xóa
                 variantDiv.querySelector('.btn-remove-variant').addEventListener('click', () => {
                     variantDiv.remove();
                 });
+                back.addEventListener('click', () => {
+                    variantDiv.style.display = 'none';
+                });
+
+
             });
             // su kien save
         });
@@ -254,7 +264,7 @@
 
     </script>
     <script src="js/config.js"></script>
-    <script src="js/admin-users.js"></script>
+    <!-- <script src="js/admin-users.js"></script> -->
     <script src="js/header.js"></script>
     <script src="js/footer.js"></script>
     <script src="js/js.js"></script>
