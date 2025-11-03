@@ -1,0 +1,324 @@
+body {
+    background: #f8f6f7;
+    font-family: 'Quicksand', sans-serif;
+}
+
+.admin-layout {
+    display: flex;
+    gap: 32px;
+    max-width: 1200px;
+    margin: 40px auto 0 auto;
+    padding: 0 16px;
+    position: relative;
+}
+
+.admin-sidebar {
+    background: #fff;
+    border-radius: 12px;
+    padding: 28px 18px;
+    width: 260px;
+    min-width: 220px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    height: fit-content;
+}
+
+.sidebar-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.sidebar-menu li {
+    padding: 10px 16px;
+    border-radius: 8px;
+    color: #7a294e;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.sidebar-menu li.active,
+.sidebar-menu li:hover {
+    background: #f5d6e0;
+}
+
+.main-section {
+    flex: 1;
+    background: #fff;
+    border-radius: 14px;
+    padding: 32px 36px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+    min-width: 320px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.88s;
+    position: absolute;
+    width: 100%;
+    left: 0;
+    top: 0;
+    z-index: 1;
+}
+
+.main-section.active {
+    opacity: 1;
+    visibility: visible;
+    position: relative;
+    z-index: 2;
+}
+
+.section-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    font-size: 24px;
+    color: #4c0303;
+    font-weight: 600;
+}
+
+.btn {
+    padding: 8px 14px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+#btn-add {
+    color: #6b1f3a;
+    border: 1px solid #392727;
+    padding: 8px 14px;
+    background-color: #f4f2f2;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+#btn-add:hover {
+    background-color: #28061e;
+    color: #fff;
+}
+
+.filters {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.filters input,
+.filters select {
+    padding: 10px 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+    flex: 1;
+}
+.filters select {
+    flex: none;
+    width: 180px;
+}
+.filters input:focus,
+.filters select:focus {
+    outline: none;
+    border-color: #6b1f3a;
+}
+#grid-item {
+    display: grid;
+    grid-template-columns: repeat(4, 2fr);
+    gap: 20px;
+}
+.card-item {
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 12px;
+    padding: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+}
+.card-item img {
+    width: auto;
+    border-radius: 8px;
+    object-fit: cover;
+    height: 130px;
+}
+.card-item .item-name {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+    margin: 3% 0;
+}
+.card-item .item-price {
+    font-size: 14px;
+    color: #6b1f3a;
+    font-weight: 500;
+    margin: 3% 0;
+}
+.card-item .item-category,
+.card-item .item-stock {
+    font-size: 13px;
+    color: #777;
+    margin: 3% 0;
+}
+.card-item .card-actions {
+    margin-top: auto;
+    display: flex;
+    gap: 10px;
+}
+.card-item .btn-edit {
+    flex: 1;
+    background-color: #fff;
+    color: #6b1f3a;
+    border: 1px solid #2e0101;
+}
+.card-item .btn-edit:hover {
+    background-color: #28061e;
+    color: #fff;
+}
+.card-item .btn-delete {
+    flex: 1;
+    background-color: #fff;
+    color: #a10000;
+    border: 1px solid #a10000;
+}
+.card-item .btn-delete:hover {
+    background-color: #a10000;
+    color: #fff;
+}
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 24px;
+    gap: 8px;
+}
+.pagination button {
+    padding: 8px 12px;
+    border: none;
+    background: #f0f0f0;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+.pagination button.active,
+.pagination button:hover {
+    background: #6b1f3a;
+    color: #fff;
+}
+#add-product-view form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 50%;
+    margin-top: 20px;
+}
+.form-buttons {
+    display: flex;
+    gap: 10px;
+}
+/*css form add sp*/
+#addProductForm {
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.form-section{
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+}
+.form-section label{
+    font-size: 14px;
+    font-weight: 500;
+    margin: 6px 0;
+}
+.form-section input,
+.form-section textarea,
+.form-section select{
+    padding: 8px 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+}
+.form-section input:focus,
+.form-section textarea:focus,
+.form-section select:focus{
+    outline: none;
+    border-color: #6b1f3a;
+}
+.form-section textarea{
+    resize: vertical;
+    min-height: 80px;
+}
+.variant-section {
+    padding: 10px;
+}
+.variant-section .btn {
+    margin-bottom: 12px;
+    color: #4c0303;
+    font-weight: 600;
+}
+.variant-section .btn:hover {
+    background-color: #28061e;
+    color: #fff;
+}
+.variant-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 12px;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+.variant-fields input {
+    margin-bottom: 6px;
+}
+.variant-fields .btn-remove-variant {
+    align-self: flex-end;
+    background-color: #a10000;
+    color: #fff;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+.variant-fields .btn-remove-variant:hover {
+    background-color: #7a0000;
+}
+.variant-fields label {
+    font-size: 14px;
+    font-weight: 900;
+    color: #000000;
+    margin-bottom:6px;
+}
+.variant-fields input {
+    padding: 8px 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+}
+.variant 
+.form-buttons {
+    grid-column: span 2;
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+}
+
+
+
+
+

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="css/bill.css">
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/about.css">
+    <script src="js/ai-integration.js"></script>
+
+    <title>peace chill </title>
+</head>
+
+<body>
+    <div class="direction" id="breadcrumb"></div>
+    <div class="bill-page">
+        <div class="left-bill">
+            <div class="bill1">
+                <h2>Thông Tin Mua Hàng</h2>
+                <input type="text" id="name" name="name" required placeholder="Họ Và Tên">
+
+                <input type="email" id="email" name="email" required placeholder="Email">
+
+
+                <input type="tel" id="phone" name="phone" required placeholder="Số Điện Thoại">
+
+                <input type="text" id="address" name="address" required placeholder="Địa Chỉ">
+
+                <select id="tinhthanh" name="tinhthanh" required>
+                    <option value="1"> TP Hồ Chí Minh</option>
+                </select>
+                <select id="quan" name="quan" required>
+                    <option value="1"> 1</option>
+                    <option value="2"> 2</option>
+                    <option value="3"> 3</option>
+                </select>
+                <select id="phuong" name="phuong" required>
+                    <option value="1"> 12</option>
+                    <option value="2"> 2</option>
+                    <option value="3"> 5</option>
+                </select>
+
+            </div>
+            <div class="bill2">
+                <h2>Ship Method</h2>
+                <div class="ship-method">
+                    <div>
+                        <input type="radio" id="standard" name="ship" value="standard" checked>
+                        <label for="standard">Standard Shipping - Free</label><br>
+                    </div>
+                    <div>
+                        <input type="radio" id="express" name="ship" value="express">
+                        <label for="express">Express Shipping - 50.000₫</label><br>
+                    </div>
+
+                </div>
+                <H2>Pay Method</H2>
+                <div class="pay-method">
+                    <div>
+
+                        <input type="radio" id="cod" name="pay" value="cod" checked>
+                        <label for="cod">COD</label><br>
+                    </div>
+                    <div>
+
+                        <input type="radio" id="creditcard" name="pay" value="creditcard">
+                        <label for="creditcard">Mo Mo</label><br>
+                    </div>
+                </div>
+                <div class="note-section">
+                    <H2>Note</H2>
+                    <textarea id="note" name="note" rows="4" cols="50"
+                        placeholder="Ghi chú cho đơn hàng của bạn..."></textarea>
+
+                </div>
+            </div>
+        </div>
+        <div class="right-bill">
+            <h2>Đơn Hàng Của Bạn</h2>
+            <div class="checkout-summary">
+                <div class="order-items">
+                    <!-- Các mục đơn hàng thêm bằng JavaScript -->
+                   
+                </div>
+                <div class="order-summary">
+                    <div class="total">
+                        <span>Tổng Cộng:</span>
+                        <span class="total-price">0đ</span>
+                    </div>
+                    <button class="place-order">Đặt Hàng</button>
+                </div>
+            </div>
+
+        </div>
+        <div class="right-bill">
+            <h2 style="color: rgb(189, 39, 116);">COD là gì ?</h2>
+            <p>
+                COD là một hình thức mua sắm trực tuyến cho phép bạn đặt hàng và nhận sản phẩm mà
+                không cần thanh toán ngay lập tức. Thay vào đó, bạn có thể thanh toán sau khi nhận được sản phẩm chứ hong phải giật lun nha mấy má
+            </p>
+        </div>
+
+    </div>
+</body>
+    <script src="js/header.js"></script>
+    <script src="js/js.js"></script>
+    <script src="js/footer.js" defer></script>
+    <script src="js/breadcrumb.js" defer></script>  
+
+</html>

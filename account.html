@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/account.css">
+    <title>peace chill</title>
+</head>
+
+<body>
+    
+    <main>
+        <div class="account-layout">
+            <!-- Sidebar -->
+            <div class="direction" id="breadcrumb"></div>
+            <aside class="account-sidebar">
+                <div class="sidebar-profile">
+                    <div class="sidebar-avatar"></div>
+                    <div>
+                        <div class="sidebar-name"></div>
+
+                    </div>
+                </div>
+                <ul class="sidebar-menu">
+                    <li class="active" data-section="overview"><i class="bi bi-person"></i> Profile Overview</li>
+                    <li data-section="workshop"><i class="bi bi-clock-history"></i> Workshop History</li>
+                    <li data-section="cart"><i class="bi bi-cart"></i> Cart History</li>
+                    <li data-section="settingsaccount"><i class="bi bi-gear"></i> Settings</li>
+                </ul>
+            </aside>
+
+            <!-- Main Content -->
+            <section class="main-section active" data-section="overview">
+                <div class="main-header">
+                    <div class="main-avatar-wrap">
+                        <div class="main-avatar"></div>
+                        <button class="avatar-edit-btn" title="Edit"><i class="bi bi-pencil"></i></button>
+                    </div>
+                    <div>
+                        <div class="main-name"></div>
+                    </div>
+                    <div class="main-badges">
+                        <div class="badge"><i class="bi bi-calendar-check"></i> Workshops Attended <span></span></div>
+                        <div class="badge"><i class="bi bi-calendar-event"></i> Upcoming Workshops <span> </span></div>
+                    </div>
+                </div>
+                <form class="account-form">
+                    <h2 class="form-title">Personal Information</h2>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>First Name</label>
+                            <input type="text" name="firstName" value="">
+                        </div>
+                        <div class="form-group">
+                            <label>Last Name</label>
+                            <input type="text" name="lastName" value="">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Email Address</label>
+                            <input type="email" name="email" value="">
+                        </div>
+                        <div class="form-group">
+                            <label>Phone Number</label>
+                            <input type="text" name="phone" value="">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group" style="flex:2;">
+                            <label>Address</label>
+                            <input type="text" name="address" value="">
+                        </div>
+                        <div class="form-group">
+                            <label>City</label>
+                            <input type="text" name="city" value="">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Interests</label>
+                        <div class="interests-list">
+                            <label><input type="checkbox"> Knitting</label>
+                            <label><input type="checkbox"> Embroidery</label>
+                            <label><input type="checkbox"> Macrame</label>
+                            <label><input type="checkbox"> Candle Making</label>
+                            <label><input type="checkbox"> Watercolor</label>
+                            <label><input type="checkbox"> Pottery</label>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="save-btn">Save Changes</button>
+                    </div>
+                </form>
+            </section>
+            <section class="main-section" data-section="workshop">
+                <h2 class="section-title">Workshop History</h2>
+
+                <div class="workshop-section">
+                    <div class="workshop-header">
+                        <h3>Past Workshops</h3>
+                    </div>
+                    <div class="workshop-list" id="past-workshops">
+                        <!-- Các workshop đã diễn ra sẽ được render ở đây -->
+                        
+                    </div>
+                    <div class="workshop-actions">
+                        <button class="clear-btn">Clear Workshop</button>
+                    </div>
+                </div>
+            </section>
+            <section class="main-section" data-section="cart">
+                <!-- lich su mua -->
+            </section>
+            <section class="main-section" data-section="settingsaccount">
+                <h2 class="section-title">Account Settings</h2>
+                
+                <!-- Change Password Section -->
+                <div class="settings-section">
+                    <div class="settings-header">
+                        <h3><i class="bi bi-shield-lock"></i> Change Password</h3>
+                        <p>Update your password to keep your account secure</p>
+                    </div>
+                    <form class="settings-form" id="changePasswordForm">
+                        <div class="form-group">
+                            <label for="currentPassword">Current Password</label>
+                            <input type="password" id="currentPassword" name="currentPassword" required>
+                            <i class="bi bi-eye-slash toggle-password" data-target="currentPassword"></i>
+                        </div>
+                        <div class="form-group">
+                            <label for="newPassword">New Password</label>
+                            <input type="password" id="newPassword" name="newPassword" required>
+                            
+                            <div class="password-strength" id="passwordStrength">
+                                <div class="strength-bar">
+                                    <div class="strength-fill" id="strengthFill"></div>
+                                </div>
+                                <span class="strength-text" id="strengthText">Password strength</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="confirmPassword">Confirm New Password</label>
+                            <input type="password" id="confirmPassword" name="confirmPassword" required>
+                            <i class="bi bi-eye-slash toggle-password" data-target="confirmPassword"></i>
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="save-btn">Change Password</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Account Actions Section -->
+                <div class="settings-section">
+                    <div class="settings-header">
+                        <h3><i class="bi bi-exclamation-triangle"></i> Account Actions</h3>
+                        <p>Dangerous actions that affect your account</p>
+                    </div>
+                    <div class="danger-actions">
+                        <button class="danger-btn" id="deleteAccountBtn">
+                            <i class="bi bi-trash"></i>
+                            Delete Account
+                        </button>
+                        <p class="danger-note">This action cannot be undone. All your data will be permanently deleted.</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', async function () {
+            if (!window.location.pathname.toLowerCase().includes('account.html')) return;
+
+            try {
+                const res = await fetch('api/account.json');
+                const data = await res.json();
+
+                // Sidebar và avatar
+                document.querySelectorAll('.sidebar-avatar, .main-avatar').forEach(e => e.textContent = data.avatar || '');
+                document.querySelectorAll('.sidebar-name, .main-name').forEach(e => e.textContent = `${data.firstName} ${data.lastName}`);
+
+                // Badges
+                document.querySelector('.badge i.bi-calendar-check').parentElement.querySelector('span').textContent = data.workshopsAttended ?? '';
+                document.querySelector('.badge i.bi-calendar-event').parentElement.querySelector('span').textContent = data.upcomingWorkshops ?? '';
+
+                // Form fields (fetch theo name)
+                const form = document.querySelector('.account-form');
+                if (form) {
+                    form.querySelector('[name="firstName"]').value = data.firstName || '';
+                    form.querySelector('[name="lastName"]').value = data.lastName || '';
+                    form.querySelector('[name="email"]').value = data.email || '';
+                    form.querySelector('[name="phone"]').value = data.phone || '';
+                    form.querySelector('[name="address"]').value = data.address || '';
+                    form.querySelector('[name="city"]').value = data.city || '';
+
+                    // Interests
+                    const allLabels = Array.from(form.querySelectorAll('.interests-list label'));
+                    allLabels.forEach(label => {
+                        const input = label.querySelector('input[type="checkbox"]');
+                        if (input) {
+                            input.checked = data.interests && data.interests.includes(label.textContent.trim());
+                        }
+                    });
+                }
+            } catch (err) {
+                console.error('Không thể tải dữ liệu tài khoản:', err);
+            }
+        });
+
+        function setupSidebarTabs() {
+            const menuItems = document.querySelectorAll('.sidebar-menu li');
+            const sections = document.querySelectorAll('.main-section');
+
+            menuItems.forEach(item => {
+                item.addEventListener('click', function () {
+                    // Xóa active ở tất cả li
+                    menuItems.forEach(li => li.classList.remove('active'));
+                    this.classList.add('active');
+
+                    // Ẩn tất cả section
+                    sections.forEach(sec => sec.classList.remove('active'));
+                    // Hiện section tương ứng với hiệu ứng smooth
+                    const sectionName = this.getAttribute('data-section');
+                    const showSection = document.querySelector(`.main-section[data-section="${sectionName}"]`);
+                    if (showSection) showSection.classList.add('active');
+                });
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', setupSidebarTabs);
+
+        document.addEventListener('DOMContentLoaded', function () {
+            renderWorkshops();
+        });
+        
+
+        // Settings functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            setupSettings();
+        });
+
+        function setupSettings() {
+            // Password visibility toggle
+            document.querySelectorAll('.toggle-password').forEach(toggle => {
+                toggle.addEventListener('click', function() {
+                    const targetId = this.getAttribute('data-target');
+                    const input = document.getElementById(targetId);
+                    const type = input.type === 'password' ? 'text' : 'password';
+                    input.type = type;
+                    this.classList.toggle('bi-eye');
+                    this.classList.toggle('bi-eye-slash');
+                });
+            });
+
+            // Password strength checker
+            const newPasswordInput = document.getElementById('newPassword');
+            if (newPasswordInput) {
+                newPasswordInput.addEventListener('input', function() {
+                    checkPasswordStrength(this.value);
+                });
+            }
+
+            // Change password form
+            const changePasswordForm = document.getElementById('changePasswordForm');
+            if (changePasswordForm) {
+                changePasswordForm.addEventListener('submit', handlePasswordChange);
+            }
+
+            // Delete account button
+            const deleteAccountBtn = document.getElementById('deleteAccountBtn');
+            if (deleteAccountBtn) {
+                deleteAccountBtn.addEventListener('click', handleDeleteAccount);
+            }
+
+        }
+
+        function checkPasswordStrength(password) {
+            const strengthFill = document.getElementById('strengthFill');
+            const strengthText = document.getElementById('strengthText');
+            
+            if (!strengthFill || !strengthText) return;
+
+            let strength = 0;
+            let feedback = '';
+
+            // Check length
+            if (password.length >= 8) strength += 25;
+            if (password.length >= 12) strength += 25;
+
+            // Check for different character types
+            if (/[a-z]/.test(password)) strength += 25;
+            if (/[A-Z]/.test(password)) strength += 25;
+            if (/[0-9]/.test(password)) strength += 25;
+            if (/[^A-Za-z0-9]/.test(password)) strength += 25;
+
+            // Cap at 100%
+            strength = Math.min(strength, 100);
+
+            // Update Ui
+            strengthFill.style.width = strength + '%';
+            
+            if (strength < 25) {
+                strengthFill.style.backgroundColor = '#ff4444';
+                feedback = 'Very Weak';
+            } else if (strength < 50) {
+                strengthFill.style.backgroundColor = '#ff8800';
+                feedback = 'Weak';
+            } else if (strength < 75) {
+                strengthFill.style.backgroundColor = '#ffbb33';
+                feedback = 'Fair';
+            } else if (strength < 100) {
+                strengthFill.style.backgroundColor = '#00C851';
+                feedback = 'Good';
+            } else {
+                strengthFill.style.backgroundColor = '#007E33';
+                feedback = 'Strong';
+            }
+
+            strengthText.textContent = feedback;
+        }
+
+        async function handlePasswordChange(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(e.target);
+            const currentPassword = formData.get('currentPassword');
+            const newPassword = formData.get('newPassword');
+            const confirmPassword = formData.get('confirmPassword');
+
+            // Validation
+            if (newPassword !== confirmPassword) {
+                alert('New passwords do not match!');
+                return;
+            }
+
+            if (newPassword.length < 8) {
+                alert('New password must be at least 8 characters long!');
+                return;
+            }
+
+            if (currentPassword === newPassword) {
+                alert('New password must be different from current password!');
+                return;
+            }
+
+            try {
+                // Simulate API call
+                await new Promise(resolve => setTimeout(resolve, 1000));
+                
+                // In real app, you would send this to your backend
+                console.log('Password change request:', {
+                    currentPassword,
+                    newPassword
+                });
+
+                alert('Password changed successfully!');
+                e.target.reset();
+                document.getElementById('strengthFill').style.width = '0%';
+                document.getElementById('strengthText').textContent = 'Password strength';
+                
+            } catch (error) {
+                alert('Failed to change password. Please try again.');
+                console.error('Password change error:', error);
+            }
+        }
+
+        //xoa tk
+        function handleDeleteAccount() {
+            const confirmed = confirm('Are you sure you want to delete your account? This action cannot be undone.');
+            
+            if (confirmed) {
+                const password = prompt('Please enter your password to confirm account deletion:');
+                
+                if (password) {
+                    // In real app, you would send this to your backend
+                    console.log('Account deletion requested with password confirmation');
+                    alert('Account deletion request submitted. You will receive a confirmation email.');
+                }
+            }
+        }
+    </script>
+    <script src="js/header.js"></script>
+    <script src="js/footer.js"></script>
+    <script src="js/js.js"></script>
+    <script src="js/ai-integration.js"></script>
+    
+</body>
+
+</html>
