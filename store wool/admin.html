@@ -111,84 +111,36 @@
                 <h2 class="section-title">Account Management</h2>
             </section>
             <section class="main-section" data-section="category-management">
-                <h2 class="section-title">Category Management</h2>
+                <div id="category-management-header">
+                    <h2 class="section-title">Category Management</h2>
+                    <button id="btn-add-category">+ Add Category</button>
+                </div>
+                <div id="category-list-view">
+                    <div class="filters">
+                        <input type="text" placeholder="Search categories...">
+                    </div>
+                    <div id="category-list">
+                    </div>
+                </div>
+                <div id="form-catagory" style="display: none;">
+                    <p id="catagory-form-title">Add New categories</p>
+                    <label>Category Name:</label>
+                    <input type="text" id="cate-name" required>
+                    <H3>Description</H3>
+                    <textarea id="note" name="note" rows="4" cols="50"
+                        placeholder="Description hear...">
+                    </textarea>
+                    <div id="form-catagory-actions" >
+                        <button type="submit" id="btn-save-catalo">Save</button>
+                        <button type="button" id="btn-back-catalo">Back</button>
+                    </div>
+                </div>
             </section>
         </div>
     </main>
 
     <script>
-
-        document.addEventListener('DOMContentLoaded', function () {
-            setupSidebarTabs();
-
-            const btnAdd = document.getElementById('btn-add');
-            const btnBack = document.getElementById('btnBackToList');
-            const listView = document.getElementById('product-list-view');
-            const addView = document.getElementById('add-product-view');
-            const variantContainer = document.getElementById('variantContainer');
-            const btnAddVariant = document.getElementById('btnAddVariant');
-            const form = document.getElementById('addProductForm');
-            const back = document.getElementById('btnBackToList');
-
-            // Toggle view
-            btnAdd.addEventListener('click', () => {
-                listView.style.display = 'none';
-                addView.style.display = 'block';
-                btnAdd.style.display = 'none';
-
-
-            });
-            btnBack.addEventListener('click', () => {
-                addView.style.display = 'none';
-                listView.style.display = 'block';
-                btnAdd.style.display = 'inline-block';
-            });
-
-
-            // Thêm biến thể
-            btnAddVariant.addEventListener('click', () => {
-                const variantDiv = document.createElement('div');
-                variantDiv.classList.add('variant-item');
-                variantDiv.innerHTML = `
-            <div class="variant-fields">
-
-                <label>Color:</label>
-                <input type="text" name="variantColor" placeholder="red">
-
-                <label>Size:</label>
-                <input type="text" name="variantSize" placeholder="100gr">
-
-                <label>Material:</label>
-                <input type="text" name="variantMaterial" placeholder="Cotton">
-
-                <label>Image URL:</label>
-                <input type="text" name="variantImage" placeholder="Image URL">
-
-                <label>Extra Price:</label>
-                <input type="number" name="variantPriceExtra" step="0.01" value="0">
-
-                <button type="button" class="btn btn-remove-variant">Remove</button>
-            </div>
-        `;
-                variantContainer.appendChild(variantDiv);
-
-
-                // Thêm sự kiện xóa
-                variantDiv.querySelector('.btn-remove-variant').addEventListener('click', () => {
-                    variantDiv.remove();
-                });
-                back.addEventListener('click', () => {
-                    variantDiv.style.display = 'none';
-                });
-
-
-            });
-            // su kien save
-        });
-
-
-
-
+        //hien thi tung side tuong ung
         function setupSidebarTabs() {
             const menuItems = document.querySelectorAll('.sidebar-menu li');
             const sections = document.querySelectorAll('.main-section');
@@ -209,66 +161,20 @@
             });
         }
 
-        let currentPage = 0;
-        const pageSize = 8;
-        let productsData = [];
-        let filteredData = null;
-        function print(products) {
-            const list = document.getElementById('grid-item');
-            const showProducts = products.slice(currentPage * pageSize, (currentPage + 1) * pageSize);
-            list.innerHTML = showProducts.map(product => `
-                <div class="card-item">
-                    <img src="${product.image}" alt="${product.name}">
-                    <h3 class="item-name">${product.name}</h3>
-                    <p class="item-category">Category: ${product.category}</p>
-                    <p class="item-price">Price: $${product.price.toFixed(2)}</p>
-                    <p class="item-stock">Stock: ${product.stock}</p>
-                    <div class="card-actions">
-                        <button class="btn btn-edit">Edit</button>
-                        <button class="btn btn-delete">Delete</button>
-                    </div>
-                </div>
-            `).join('');
-        }
-        function renderProducts() {
-            const data = filteredData !== null ? filteredData : productsData;
-            print(data);
-        }
-
-        // Fetch products from JSON file
-        fetch('api/item-management.json')
-            .then(res => res.json())
-            .then(data => {
-                productsData = data.items;
-                renderProducts();
-            })
-            .catch(error => {
-                console.error('Error loading products:', error);
-            });
-
-        function next() {
-            const data = filteredData !== null ? filteredData : productsData;
-            if ((currentPage + 1) * pageSize < data.length) {
-                currentPage++;
-                renderProducts();
-            }
-        }
-
-        function prev() {
-            if (currentPage > 0) {
-                currentPage--;
-                renderProducts();
-            }
-        }
+        document.addEventListener('DOMContentLoaded', function () {
+            setupSidebarTabs();
+        });
 
 
     </script>
     <script src="js/config.js"></script>
-    <!-- <script src="js/admin-users.js"></script> -->
+    <script src="js/admin-users.js"></script>
     <script src="js/header.js"></script>
     <script src="js/footer.js"></script>
     <script src="js/js.js"></script>
     <script src="js/ai-integration.js"></script>
+    <script src="js/managemant-products.js"></script>
+    <script src="js/managemant-catagogy.js"></script>
 
 </body>
 

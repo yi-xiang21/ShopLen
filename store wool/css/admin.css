@@ -453,5 +453,122 @@ body {
     background-color: #7a0000;
 }
 
+/*css category management*/
+#category-management-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+#btn-add-category {
+    color: #6b1f3a;
+    border: 1px solid #392727;
+    padding: 8px 14px;
+    background-color: #f4f2f2;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+}
+#btn-add-category:hover {
+    background-color: #28061e;
+    color: #fff;
+}
+#category-name {
+    font-size: 20px;
+    font-weight: 600;
+    color: #000000;
+    padding: 0 10px;
+    margin:2% 0;
+    background-color: #ac547187;
+}
+.category-item{
+    margin: 5% 0;
+    border-radius: 8px;
+    padding: 0px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    height: 100%;
+    border: 1px solid #150107;
+
+}
+#category-grid {
+    display:grid;
+    grid-template-columns: 5fr 1fr;
+    padding:1% 1%;
+    align-items: center;            
+    gap: 10px;                     
+}
+#category-description-title {
+    font-size: 110%;
+    font-weight: 600;
+    color: #b1026e;
+}
+#category-description-text {
+    font-size: 15px;
+    font-weight: 500;
+    color: #333;
+    margin: 1% 0;
+}
+#btn-edit-category,
+#btn-delete-category {
+    background-color: #6b1f3a;
+    color: #fff;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+#btn-edit-category:hover,
+#btn-delete-category:hover {
+    background-color: #28061e;
+    color: #fff;
+}
+/*css form them cate */
+#catagory-form-title{
+    font-size: 150%;
+    font-weight: 600;
+    color: #b1026e;
+}
+#form-catagory label{
+    font-size: 15px;
+    font-weight: 600;
+    color: #000000;
+    margin: 10px 0;
+}
+#form-catagory input{
+    padding: 4px 5px;
+    border: 1px solid #020101;
+    border-radius: 6px;
+    font-size: 14px;
+    width: 60%;
+}
+#form-catagory-actions{
+    margin: 2% 0;
+}
+#btn-save-catalo{
+    background-color: #6b1f3a;
+    color: #fff;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+#btn-save-catalo:hover{
+    background-color: #28061e;
+    color: #fff;
+}
+#btn-back-catalo{
+    background-color: #6b1f3a;
+    color: #fff;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+#btn-back-catalo:hover{
+    background-color: #28061e;
+    color: #fff;
+}
+
 
 

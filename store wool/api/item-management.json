@@ -1,86 +1,76 @@
 {
     "items": [
         {
-        "image": "img/item1.png",
-        "id": "item001",
-        "name": "yarn cotton scarf",
-        "category": "yarn wool",
-        "price": 25.99,
-        "stock": 150,
-        "description": "A warm and cozy woolen scarf perfect for winter."
+            "id": "item001",
+            "name": "yarn cotton scarf",
+            "category": "2",
+            "price": 25.99,
+            "description": "A warm and cozy woolen scarf perfect for winter.",
+            "image": "img/item1.png",
+            "type": "san_pham",
+            "stock":50,
+            "variants": [
+                {
+                    "color": "red",
+                    "size": "100gr",
+                    "material": "Cotton",
+                    "image": "img/item1.png",
+                    "priceExtra": 0,
+                    "stock": 50
+                },
+                {
+                    "color": "blue",
+                    "size": "100gr",
+                    "material": "Cotton",
+                    "image": "img/item1-blue.png",
+                    "priceExtra": 2.00,
+                    "stock": 50
+                },
+                {
+                    "color": "green",
+                    "size": "200gr",
+                    "material": "Cotton",
+                    "image": "img/item1-green.png",
+                    "priceExtra": 5.00,
+                    "stock": 50
+                }
+            ]
         },
         {
-        "image": "img/item2.png",
-        "id": "item002",
-        "name": "Wool Sweater",
-        "category": "yarn wool",
-        "price": 45.50,
-        "stock": 80,
-        "description": "A stylish wool sweater available in various colors."
-        },
-        {
-        "image": "img/item3.png",
-        "id": "item003",
-        "name": "Wool Socks",
-        "category": "yarn cotton",
-        "price": 12.00,
-        "stock": 200,
-        "description": "Comfortable wool socks to keep your feet warm."
-        },
-        {
-        "image": "img/item4.png",
-        "id": "item004",
-        "name": "Knitting Needles Set",
-        "category": "tool",
-        "price": 15.75,
-        "stock": 50,
-        "description": "A set of high-quality knitting needles for your projects."
-        },
-        {
-        "image": "img/item5.png",
-        "id": "item005",
-        "name": "Crochet Hook Set",
-        "category": "tool",
-        "price": 18.20,
-        "stock": 60,
-        "description": "A complete set of crochet hooks in various sizes."
-        },
-        {
-        "image": "img/item6.png",
-        "id": "item004",
-        "name": "Knitting Needles Set",
-        "category": "tool",
-        "price": 15.75,
-        "stock": 50,
-        "description": "A set of high-quality knitting needles for your projects."
-        },
-        {
-        "image": "img/item7.png",
-        "id": "item005",
-        "name": "Crochet Hook Set",
-        "category": "tool",
-        "price": 18.20,
-        "stock": 60,
-        "description": "A complete set of crochet hooks in various sizes."
-        },
-        {
-        "image": "img/item8.png",
-        "id": "item004",
-        "name": "Knitting Needles Set",
-        "category": "tool",
-        "price": 15.75,
-        "stock": 50,
-        "description": "A set of high-quality knitting needles for your projects."
-        },
-        {
-        "image": "img/item9.png",
-        "id": "item005",
-        "name": "Crochet Hook Set",
-        "category": "tool",
-        "price": 18.20,
-        "stock": 60,
-        "description": "A complete set of crochet hooks in various sizes."
+            "id": "item002",
+            "name": "Wool Sweater",
+            "category": "2",
+            "price": 45.50,
+            "description": "A stylish wool sweater available in various colors.",
+            "image": "img/item2.png",
+            "type": "san_pham",
+            "stock":25,
+            "variants": [
+                {
+                    "color": "black",
+                    "size": "M",
+                    "material": "Wool",
+                    "image": "img/item2.png",
+                    "priceExtra": 0,
+                    "stock": 30
+                },
+                {
+                    "color": "gray",
+                    "size": "L",
+                    "material": "Wool",
+                    "image": "img/item2-gray.png",
+                    "priceExtra": 3.00,
+                    "stock": 25
+                },
+                {
+                    "color": "navy",
+                    "size": "XL",
+                    "material": "Wool",
+                    "image": "img/item2-navy.png",
+                    "priceExtra": 5.00,
+                    "stock": 25
+                }
+            ]
         }
-
     ]
 }
