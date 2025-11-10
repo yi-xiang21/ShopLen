@@ -79,8 +79,6 @@ function displayProduct() {
     document.getElementById('product-description').textContent = currentProduct.description;
     document.getElementById('detailed-description').textContent = currentProduct.detailedDescription || currentProduct.description;
     
-    // Update page title
-    document.title = `${currentProduct.name} - Peace Chill`;
 }
 // Load related products
 function loadRelatedProducts() {
@@ -105,24 +103,23 @@ function loadRelatedProducts() {
     `).join('');
 }
 
-// Get related products based on tags
+// Get related products based on catalogries
 function getRelatedProducts() {
     if (!currentProduct) return [];
-    
-    const currentTags = currentProduct.tags || [];
-    const related = allProducts.filter(product => 
-        product.id !== currentProduct.id && 
-        product.tags && 
-        product.tags.some(tag => currentTags.includes(tag))
+
+    const currentCatalogry = currentProduct.catalogries;
+    const related = allProducts.filter(product =>
+        product.id !== currentProduct.id &&
+        product.catalogries === currentCatalogry
     );
-    
-    // If no related products by tags, return random products
+
+    // If no related products by catalogries, return random products
     if (related.length === 0) {
         return allProducts
             .filter(product => product.id !== currentProduct.id)
             .slice(0, 4);
     }
-    
+
     // Return up to 4 related products
     return related.slice(0, 4);
 }

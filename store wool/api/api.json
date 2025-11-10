@@ -4,7 +4,7 @@
     "name": "Soft Korean Yarn",
     "cost": 28.50,
     "originalCost": 33.50,
-    "tags": ["yarn", "korea", "soft", "scarf"],
+    "catalogries": "yarn",
     "description": "Super soft Korean yarn, perfect for cozy scarves and winter hats.",
     "detailedDescription": "This premium Korean yarn is crafted with the finest materials to provide ultimate softness and comfort. Perfect for creating cozy winter accessories that feel luxurious against your skin. The yarn has excellent stitch definition and works beautifully with various knitting and crochet patterns.",
     "images": {
@@ -79,13 +79,6 @@
       "needleSize": "3.5-4.5mm",
       "gauge": "22-24 stitches per 10cm"
     },
-    "features": [
-      "Premium quality material",
-      "Extra soft texture",
-      "Hypoallergenic",
-      "Breathable and warm",
-      "Easy to work with"
-    ],
     "rating": 4.5,
     "reviewCount": 128,
     "inStock": true,
@@ -96,7 +89,7 @@
     "name": "Cotton Cloud Yarn",
     "cost": 27.20,
     "originalCost": 32.00,
-    "tags": ["yarn", "cotton", "lightweight", "summer"],
+    "catalogries": "yarn",
     "description": "Lightweight cotton yarn, ideal for summer tops and baby clothes.",
     "detailedDescription": "This lightweight cotton yarn is perfect for warm weather projects. The breathable fabric makes it ideal for summer clothing, baby items, and accessories. The yarn has a beautiful drape and works wonderfully for both knitting and crochet projects.",
     "images": {
@@ -157,13 +150,6 @@
       "needleSize": "3-4mm",
       "gauge": "24-26 stitches per 10cm"
     },
-    "features": [
-      "Lightweight and breathable",
-      "Perfect for summer projects",
-      "Gentle on sensitive skin",
-      "Easy care instructions",
-      "Sustainable material"
-    ],
     "rating": 4.3,
     "reviewCount": 95,
     "inStock": true,
@@ -174,7 +160,7 @@
     "name": "Pastel Dream Yarn",
     "cost": 29.99,
     "originalCost": 35.00,
-    "tags": ["yarn", "pastel", "colorful", "blanket"],
+    "catalogries": "yarn",
     "description": "Colorful pastel yarn, great for making vibrant blankets and throws.",
     "detailedDescription": "This beautiful pastel yarn collection features soft, dreamy colors that are perfect for creating stunning blankets, throws, and home decor items. Each skein is carefully dyed to ensure consistent color throughout your project.",
     "images": {
@@ -256,13 +242,6 @@
       "needleSize": "4-5mm",
       "gauge": "20-22 stitches per 10cm"
     },
-    "features": [
-      "Vibrant pastel colors",
-      "Perfect for blankets",
-      "Soft and cozy",
-      "Easy to care for",
-      "Great for beginners"
-    ],
     "rating": 4.7,
     "reviewCount": 156,
     "inStock": true,
@@ -273,7 +252,7 @@
     "name": "Rainbow Cotton Yarn",
     "cost": 26.75,
     "originalCost": 31.00,
-    "tags": ["yarn", "rainbow", "cotton", "shawl"],
+    "catalogries": "yarn",
     "description": "Rainbow cotton yarn, perfect for eye-catching shawls and wraps.",
     "detailedDescription": "This stunning rainbow cotton yarn creates beautiful color transitions that are perfect for making eye-catching shawls, wraps, and accessories. The colors flow seamlessly from one to the next, creating a magical effect in your finished projects.",
     "images": {
@@ -334,13 +313,6 @@
       "needleSize": "3.5-4.5mm",
       "gauge": "22-24 stitches per 10cm"
     },
-    "features": [
-      "Beautiful color transitions",
-      "Perfect for shawls",
-      "Breathable cotton",
-      "Easy care instructions",
-      "Eye-catching designs"
-    ],
     "rating": 4.6,
     "reviewCount": 89,
     "inStock": true,
@@ -351,7 +323,7 @@
     "name": "Sunshine Yellow Yarn",
     "cost": 25.90,
     "originalCost": 30.00,
-    "tags": ["yarn", "yellow", "bright", "accessory"],
+    "catalogries": "yarn",
     "description": "Bright yellow yarn, adds a pop of color to any accessory project.",
     "detailedDescription": "This vibrant sunshine yellow yarn is perfect for adding a cheerful pop of color to your projects. Whether you're making accessories, home decor, or accent pieces, this bright yellow will bring warmth and happiness to your creations.",
     "images": {
@@ -404,13 +376,6 @@
       "needleSize": "4-5mm",
       "gauge": "20-22 stitches per 10cm"
     },
-    "features": [
-      "Bright and cheerful",
-      "Perfect for accessories",
-      "Easy to care for",
-      "Great for beginners",
-      "Affordable price"
-    ],
     "rating": 4.2,
     "reviewCount": 67,
     "inStock": true,

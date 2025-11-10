@@ -1,4 +1,4 @@
-// Function to fetch categories from catalogy.json and populate the category-list
+
 async function fetchCategories() {
     try {
         const response = await fetch('api/catalogy.json');
@@ -7,11 +7,9 @@ async function fetchCategories() {
         }
         const data = await response.json();
         const categoryList = document.getElementById('category-list');
-
-        // Clear existing content
         categoryList.innerHTML = '';
 
-        // Populate categories
+        // render categories
         data.categories.forEach(category => {
             const categoryItem = document.createElement('div');
             categoryItem.className = 'category-item';
@@ -38,7 +36,6 @@ async function fetchCategories() {
         document.querySelectorAll('.btn-editcate').forEach(button => {
             button.addEventListener('click', function() {
                 const categoryId = this.closest('.category-item').getAttribute('data-id');
-                // Placeholder for edit functionality
                 alert("da click vao edit")
                 
             });
@@ -55,7 +52,6 @@ async function fetchCategories() {
 
     } catch (error) {
         console.error('Error fetching categories:', error);
-        // Optionally display an error message to the user
         const categoryList = document.getElementById('category-list');
         categoryList.innerHTML = '<p>Error loading categories. Please try again later.</p>';
     }
