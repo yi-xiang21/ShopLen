@@ -16,6 +16,7 @@ function updateMenuVisibility() {
     if (registerli) registerli.style.display = 'none';
     // chỉ admin mới thấy nút Admin
     if (adminLi) adminLi.style.display = role === 'admin' ? 'block' : 'none';
+    if (accountLi) accountLi.style.display = role === 'admin' ? 'none' : 'block';
   } else {
     if (accountLi) accountLi.style.display = 'none';
     if (logoutLi) logoutLi.style.display = 'none';

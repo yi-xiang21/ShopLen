@@ -104,11 +104,91 @@
 
             </section>
             <section class="main-section" data-section="order-management">
-                <h2 class="section-title">Order Management</h2>
+                <h2 class="section-title">
+                    <p>Order Management</p>
+                    <button id="btn-export">Export Orders</button>
+                </h2>
+                <div id="filters-Order">
+                    <input type="text" placeholder="Search Order id...">
+                    <select id="OrderStatus" required>
+                        <option value="">Status</option>
+                        <option value="1">Success</option>
+                        <option value="2">Pending</option>
+                    </select>
+                </div>  
+                <div id="list-order">
+                    <div id="list-order-detail">
+                        <div class="order-header" id="oder-id-list">Order ID
+                            <div class="order-detail" id="order-id">
+                                a
+                            </div>
+                        </div>                           
+                        <div class="order-header" id="order-cus-list">CUSTOMER
+                            <div class="order-detail" id="order-cus">
+                                a
+                            </div>
+                        </div>                      
+                        <div class="order-header" id="oder-products-list">PRODUCT/WORKSHOP
+                            <div class="order-detail" id="order-products">
+                                a
+                            </div>
+                        </div>
+                        <div class="order-header" id="oder-cost-list">AMOUNT
+                            <div class="order-detail" id="order-cost">
+                                a
+                            </div>
+                        </div>
+                        <div class="order-header" id="oder-status-list">STATUS
+                            <div class="order-detail" id="order-status">
+                                a
+                            </div>
+                        </div> 
+                        <div class="order-header" id="oder-date-list">DATE
+                            <div class="order-detail" class="order-detail" id="order-date">
+                                a
+                            </div>
+                        </div>
+                        <div class="order-header" id="oder-action-list">ACTION
+                            <div id="order-action">
+                                <button type="submit" id="btn-view-order">View</button>
+                                <button type="button" id="btn-edit-order">Edit</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h2 class="section-title">
+                    <p>Order View</p>
+                </h2>
+                <div id="order-detail">
+                    <div id="order-detail-left">
+                        <div id="order-detail-main">
+                            a
+                        </div>
+                        <div id="order-detail-product">
+                            a
+                        </div>
+                    </div>
+                    <div id="order-detail-right">
+                        <div id="order-detail-ship">
+                            a
+                        </div>
+                        <div id="order-detail-payment">
+                            a
+                        </div>
+                        <div id="order-detail-history">
+                            a
+                        </div>
+                        <div  id="order-detail-actions">
+                            a
+                        </div>
+                    </div>
+                </div>
+
 
             </section>
             <section class="main-section" data-section="account-management">
                 <h2 class="section-title">Account Management</h2>
+
             </section>
             <section class="main-section" data-section="category-management">
                 <div id="category-management-header">
@@ -127,10 +207,9 @@
                     <label>Category Name:</label>
                     <input type="text" id="cate-name" required>
                     <H3>Description</H3>
-                    <textarea id="note" name="note" rows="4" cols="50"
-                        placeholder="Description hear...">
+                    <textarea id="note" name="note" rows="4" cols="50" placeholder="Description hear...">
                     </textarea>
-                    <div id="form-catagory-actions" >
+                    <div id="form-catagory-actions">
                         <button type="submit" id="btn-save-catalo">Save</button>
                         <button type="button" id="btn-back-catalo">Back</button>
                     </div>

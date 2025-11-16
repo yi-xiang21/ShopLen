@@ -232,6 +232,46 @@
             alert("Sorting button clicked!");
             filter()
         });
+        // Convert product from products.json format to display format
+        function convertProductFormat(product) {
+            // Get first variant image or main image
+            const firstVariant = product.bien_the && product.bien_the.length > 0 ? product.bien_the[0] : null;
+            const mainImage = firstVariant?.url_hinh_anh_bien_the || product.hinh_anh_url;
+            
+            // Calculate price with discount if applicable
+            let finalPrice = product.gia || 0;
+            if (product.khuyen_mai && product.khuyen_mai.length > 0) {
+                const activePromo = product.khuyen_mai.find(promo => {
+                    const now = new Date();
+                    const start = new Date(promo.ngay_bat_dau);
+                    const end = new Date(promo.ngay_ket_thuc);
+                    return now >= start && now <= end;
+                });
+                if (activePromo) {
+                    finalPrice = finalPrice * (1 - activePromo.phan_tram_giam / 100);
+                }
+            }
+            
+            return {
+                id: product.ma_san_pham,
+                name: product.ten_san_pham,
+                cost: finalPrice,
+                originalCost: product.gia,
+                images: {
+                    main: mainImage
+                },
+                originalProduct: product
+            };
+        }
+
+        // Format price in Vietnamese format
+        function formatPrice(price) {
+            return new Intl.NumberFormat('vi-VN', {
+                style: 'currency',
+                currency: 'VND'
+            }).format(price);
+        }
+
         function print(products) {
             const list = document.getElementById('product-list');
             const showProducts = products.slice(currentPage * pageSize, (currentPage + 1) * pageSize);
@@ -239,7 +279,7 @@
                 <div class="product-item">
                     <img src="${product.images.main}" alt="${product.name}">
                     <p class="title-item">${product.name}</p>
-                    <p class="cost">$${product.cost}</p>
+                    <p class="cost">${formatPrice(product.cost)}</p>
                     <button class="btn-buy">
                         <a href="detail.html?id=${product.id}">Buy Now</a>
                     </button>
@@ -256,11 +296,18 @@
             print(data);
         }
 
-        // Fetch products from JSON file
-        fetch('api/api.json')
+        // Fetch products from products.json file
+        fetch('api/products.json')
             .then(res => res.json())
             .then(data => {
-                productsData = data;
+                // Filter products: only show danh_muc 1 and 2, exclude 3 (Workshop)
+                const filteredProducts = (data.products || []).filter(product => {
+                    const categoryId = product.danh_muc?.ma_danh_muc;
+                    return categoryId === 1 || categoryId === 2;
+                });
+                
+                // Convert to display format
+                productsData = filteredProducts.map(product => convertProductFormat(product));
                 renderProducts();
             })
             .catch(error => {

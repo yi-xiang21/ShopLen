@@ -138,7 +138,7 @@ body {
     transition: 0.3s;
 }
 
-#remove-cart{
+.remove-cart-btn{
     border: 1px solid #000000;
     border-radius: 5px;
     color: #fefefe;
@@ -147,11 +147,9 @@ body {
     margin-top: 8px;
     background-color: rgb(167, 4, 80);
 }
-
-
-
-
-/* Responsive: trên màn nhỏ stack thành dọc */
-@media (max-width: 800px) {
-   
+.remove-cart-btn:hover{
+    background-color: #000000;
+    transition: 0.3s;
+    color: #ffffff;
 }
+

@@ -204,27 +204,74 @@
         </section>
     </main>
 
-    <!-- Render products dynamically from api/api.json -->
+    <!-- Render products dynamically from api/products.json -->
     <script>
+        // Convert product from products.json format to display format
+        function convertProductFormat(product) {
+            // Get first variant image or main image
+            const firstVariant = product.bien_the && product.bien_the.length > 0 ? product.bien_the[0] : null;
+            const mainImage = firstVariant?.url_hinh_anh_bien_the || product.hinh_anh_url;
+            
+            // Calculate price with discount if applicable
+            let finalPrice = product.gia || 0;
+            if (product.khuyen_mai && product.khuyen_mai.length > 0) {
+                const activePromo = product.khuyen_mai.find(promo => {
+                    const now = new Date();
+                    const start = new Date(promo.ngay_bat_dau);
+                    const end = new Date(promo.ngay_ket_thuc);
+                    return now >= start && now <= end;
+                });
+                if (activePromo) {
+                    finalPrice = finalPrice * (1 - activePromo.phan_tram_giam / 100);
+                }
+            }
+            
+            return {
+                id: product.ma_san_pham,
+                name: product.ten_san_pham,
+                cost: finalPrice,
+                images: {
+                    main: mainImage
+                }
+            };
+        }
+
+        // Format price in Vietnamese format
+        function formatPrice(price) {
+            return new Intl.NumberFormat('vi-VN', {
+                style: 'currency',
+                currency: 'VND'
+            }).format(price);
+        }
+
         (async function renderProducts() {
             const container = document.getElementById('products-list');
             if (!container) return;
             try {
-                const res = await fetch('api/api.json');
+                const res = await fetch('api/products.json');
                 const data = await res.json();
-                const products = Array.isArray(data) ? data : (data.products || []);
-                if (!products.length) {
-                    container.innerHTML = '<p style="padding:16px;">No products found.</p>';
+                
+                // Filter products: only show danh_muc 1 and 2, exclude 3 (Workshop)
+                const filteredProducts = (data.products || []).filter(product => {
+                    const categoryId = product.danh_muc?.ma_danh_muc;
+                    return categoryId === 1 || categoryId === 2;
+                });
+                
+                if (!filteredProducts.length) {
+                    container.innerHTML = '<p style="padding:16px;">Không có sản phẩm nào.</p>';
                     return;
                 }
+
+                // Convert to display format
+                const products = filteredProducts.map(product => convertProductFormat(product));
 
                 container.innerHTML = products.map(p => `
                     <div class="product-item" data-id="${p.id || ''}">
                         <div class="product-inner">
-                            <img src="${(p.image || (p.images && p.images.main) || 'img/default.jpg')}" alt="${((p.title || p.name || '').replace(/"/g, '&quot;'))}">
-                            <p class="title-item">${p.title || p.name || ''}</p>
-                            <p class="cost">${(typeof (p.price || p.cost) === 'number') ? '$' + (p.price || p.cost).toFixed(2) : (p.price || p.cost || '')}</p>
-                            <button class="btn-buy"><a href="shop.html?product=${encodeURIComponent(p.id || '')}">Buy Now</a></button>
+                            <img src="${p.images.main || 'img/default.jpg'}" alt="${(p.name || '').replace(/"/g, '&quot;')}">
+                            <p class="title-item">${p.name || ''}</p>
+                            <p class="cost">${formatPrice(p.cost || 0)}</p>
+                            <button class="btn-buy"><a href="detail.html?id=${p.id || ''}">Buy Now</a></button>
                         </div>
                     </div>
                 `).join('');
@@ -238,7 +285,7 @@
 
             } catch (err) {
                 console.error('Error loading products:', err);
-                container.innerHTML = '<p style="color:red; padding:16px;">Unable to load products.</p>';
+                container.innerHTML = '<p style="color:red; padding:16px;">Không thể tải sản phẩm.</p>';
             }
         })();
         // nut trai phai trong besst seller

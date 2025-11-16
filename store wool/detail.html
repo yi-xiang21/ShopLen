@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 
 <head>
     <meta charset="UTF-8">
@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="css/detail.css">
     <script src="js/ai-integration.js"></script>
-    <title>Product Detail - Peace Chill</title>
+    <title>Chi tiết sản phẩm - ShopLen</title>
 </head>
 
 <body>
@@ -20,11 +20,11 @@
         <div id="detail">
             <!-- Breadcrumb -->
             <div class="breadcrumb">
-                <a href="index.html">Home</a>
+                <a href="index.html">Trang chủ</a>
                 <i class="bi bi-chevron-right"></i>
-                <a href="shop.html">Shop</a>
+                <a href="shop.html">Cửa hàng</a>
                 <i class="bi bi-chevron-right"></i>
-                <span id="product-name">Product</span>
+                <span id="product-name">Sản phẩm</span>
             </div>
 
             <!-- Product Detail Section -->
@@ -33,177 +33,130 @@
                     <div class="main-image">
                         <img id="main-product-image" src="" alt="Product">
                     </div>
-                    <div class="thumbnail-images">
-                        <img id="thumb1" src="" alt="Thumbnail 1" class="active">
-                        <img id="thumb2" src="" alt="Thumbnail 2">
-                        <img id="thumb3" src="" alt="Thumbnail 3">
-                        <img id="thumb4" src="" alt="Thumbnail 4">
+                    <div class="thumbnail-gallery">
+                        <button class="thumbnail-nav prev-thumb" onclick="scrollThumbnails(-1)">
+                            <i class="bi bi-chevron-left"></i>
+                        </button>
+                        <div class="thumbnail-container">
+                            <div class="thumbnail-images" id="thumbnail-images">
+                                <!-- Thumbnails will be loaded here -->
+                            </div>
+                        </div>
+                        <button class="thumbnail-nav next-thumb" onclick="scrollThumbnails(1)">
+                            <i class="bi bi-chevron-right"></i>
+                        </button>
                     </div>
                 </div>
 
                 <div class="product-info">
-                    <h1 id="product-title">Product Name</h1>
-                    <div class="product-rating">
-                        <span class="rating-text">4.5 (128 reviews)</span>
+                    <h1 id="product-title">Tên sản phẩm</h1>
+                    <div class="product-code">
+                        <span>Mã sp: </span>
+                        <span id="product-code">-</span>
                     </div>
 
                     <div class="product-price">
-                        <span class="current-price" id="product-price">$0.00</span>
-                        <span class="original-price" id="original-price">$0.00</span>
-                        <span class="discount-badge" id="discount-badge">Save 15%</span>
-                    </div>
-
-                    <div class="product-description" id="product-description">
-                        render..
+                        <span class="current-price" id="product-price">0₫</span>
                     </div>
 
                     <div class="product-options">
                         <div class="option-group">
-                            <label>Color:</label>
-                            <div class="color-options">
-                                <button class="color-option active" data-color="red" style="background-color: #ff6b6b;"></button>
-                                <button class="color-option" data-color="blue" style="background-color: #4ecdc4;"></button>
-                                <button class="color-option" data-color="green" style="background-color: #45b7d1;"></button>
-                                <button class="color-option" data-color="purple" style="background-color: #96ceb4;"></button>
+                            <label>Màu sắc:</label>
+                            <div class="color-options-grid" id="color-options">
+                                <!-- Color options will be loaded here -->
                             </div>
                         </div>
 
-                        <div class="option-group">
-                            <label>Quantity:</label>
-                            <div class="quantity-selector">
-                                <button class="qty-btn" onclick="changeQuantity(-1)">-</button>
-                                <input type="number" id="quantity" value="1" min="1" max="99">
-                                <button class="qty-btn" onclick="changeQuantity(1)">+</button>
+                        <div class="shipping-info-box">
+                            <i class="bi bi-truck"></i>
+                            <div class="shipping-text">
+                                <span class="shipping-free">Miễn phí vận chuyển</span>
+                                <span class="shipping-condition">Cho đơn hàng từ 499.000₫</span>
                             </div>
                         </div>
 
-                        <div class="option-group">
-                            <label>Size:</label>
-                            <div class="size-options">
-                                <button class="size-option active">100g</button>
-                                <button class="size-option">200g</button>
-                                <button class="size-option">500g</button>
+                        <div class="option-group quantity-group">
+                            <label>Số lượng:</label>
+                            <div class="quantity-wrapper">
+                                <div class="quantity-selector">
+                                    <button class="qty-btn" onclick="changeQuantity(-1)">-</button>
+                                    <input type="number" id="quantity" value="1" min="1" max="99">
+                                    <button class="qty-btn" onclick="changeQuantity(1)">+</button>
+                                </div>
+                                <span class="stock-info" id="stock-info">14 sản phẩm có sẵn</span>
                             </div>
                         </div>
                     </div>
 
                     <div class="product-actions">
-                        <button class="btn-add-cart">
-                            <i class="bi bi-cart-plus"></i>
-                            Add to Cart
+                        <button class="btn-add-cart" onclick="addToCart()">
+                            Thêm vào giỏ hàng
                         </button>
-                        <button class="btn-buy-now">
-                            <i class="bi bi-lightning"></i>
-                            Buy Now
-                        </button>
-                        <button class="btn-wishlist">
-                            <i class="bi bi-heart"></i>
+                        <button class="btn-buy-now" onclick="buyNow()">
+                            Mua ngay
                         </button>
                     </div>
+                </div>
+            </section>
 
-                    <div class="product-meta">
-                        <div class="meta-item">
-                            <i class="bi bi-truck"></i>
-                            <span>Free shipping on orders over $50</span>
+            <!-- Product Details Sections (Collapsible) -->
+            <section class="product-details-sections">
+                <div class="detail-section">
+                    <button class="detail-section-header" onclick="toggleSection(this)">
+                        <span>Thông tin chi tiết sản phẩm</span>
+                        <i class="bi bi-chevron-down"></i>
+                    </button>
+                    <div class="detail-section-content">
+                        <div id="detailed-description">
+                            <!-- Detailed description will be loaded here -->
                         </div>
-                        <div class="meta-item">
-                            <i class="bi bi-arrow-clockwise"></i>
-                            <span>30-day return policy</span>
-                        </div>
-                        <div class="meta-item">
-                            <i class="bi bi-shield-check"></i>
-                            <span>Secure payment</span>
+                    </div>
+                </div>
+
+                <div class="detail-section">
+                    <button class="detail-section-header" onclick="toggleSection(this)">
+                        <span>Chất liệu</span>
+                        <i class="bi bi-chevron-down"></i>
+                    </button>
+                    <div class="detail-section-content">
+                        <div id="product-material">LEN</div>
+                    </div>
+                </div>
+
+                <div class="detail-section">
+                    <button class="detail-section-header" onclick="toggleSection(this)">
+                        <span>Đánh giá khách hàng</span>
+                        <i class="bi bi-chevron-down"></i>
+                    </button>
+                    <div class="detail-section-content">
+                        <div id="reviews-content">
+                            <!-- Reviews will be loaded here -->
                         </div>
                     </div>
                 </div>
             </section>
 
-            <!-- Product Details Tabs -->
-            <section class="product-tabs">
-                <div class="tab-buttons">
-                    <button class="tab-btn active" data-tab="description">Description</button>
-                    <button class="tab-btn" data-tab="specifications">Specifications</button>
-                    <button class="tab-btn" data-tab="reviews">Reviews</button>
-                    <button class="tab-btn" data-tab="shipping">Shipping</button>
-                </div>
-
-                <div class="tab-content">
-                    <div class="tab-pane active" id="description">
-                        <h3>Product Description</h3>
-                        <p id="detailed-description">Detailed product description will be loaded here...</p>
-                    
+            <!-- Similar Products -->
+            <section class="similar-products">
+                <h2>Sản phẩm cùng loại</h2>
+                <div class="similar-products-container">
+                    <button class="similar-nav prev-similar" onclick="scrollSimilar(-1)">
+                        <i class="bi bi-chevron-left"></i>
+                    </button>
+                    <div class="similar-products-scroll" id="similar-products">
+                        <!-- Similar products will be loaded here -->
                     </div>
-
-                    <div class="tab-pane" id="specifications">
-                        <h3>Product Specifications</h3>
-                        <div class="specs-grid">
-                            <div class="spec-item">
-                                <span class="spec-label">Material:</span>
-                                <span class="spec-value" id="spec-material">-</span>
-                            </div>
-                            <div class="spec-item">
-                                <span class="spec-label">Weight:</span>
-                                <span class="spec-value" id="spec-weight">-</span>
-                            </div>
-                            <div class="spec-item">
-                                <span class="spec-label">Length:</span>
-                                <span class="spec-value" id="spec-length">-</span>
-                            </div>
-                            <div class="spec-item">
-                                <span class="spec-label">Care Instructions:</span>
-                                <span class="spec-value" id="spec-care">-</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="tab-pane" id="reviews">
-                        <h3>Customer Reviews</h3>
-                        <div class="reviews-summary">
-                            
-
-                        </div>
-                        
-                        <div class="reviews-list" id="reviews-list">
-                            
-                        </div>
-                    </div>
-
-                    <div class="tab-pane" id="shipping">
-                        <h3>Shipping Information</h3>
-                        <div class="shipping-info">
-                            <div class="shipping-option">
-                                <h4>Standard Shipping</h4>
-                                <p>3-5 business days</p>
-                                <p class="shipping-price">$5.99</p>
-                            </div>
-                            <div class="shipping-option">
-                                <h4>Express Shipping</h4>
-                                <p>1-2 business days</p>
-                                <p class="shipping-price">$12.99</p>
-                            </div>
-                            <div class="shipping-option">
-                                <h4>Free Shipping</h4>
-                                <p>Orders over $50</p>
-                                <p class="shipping-price">FREE</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Related Products -->
-            <section class="related-products">
-                <h2>Related Products</h2>
-                <div class="related-grid" id="related-products">
-                    
+                    <button class="similar-nav next-similar" onclick="scrollSimilar(1)">
+                        <i class="bi bi-chevron-right"></i>
+                    </button>
                 </div>
             </section>
         </div>
     </main>
     <script src="js/header.js"></script>
     <script src="js/detail.js"></script>
-    <script src="js/footer.js" ></script>
-    <script src="js/breadcrumb.js" ></script>
+    <script src="js/footer.js"></script>
+    <script src="js/breadcrumb.js"></script>
 </body>
 
-</html> 
+</html>
