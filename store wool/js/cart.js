@@ -2,7 +2,7 @@
 let allProducts = [];
 let cartData = [];
 
-// Tải danh sách sản phẩm từ products.json
+// Tải danh sách sản phẩm từ products.json(tai thong tins an pham gio hang tu api get thong tin gio hang )
 async function loadProducts() {
     try {
         const response = await fetch('api/products.json');

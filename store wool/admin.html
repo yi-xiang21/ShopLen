@@ -105,84 +105,152 @@
             </section>
             <section class="main-section" data-section="order-management">
                 <h2 class="section-title">
-                    <p>Order Management</p>
+                    <p id="section-title-p">Order Management</p>
                     <button id="btn-export">Export Orders</button>
                 </h2>
-                <div id="filters-Order">
-                    <input type="text" placeholder="Search Order id...">
-                    <select id="OrderStatus" required>
-                        <option value="">Status</option>
-                        <option value="1">Success</option>
-                        <option value="2">Pending</option>
-                    </select>
-                </div>  
-                <div id="list-order">
-                    <div id="list-order-detail">
-                        <div class="order-header" id="oder-id-list">Order ID
-                            <div class="order-detail" id="order-id">
-                                a
+                <div id="order-main">
+                    <div id="filters-Order">
+                        <input type="text" placeholder="Search Order id...">
+                        <select id="OrderStatus" required>
+                            <option value="">Status</option>
+                            <option value="1">Success</option>
+                            <option value="2">Pending</option>
+                        </select>
+                    </div>  
+                    <div id="list-order">
+                        <div id="list-order-detail">
+                            <div class="order-header" id="oder-id-list">Order ID
+                                <div class="order-detail" id="order-id">
+                                    a
+                                </div>
+                            </div>                           
+                            <div class="order-header" id="order-cus-list">CUSTOMER
+                                <div class="order-detail" id="order-cus">
+                                    a
+                                </div>
+                            </div>                      
+                            <div class="order-header" id="oder-products-list">PRODUCT/WORKSHOP
+                                <div class="order-detail" id="order-products">
+                                    a
+                                </div>
                             </div>
-                        </div>                           
-                        <div class="order-header" id="order-cus-list">CUSTOMER
-                            <div class="order-detail" id="order-cus">
-                                a
+                            <div class="order-header" id="oder-cost-list">AMOUNT
+                                <div class="order-detail" id="order-cost">
+                                    a
+                                </div>
                             </div>
-                        </div>                      
-                        <div class="order-header" id="oder-products-list">PRODUCT/WORKSHOP
-                            <div class="order-detail" id="order-products">
-                                a
+                            <div class="order-header" id="oder-status-list">STATUS
+                                <div class="order-detail" id="order-status">
+                                    a
+                                </div>
+                            </div> 
+                            <div class="order-header" id="oder-date-list">DATE
+                                <div class="order-detail" class="order-detail" id="order-date">
+                                    a
+                                </div>
                             </div>
-                        </div>
-                        <div class="order-header" id="oder-cost-list">AMOUNT
-                            <div class="order-detail" id="order-cost">
-                                a
-                            </div>
-                        </div>
-                        <div class="order-header" id="oder-status-list">STATUS
-                            <div class="order-detail" id="order-status">
-                                a
-                            </div>
-                        </div> 
-                        <div class="order-header" id="oder-date-list">DATE
-                            <div class="order-detail" class="order-detail" id="order-date">
-                                a
-                            </div>
-                        </div>
-                        <div class="order-header" id="oder-action-list">ACTION
-                            <div id="order-action">
-                                <button type="submit" id="btn-view-order">View</button>
-                                <button type="button" id="btn-edit-order">Edit</button>
+                            <div class="order-header" id="oder-action-list">ACTION
+                                <div id="order-action">
+                                    <button type="submit" id="btn-view-order">View</button>
+                                    <button type="button" id="btn-edit-order">Edit</button>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <h2 class="section-title">
-                    <p>Order View</p>
-                </h2>
-                <div id="order-detail">
-                    <div id="order-detail-left">
-                        <div id="order-detail-main">
-                            a
+                <div id="order-view" style="display: none;">
+                    <div id="order-detail">
+                        <div id="order-detail-left">
+                            <div id="order-detail-main" class="card">
+                                <div class="order-main-row">
+                                    <div>
+                                        <h3>Id don hang</h3>
+                                        <div class="muted">Ngay dat</div>
+                                    </div>
+                                    <div class="order-actions">
+                                        <div class="order-price">50k</div>
+                                        <button class="btn btn-primary">Update Status</button>
+                                        <button class="btn btn-outline">Process Refund</button>
+                                    </div>
+                                </div>
+                                <div class="order-meta">
+                                    <div class="customer-card">
+                                        <div class="avatar">N</div>
+                                        <div class="customer-info">
+                                            <div class="name">Nam</div>
+                                            <div class="muted" id="numberphone">01232454</div>
+                                            <div class="muted" id="adress">TPHCM</div>
+                                        </div>
+                                    </div>
+                                    <div class="order-summary">
+                                        <div><strong>Order ID:</strong> 001</div>
+                                        <div><strong>Payment:</strong> Momo</div>
+                                        <div class="total"><strong>Total Amount:</strong> 50k</div>
+                                    </div>
+                                </div>
+                            </div>
+    
+                            <div id="order-detail-product" class="card">
+                                <h4>Product Details</h4>
+                                <div class="product-row">
+                                    <img src="./img/item8.png" alt="product" class="product-thumb">
+                                    <div class="product-info">
+                                        <h5>Premium Merino Wool Yarn</h5>
+                                        <p class="muted">Luxuriously soft merino wool yarn perfect for knitting and crocheting projects.</p>
+                                        <div class="product-meta">
+                                            <div><strong>Color:</strong> Dusty Rose</div>
+                                            <div><strong>Weight:</strong> 100g</div>
+                                            <div><strong>Material:</strong> 100% Merino Wool</div>
+                                            <div><strong>Quantity:</strong> 1</div>
+                                            <div class="muted price">Price: 50k</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div id="order-detail-product">
-                            a
-                        </div>
-                    </div>
-                    <div id="order-detail-right">
-                        <div id="order-detail-ship">
-                            a
-                        </div>
-                        <div id="order-detail-payment">
-                            a
-                        </div>
-                        <div id="order-detail-history">
-                            a
-                        </div>
-                        <div  id="order-detail-actions">
-                            a
+                        <div id="order-detail-right">
+                            <div id="order-detail-ship" class="card widget">
+                                <h4>Shipping Information</h4>
+                                <div class="muted"><strong>Method:</strong> Ship</div>
+                                <div class="muted"><strong>Carrier:</strong> GHTK</div>
+                                <div class="muted"><strong>Tracking #:</strong> 1Z999AA1234567890</div>
+                                <div class="muted"><strong>Estimated:</strong> Nov 6, 2025</div>
+                                <div class="muted"><strong>Actual:</strong> <span class="success">Nov 6, 2025</span></div>
+                            </div>
+    
+                            <div id="order-detail-payment" class="card widget">
+                                <h4>Payment Details</h4>
+                                <div><strong>Status:</strong> <span class="badge-paid">Success</span></div>
+                                <div class="muted"><strong>Method:</strong>Momo</div>
+                               
+                                <div class="summary">
+                                    <div><span>Subtotal:</span><span>50k</span></div>
+                                    <div><span>Shipping:</span><span>Free</span></div>
+                                    <div><span>Tax:</span><span>$0.00</span></div>
+                                    <div class="total-row"><strong>Total:</strong><strong>50k</strong></div>
+                                </div>
+                            </div>
+    
+                            <div id="order-detail-history" class="card widget">
+                                <h4>Customer History</h4>
+                                <div class="muted">Total Orders: <strong>7</strong></div>
+                                <div class="muted">Customer Since: <strong>7 2024</strong></div>
+                                <ul class="recent-orders">
+                                    <li>002 <span class="success">20k</span></li>
+                                    <li>045 <span class="success">30k</span></li>
+                                </ul>
+                            </div>
+    
+                            <div id="order-detail-actions" class="card widget actions">
+                                <button class="btn btn-primary full">Send Customer Email</button>
+                                <button class="btn btn-outline full">Print Shipping Label</button>
+                                <button class="btn btn-danger full">Issue Refund</button>
+                                <button class="btn btn-outline full" id="btn-back">Back</button>
+                            </div>
                         </div>
                     </div>
                 </div>
+                    
 
 
             </section>
@@ -254,6 +322,7 @@
     <script src="js/ai-integration.js"></script>
     <script src="js/managemant-products.js"></script>
     <script src="js/managemant-catagogy.js"></script>
+    <script src="js/managemant-order.js"></script>
 
 </body>
 

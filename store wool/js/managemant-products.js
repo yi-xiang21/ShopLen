@@ -301,7 +301,7 @@
                     <img src="${product.image}" alt="${product.name}">
                     <h3 class="item-name">${product.name}</h3>
                     <p class="item-category">Category: ${product.category}</p>
-                    <p class="item-price">Price: $${product.price.toFixed(2)}</p>
+                    <p class="item-price">Price: ${product.price}k</p>
                     <p class="item-stock">Stock: ${product.stock || 0}</p>
                     <div class="card-actions">
                         <button class="btn btn-edit" data-product-id="${product.id}">Edit</button>

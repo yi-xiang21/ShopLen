@@ -409,7 +409,7 @@ function toggleSection(button) {
 }
 
 
-// Thêm vào giỏ hàng
+// Thêm vào giỏ hàng( sua doi sang kieu lay du lieu xuat thanh json gui request den api them vao gio hang )
 function addToCart() {
     if (!currentProduct) return;
     
