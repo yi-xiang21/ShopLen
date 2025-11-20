@@ -12,6 +12,7 @@
 // 		return fetch(url, Object.assign({}, options, { headers }));
 // 	}
 
+// 	//Get user
 // 	async function fetchUsers() {
 // 		const res = await api('/users');
 // 		if (res.status === 401) throw new Error('UNAUTHORIZED');
@@ -20,6 +21,7 @@
 // 		return res.json();
 // 	}
 
+// 	//Render user hiển thị
 // 	function renderUsers(users) {
 // 		const tbody = document.querySelector('#usersTable tbody');
 // 		if (!tbody) return;
@@ -39,6 +41,7 @@
 // 		`).join('');
 // 	}
 
+// 	//Lấy dữ liệu form
 // 	function getFormData(form) {
 // 		const data = Object.fromEntries(new FormData(form).entries());
 // 		//Xóa các trường rỗng
@@ -68,20 +71,21 @@
 // 	document.addEventListener('DOMContentLoaded', async function() {
 // 		if (!document.querySelector('.main-section[data-section="account-management"]')) return;
 
-// 		// //Kiểm tra token và quyền
-// 		// const token = getToken();
-// 		// const role = getRole();
-// 		// if (!token) {
-// 		// 	alert('Vui lòng đăng nhập để truy cập trang quản trị.');
-// 		// 	window.location.href = 'login.html';
-// 		// 	return;
-// 		// }
-// 		// if (role !== 'admin') {
-// 		// 	alert('Bạn không có quyền admin để truy cập mục này.');
-// 		// 	window.location.href = 'index.html';
-// 		// 	return;
-// 		// }
+// 		//Kiểm tra token và quyền
+// 		const token = getToken();
+// 		const role = getRole();
+// 		if (!token) {
+// 			alert('Vui lòng đăng nhập để truy cập trang quản trị.');
+// 			window.location.href = 'login.html';
+// 			return;
+// 		}
+// 		if (role !== 'admin') {
+// 			alert('Bạn không có quyền admin để truy cập mục này.');
+// 			window.location.href = 'index.html';
+// 			return;
+// 		}
 
+// 		//Tạo giao diện quản lý
 // 		const container = document.querySelector('.main-section[data-section="account-management"]');
 // 		container.insertAdjacentHTML('beforeend', `
 // 			<div class="admin-accounts">
@@ -138,6 +142,7 @@
 // 		const form = document.getElementById('userForm');
 // 		const btnAdd = document.getElementById('btnAddUser');
 
+// 		//Mở modal
 // 		function openModal(title, user) {
 // 			document.getElementById('modalTitle').textContent = title;
 // 			form.reset();
@@ -153,9 +158,11 @@
 // 		}
 // 		function closeModal() { modal.style.display = 'none'; }
 
+// 		//Button Add, Cancel
 // 		btnAdd.addEventListener('click', () => openModal('Add User'));
 // 		form.querySelector('.btn-cancel').addEventListener('click', closeModal);
 
+// 		//Button Submit
 // 		form.addEventListener('submit', async function(e) {
 // 			e.preventDefault();
 // 			const id = form.elements.id.value;
@@ -185,6 +192,7 @@
 // 			}
 // 		});
 
+// 		//Xử lý Edit, Delete
 // 		document.addEventListener('click', async function(e) {
 // 			if (e.target.classList.contains('btn-edit')) {
 // 				const tr = e.target.closest('tr');
@@ -221,6 +229,7 @@
 // 			}
 // 		});
 
+// 		//Hàm load danh sách
 // 		async function reload() {
 // 			try {
 // 				const data = await fetchUsers();

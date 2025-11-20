@@ -1,7 +1,7 @@
 // AI Chatbot tích hợp đơn giản
 class SimpleAIChat {
     constructor() {
-        this.apiKey = "AIzaSyBSDSVfCb2R7AzYE-JsJfSTIPqVhAD0JWI";
+        this.apiKey = "AIzaSyB-M8iwktpXsiAkS5pmvUcuNWKl8MzdN44";
         this.model = "gemini-2.5-pro";
     }
 

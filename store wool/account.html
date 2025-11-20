@@ -173,45 +173,6 @@
     </main>
     
     <script>
-        document.addEventListener('DOMContentLoaded', async function () {
-            if (!window.location.pathname.toLowerCase().includes('account.html')) return;
-
-            try {
-                const res = await fetch('api/account.json');
-                const data = await res.json();
-
-                // Sidebar và avatar
-                document.querySelectorAll('.sidebar-avatar, .main-avatar').forEach(e => e.textContent = data.avatar || '');
-                document.querySelectorAll('.sidebar-name, .main-name').forEach(e => e.textContent = `${data.firstName} ${data.lastName}`);
-
-                // Badges
-                document.querySelector('.badge i.bi-calendar-check').parentElement.querySelector('span').textContent = data.workshopsAttended ?? '';
-                document.querySelector('.badge i.bi-calendar-event').parentElement.querySelector('span').textContent = data.upcomingWorkshops ?? '';
-
-                // Form fields (fetch theo name)
-                const form = document.querySelector('.account-form');
-                if (form) {
-                    form.querySelector('[name="firstName"]').value = data.firstName || '';
-                    form.querySelector('[name="lastName"]').value = data.lastName || '';
-                    form.querySelector('[name="email"]').value = data.email || '';
-                    form.querySelector('[name="phone"]').value = data.phone || '';
-                    form.querySelector('[name="address"]').value = data.address || '';
-                    form.querySelector('[name="city"]').value = data.city || '';
-
-                    // Interests
-                    const allLabels = Array.from(form.querySelectorAll('.interests-list label'));
-                    allLabels.forEach(label => {
-                        const input = label.querySelector('input[type="checkbox"]');
-                        if (input) {
-                            input.checked = data.interests && data.interests.includes(label.textContent.trim());
-                        }
-                    });
-                }
-            } catch (err) {
-                console.error('Không thể tải dữ liệu tài khoản:', err);
-            }
-        });
-
         function setupSidebarTabs() {
             const menuItems = document.querySelectorAll('.sidebar-menu li');
             const sections = document.querySelectorAll('.main-section');
@@ -384,6 +345,8 @@
             }
         }
     </script>
+    <script src="js/config.js"></script>
+    <script src="js/account-profile.js"></script>
     <script src="js/header.js"></script>
     <script src="js/footer.js"></script>
     <script src="js/js.js"></script>

@@ -79,6 +79,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
 });
+
 ///ktra dang nhap
 document.addEventListener('DOMContentLoaded', function() {
   // Xử lý submit form đăng nhập
@@ -103,14 +104,20 @@ document.addEventListener('DOMContentLoaded', function() {
         if (data.status === 'success') {
           const storage = remember ? localStorage : sessionStorage;
           storage.setItem('isLoggedIn', 'true');
-          storage.setItem('userRole', data.role || 'customer');
-          storage.setItem('userEmail', data.email || username);
 
-          // Lưu thông tin user nếu có
           if (data.user) {
+            const displayName = data.user.name || `${data.user.firstName || ''} ${data.user.lastName || ''}`.trim();
+            const role = data.user.role || data.role || 'customer';
+            const emailValue = data.user.email || data.email || username;
+            storage.setItem('userRole', role);
+            storage.setItem('userEmail', emailValue);
             storage.setItem('userId', data.user.id);
-            storage.setItem('userName', data.user.name);
+            if (displayName) storage.setItem('userName', displayName);
+          } else {
+            storage.setItem('userRole', data.role || 'customer');
+            storage.setItem('userEmail', data.email || username);
           }
+
           if (data.token) {
             storage.setItem('token', data.token);
           }
@@ -129,6 +136,7 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     });
   }
+
   //ktra dang ky
   const registerForm = document.querySelector('.register-form');
   if (registerForm) {
@@ -150,13 +158,14 @@ document.addEventListener('DOMContentLoaded', function() {
         return;
       }
       const address = '';
+      const city = '';
 
       try {
         const apiUrl = typeof getApiUrl !== 'undefined' ? getApiUrl('/auth/register') : 'http://localhost:3000/auth/register';
         const res = await fetch(apiUrl, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ name, username, password, email, phone, address })
+          body: JSON.stringify({ name, firstName, lastName, username, password, email, phone, address, city })
         });
         const data = await res.json();
         alert(data.message);
@@ -169,7 +178,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 });
-
 
 //an hien dropdown user menu
 document.addEventListener('DOMContentLoaded', function() {
@@ -194,18 +202,21 @@ document.addEventListener('DOMContentLoaded', function() {
       window.location.href = 'register.html';
     });
   });
+
   document.querySelectorAll('.go-login').forEach(btn => {
     btn.addEventListener('click', function(e) {
       e.preventDefault();
       window.location.href = 'login.html';
     });
   });
+
   document.querySelectorAll('.go-account').forEach(btn => {
     btn.addEventListener('click', function(e) {
       e.preventDefault();
       window.location.href = 'account.html';
     });
   });
+  
   document.querySelectorAll('.go-admin').forEach(btn => {
     btn.addEventListener('click', function(e) {
       e.preventDefault();
