@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 
 <head>
     <meta charset="UTF-8">
@@ -21,28 +21,28 @@
             <div class="direction" id="breadcrumb"></div>
             <aside class="admin-sidebar">
                 <ul class="sidebar-menu">
-                    <li class="active" data-section="product-management"><i class="bi bi-wrench"></i>Product Management
+                    <li class="active" data-section="product-management"><i class="bi bi-wrench"></i>Quản lý sản phẩm
                     </li>
-                    <li data-section="order-management"><i class="bi bi-cart"></i>Order Management</li>
-                    <li data-section="account-management"><i class="bi bi-person"></i> Account Management</li>
-                    <li data-section="category-management"><i class="bi-list-nested"></i> Category Management</li>
+                    <li data-section="order-management"><i class="bi bi-cart"></i>Quản lý đơn hàng</li>
+                    <li data-section="account-management"><i class="bi bi-person"></i> Quản lý tài khoản</li>
+                    <li data-section="category-management"><i class="bi-list-nested"></i> Quản lý danh mục</li>
                 </ul>
             </aside>
 
             <!-- Main Content -->
             <section class="main-section active" data-section="product-management">
                 <h2 class="section-title">
-                    <p>Product Management</p>
-                    <button id="btn-add">+ Add Product</button>
+                    <p>Quản lý sản phẩm</p>
+                    <button id="btn-add">+ Thêm sản phẩm</button>
                 </h2>
                 <div id="product-list-view">
                     <div class="filters">
-                        <input type="text" placeholder="Search products...">
+                        <input type="text" placeholder="Tìm sản phẩm...">
                         <select>
-                            <option>All Categories</option>
-                            <option>Yarn Cotton</option>
-                            <option>Yarn Wool</option>
-                            <option>Tool</option>
+                            <option>Tất cả danh mục</option>
+                            <option>Len Cotton</option>
+                            <option>Len Wool</option>
+                            <option>Công cụ</option>
                             <option>Workshop</option>
                         </select>
                     </div>
@@ -51,52 +51,58 @@
 
                     </div>
                     <div class="pagination">
-                        <button class="btn btn-prev" onclick="prev()">Previous</button>
-                        <button class="btn btn-next" onclick="next()">Next</button>
+                        <button class="btn btn-prev" onclick="prev()">Trước</button>
+                        <button class="btn btn-next" onclick="next()">Tiếp</button>
                     </div>
                 </div>
 
                 <div id="add-product-view" style="display: none;">
-                    <h3>Add New Product</h3>
+                    <h3>Thêm sản phẩm mới</h3>
                     <div id="addProductForm">
                         <div class="form-section">
-                            <label>Product Name:</label>
-                            <input type="text" id="productName" required>
+                            <label>Tên sản phẩm:</label>
+                            <input type="text" id="productName" required >
 
-                            <label>Category:</label>
+                            <label>Danh mục:</label>
                             <select id="productCategory" required>
-                                <option value="">-- Select Category --</option>
-                                <option value="1">Yarn Cotton</option>
-                                <option value="2">Yarn Wool</option>
-                                <option value="3">Tools</option>
-                                <option value="4">Workshop</option>
+                                <option value="">-- Chọn danh mục --</option>
+                                <option value="1">Len Cotton</option>
+                                <option value="2">Len Alpaca</option>
+                                <option value="3">Công cụ</option>
+                                <option value="4">Len Acrylic</option>
+                                <option value="4">Len cừu</option>
                             </select>
 
-                            <label>Price:</label>
+                            <label>Giá:</label>
                             <input type="number" id="productPrice" step="0.01" required>
 
-                            <label>Description:</label>
+                            <label>Mô tả:</label>
                             <textarea id="productDescription" rows="3"></textarea>
 
-                            <label>Image URL:</label>
-                            <input type="text" id="productImage">
+                            <label>Hình ảnh sản phẩm:</label>
+                            <div id="productImagesList" class="images-list-product">
+                                <!-- product image inputs will be injected here -->
+                            </div>
+                            <button type="button" id="btnAddProductImg" class="btn-add-product-img">Thêm hình</button>
 
-                            <label>Product Type:</label>
+                            <label>Loại sản phẩm:</label>
                             <select id="productType">
                                 <option value="san_pham">Sản phẩm</option>
                                 <option value="workshop">Workshop</option>
                             </select>
+
                         </div>
+                        
 
                         <div class="variant-section">
-                            <h4>Product Variants</h4>
+                            <h4>Biến thể sản phẩm</h4>
                             <div id="variantContainer">
 
                             </div>
-                            <button type="button" class="btn btn-add-variant" id="btnAddVariant">+ Add Variant</button>
+                            <button type="button" class="btn btn-add-variant" id="btnAddVariant">+ Thêm biến thể</button>
                             <div class="form-buttons">
-                                <button type="submit" class="btn btn-save">Save Product</button>
-                                <button type="button" class="btn btn-back" id="btnBackToList">Back</button>
+                                <button type="submit" class="btn btn-save">Lưu sản phẩm</button>
+                                <button type="button" class="btn btn-back" id="btnBackToList">Quay lại</button>
                             </div>
                         </div>
                     </div>
@@ -105,54 +111,49 @@
             </section>
             <section class="main-section" data-section="order-management">
                 <h2 class="section-title">
-                    <p id="section-title-p">Order Management</p>
-                    <button id="btn-export">Export Orders</button>
+                    <p id="section-title-p">Quản lý đơn hàng</p>
+                    <button id="btn-export">Xuất đơn hàng</button>
                 </h2>
                 <div id="order-main">
                     <div id="filters-Order">
-                        <input type="text" placeholder="Search Order id...">
+                        <input type="text" placeholder="Tìm mã đơn...">
                         <select id="OrderStatus" required>
-                            <option value="">Status</option>
-                            <option value="1">Success</option>
-                            <option value="2">Pending</option>
+                            <option value="">Trạng thái</option>
+                            <option value="1">Hoàn thành</option>
+                            <option value="2">Đang chờ</option>
                         </select>
                     </div>  
                     <div id="list-order">
                         <div id="list-order-detail">
-                            <div class="order-header" id="oder-id-list">Order ID
+                            <div class="order-header" id="oder-id-list">Mã đơn
                                 <div class="order-detail" id="order-id">
                                     a
                                 </div>
                             </div>                           
-                            <div class="order-header" id="order-cus-list">CUSTOMER
+                            <div class="order-header" id="order-cus-list">KHÁCH HÀNG
                                 <div class="order-detail" id="order-cus">
                                     a
                                 </div>
                             </div>                      
-                            <div class="order-header" id="oder-products-list">PRODUCT/WORKSHOP
-                                <div class="order-detail" id="order-products">
-                                    a
-                                </div>
-                            </div>
-                            <div class="order-header" id="oder-cost-list">AMOUNT
+                            <div class="order-header" id="oder-cost-list">TỔNG
                                 <div class="order-detail" id="order-cost">
                                     a
                                 </div>
                             </div>
-                            <div class="order-header" id="oder-status-list">STATUS
+                            <div class="order-header" id="oder-status-list">TRẠNG THÁI
                                 <div class="order-detail" id="order-status">
                                     a
                                 </div>
                             </div> 
-                            <div class="order-header" id="oder-date-list">DATE
+                            <div class="order-header" id="oder-date-list">NGÀY
                                 <div class="order-detail" class="order-detail" id="order-date">
                                     a
                                 </div>
                             </div>
-                            <div class="order-header" id="oder-action-list">ACTION
+                            <div class="order-header" id="oder-action-list">HÀNH ĐỘNG
                                 <div id="order-action">
-                                    <button type="submit" id="btn-view-order">View</button>
-                                    <button type="button" id="btn-edit-order">Edit</button>
+                                    <button type="submit" id="btn-view-order">Xem</button>
+                                    <button type="button" id="btn-edit-order">Sửa</button>
                                 </div>
                             </div>
                         </div>
@@ -164,13 +165,13 @@
                             <div id="order-detail-main" class="card">
                                 <div class="order-main-row">
                                     <div>
-                                        <h3>Id don hang</h3>
-                                        <div class="muted">Ngay dat</div>
+                                        <h3>Mã đơn hàng</h3>
+                                        <div class="muted">Ngày đặt</div>
                                     </div>
                                     <div class="order-actions">
                                         <div class="order-price">50k</div>
-                                        <button class="btn btn-primary">Update Status</button>
-                                        <button class="btn btn-outline">Process Refund</button>
+                                        <button class="btn btn-primary">Cập nhật trạng thái</button>
+                                        <button class="btn btn-outline">Xử lý hoàn tiền</button>
                                     </div>
                                 </div>
                                 <div class="order-meta">
@@ -183,26 +184,26 @@
                                         </div>
                                     </div>
                                     <div class="order-summary">
-                                        <div><strong>Order ID:</strong> 001</div>
-                                        <div><strong>Payment:</strong> Momo</div>
-                                        <div class="total"><strong>Total Amount:</strong> 50k</div>
+                                        <div><strong>Mã đơn:</strong> 001</div>
+                                        <div><strong>Thanh toán:</strong> Momo</div>
+                                        <div class="total"><strong>Tổng tiền:</strong> 50k</div>
                                     </div>
                                 </div>
                             </div>
     
                             <div id="order-detail-product" class="card">
-                                <h4>Product Details</h4>
+                                <h4>Thông tin sản phẩm</h4>
                                 <div class="product-row">
                                     <img src="./img/item8.png" alt="product" class="product-thumb">
                                     <div class="product-info">
                                         <h5>Premium Merino Wool Yarn</h5>
                                         <p class="muted">Luxuriously soft merino wool yarn perfect for knitting and crocheting projects.</p>
                                         <div class="product-meta">
-                                            <div><strong>Color:</strong> Dusty Rose</div>
-                                            <div><strong>Weight:</strong> 100g</div>
-                                            <div><strong>Material:</strong> 100% Merino Wool</div>
-                                            <div><strong>Quantity:</strong> 1</div>
-                                            <div class="muted price">Price: 50k</div>
+                                            <div><strong>Màu:</strong> Dusty Rose</div>
+                                            <div><strong>Khối lượng:</strong> 100g</div>
+                                            <div><strong>Chất liệu:</strong> 100% Merino Wool</div>
+                                            <div><strong>Số lượng:</strong> 1</div>
+                                            <div class="muted price">Giá: 50k</div>
                                         </div>
                                     </div>
                                 </div>
@@ -210,31 +211,32 @@
                         </div>
                         <div id="order-detail-right">
                             <div id="order-detail-ship" class="card widget">
-                                <h4>Shipping Information</h4>
-                                <div class="muted"><strong>Method:</strong> Ship</div>
-                                <div class="muted"><strong>Carrier:</strong> GHTK</div>
-                                <div class="muted"><strong>Tracking #:</strong> 1Z999AA1234567890</div>
-                                <div class="muted"><strong>Estimated:</strong> Nov 6, 2025</div>
-                                <div class="muted"><strong>Actual:</strong> <span class="success">Nov 6, 2025</span></div>
+                                <h4>Thông tin vận chuyển</h4>
+                                <div class="muted"><strong>Phương thức:</strong> Giao hàng</div>
+                                <div class="muted"><strong>Đơn vị:</strong> GHTK</div>
+                                <div class="muted"><strong>Mã vận đơn:</strong> 1Z999AA1234567890</div>
+                                <div class="muted"><strong>Dự kiến:</strong> Nov 6, 2025</div>
+                                <div class="muted"><strong>Thực tế:</strong> <span class="success">Nov 6, 2025</span></div>
                             </div>
     
                             <div id="order-detail-payment" class="card widget">
-                                <h4>Payment Details</h4>
-                                <div><strong>Status:</strong> <span class="badge-paid">Success</span></div>
-                                <div class="muted"><strong>Method:</strong>Momo</div>
+                                <h4>Chi tiết thanh toán</h4>
+                                <div><strong>Trạng thái:</strong> <span class="badge-paid">Hoàn thành</span></div>
+                                <div class="muted"><strong>Phương thức:</strong> Momo</div>
+                                <div class="muted"><strong>Mã giao dịch:</strong>123456789</div>
                                
                                 <div class="summary">
-                                    <div><span>Subtotal:</span><span>50k</span></div>
-                                    <div><span>Shipping:</span><span>Free</span></div>
-                                    <div><span>Tax:</span><span>$0.00</span></div>
-                                    <div class="total-row"><strong>Total:</strong><strong>50k</strong></div>
+                                    <div><span>Tạm tính:</span><span>50k</span></div>
+                                    <div><span>Vận chuyển:</span><span>Miễn phí</span></div>
+                                    <div><span>Thuế:</span><span>0</span></div>
+                                    <div class="total-row"><strong>Tổng:</strong><strong>50k</strong></div>
                                 </div>
                             </div>
     
                             <div id="order-detail-history" class="card widget">
-                                <h4>Customer History</h4>
-                                <div class="muted">Total Orders: <strong>7</strong></div>
-                                <div class="muted">Customer Since: <strong>7 2024</strong></div>
+                                <h4>Lịch sử khách hàng</h4>
+                                <div class="muted">Tổng đơn: <strong>7</strong></div>
+                                <div class="muted">Khách từ: <strong>7 2024</strong></div>
                                 <ul class="recent-orders">
                                     <li>002 <span class="success">20k</span></li>
                                     <li>045 <span class="success">30k</span></li>
@@ -242,10 +244,10 @@
                             </div>
     
                             <div id="order-detail-actions" class="card widget actions">
-                                <button class="btn btn-primary full">Send Customer Email</button>
-                                <button class="btn btn-outline full">Print Shipping Label</button>
-                                <button class="btn btn-danger full">Issue Refund</button>
-                                <button class="btn btn-outline full" id="btn-back">Back</button>
+                                <button class="btn btn-primary full">Gửi email khách</button>
+                                <button class="btn btn-outline full">In nhãn vận chuyển</button>
+                                <button class="btn btn-danger full">Hoàn tiền</button>
+                                <button class="btn btn-outline full" id="btn-back">Quay lại</button>
                             </div>
                         </div>
                     </div>
@@ -255,31 +257,30 @@
 
             </section>
             <section class="main-section" data-section="account-management">
-                <h2 class="section-title">Account Management</h2>
+                <h2 class="section-title">Quản lý tài khoản</h2>
 
             </section>
             <section class="main-section" data-section="category-management">
                 <div id="category-management-header">
-                    <h2 class="section-title">Category Management</h2>
-                    <button id="btn-add-category">+ Add Category</button>
+                    <h2 class="section-title">Quản lý danh mục</h2>
+                    <button id="btn-add-category">+ Thêm danh mục</button>
                 </div>
                 <div id="category-list-view">
                     <div class="filters">
-                        <input type="text" placeholder="Search categories...">
+                        <input type="text" placeholder="Tìm danh mục...">
                     </div>
                     <div id="category-list">
                     </div>
                 </div>
                 <div id="form-catagory" style="display: none;">
-                    <p id="catagory-form-title">Add New categories</p>
-                    <label>Category Name:</label>
+                    <p id="catagory-form-title">Thêm danh mục mới</p>
+                    <label>Tên danh mục:</label>
                     <input type="text" id="cate-name" required>
-                    <H3>Description</H3>
-                    <textarea id="note" name="note" rows="4" cols="50" placeholder="Description hear...">
-                    </textarea>
+                    <H3>Mô tả</H3>
+                    <textarea id="note" name="note" rows="4" cols="50" placeholder="Mô tả..."></textarea>
                     <div id="form-catagory-actions">
-                        <button type="submit" id="btn-save-catalo">Save</button>
-                        <button type="button" id="btn-back-catalo">Back</button>
+                        <button type="submit" id="btn-save-catalo">Lưu</button>
+                        <button type="button" id="btn-back-catalo">Quay lại</button>
                     </div>
                 </div>
             </section>

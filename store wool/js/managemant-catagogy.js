@@ -23,8 +23,8 @@ async function fetchCategories() {
                         <span id="category-description-text">${category.description}</span>
                     </div>
                     <div class="category-actions">
-                        <button class="btn btn-editcate" id="btn-edit-category">Edit</button>
-                        <button class="btn btn-deletecate" id="btn-delete-category">Delete</button>
+                        <button class="btn btn-editcate" id="btn-edit-category">Sửa</button>
+                        <button class="btn btn-deletecate" id="btn-delete-category">Xóa</button>
                     </div>
                 </div>
             `;

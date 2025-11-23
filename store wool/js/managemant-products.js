@@ -7,6 +7,9 @@
         //tinh nang sort (chua viet)
 
 
+        // product-level images list and add button (DOM refs)
+        let productImagesList, btnAddProductImg;
+
         // Hàm reset form thủ công (vì addProductForm là div, không phải form)
         function resetForm() {
             if (inputname) inputname.value = '';
@@ -16,12 +19,21 @@
             if (inputimg) inputimg.value = '';
             if (inputtype) inputtype.value = 'san_pham';
             if (variantContainer) variantContainer.innerHTML = '';
+            if (productImagesList) {
+                productImagesList.innerHTML = '';
+                // ensure one non-removable empty image input is present
+                productImagesList.appendChild(createProductImageRow('', false));
+            }
         }
 
         // Hàm thêm variant vào form (dùng chung cho add và edit)
         function addVariantToForm(variant = null) {
             const variantDiv = document.createElement('div');
             variantDiv.classList.add('variant-item');
+
+            // If variant.image is array convert to array else single string
+            const images = variant ? (Array.isArray(variant.image) ? variant.image : (variant.image ? [variant.image] : [])) : [];
+
             variantDiv.innerHTML = `
             <div class="variant-fields">
                 <label>Color:</label>
@@ -33,8 +45,10 @@
                 <label>Material:</label>
                 <input type="text" name="variantMaterial" placeholder="Cotton" value="${variant ? (variant.material || '') : ''}">
 
-                <label>Image URL:</label>
-                <input type="text" name="variantImage" placeholder="Image URL" value="${variant ? (variant.image || '') : ''}">
+                <label>Images:</label>
+                <div class="images-list">
+                    <!-- image inputs will be injected here -->
+                </div>
 
                 <label>Extra Price:</label>
                 <input type="number" name="variantPriceExtra" step="0.01" value="${variant ? (variant.priceExtra || 0) : 0}">
@@ -42,15 +56,66 @@
                 <label>Stock:</label>
                 <input type="number" name="variantStock" step="1" value="${variant ? (variant.stock || 0) : 0}">
 
-                <button type="button" class="btn btn-remove-variant">Remove</button>
+                <div class="variant-actions">
+                    <button type="button" class="btn btn-remove-variant">Remove Variant</button>
+                    <button type="button" class="btn btn-add-img">Thêm hình</button>
+                </div>
             </div>
         `;
+
             variantContainer.appendChild(variantDiv);
 
-            // Thêm sự kiện xóa
+            const imagesList = variantDiv.querySelector('.images-list');
+
+            // helper to create one image row (input + optional remove button)
+            // removable === false => do not render remove button (used for first/default image)
+            function createImageRow(value = '', removable = true) {
+                const row = document.createElement('div');
+                row.classList.add('image-row');
+                if (removable) {
+                    row.innerHTML = `
+                        <input type="text" name="variantImage" class="variant-image-input" placeholder="Image URL"  value="${value}">
+                        <button type="button" class="btn btn-remove-image">Xóa</button>
+                    `;
+                    // xóa input thêm hình
+                    row.querySelector('.btn-remove-image').addEventListener('click', () => row.remove());
+                } else {
+                    row.innerHTML = `
+                        <input type="text" name="variantImage" class="variant-image-input" placeholder="Image URL" value="${value}">
+                    `;
+                }
+                return row;
+            }
+
+            // khởi tạo input hình: luôn giữ 1 input không được xóa (là input đầu tiên)
+            if (images.length) {
+                images.forEach((img, idx) => imagesList.appendChild(createImageRow(img, idx > 0)));
+            } else {
+                // hiển thị 1 input trống, không được xóa
+                imagesList.appendChild(createImageRow('', false));
+            }
+
+            // sự kiện nút thêm hình (các input mới có thể xóa được)
+            variantDiv.querySelector('.btn-add-img').addEventListener('click', () => {
+                imagesList.appendChild(createImageRow('', true));
+            });
+
+            // Thêm sự kiện xóa variant
             variantDiv.querySelector('.btn-remove-variant').addEventListener('click', () => {
                 variantDiv.remove();
             });
+        }
+
+        // Trả về dữ liệu của một variant DOM element, thu thập tất cả image inputs thành mảng
+        function getVariantData(variantDiv) {
+            return {
+                color: variantDiv.querySelector('[name="variantColor"]').value,
+                size: variantDiv.querySelector('[name="variantSize"]').value,
+                material: variantDiv.querySelector('[name="variantMaterial"]').value,
+                images: Array.from(variantDiv.querySelectorAll('.variant-image-input')).map(i => i.value).filter(v => v && v.trim() !== ''),
+                priceExtra: parseFloat(variantDiv.querySelector('[name="variantPriceExtra"]').value) || 0,
+                stock: parseInt(variantDiv.querySelector('[name="variantStock"]').value) || 0
+            };
         }
 
         // Hàm load sản phẩm vào form để edit
@@ -73,7 +138,11 @@
             inputcatalogy.value = product.category || '';
             inputprice.value = product.price || 0;
             inputdescription.value = product.description || '';
-            inputimg.value = product.image || '';
+            // product.image may be string or array
+            inputimg.value = Array.isArray(product.image) ? product.image.join(', ') : (product.image || '');
+            // initialize product-level images UI
+            const productImages = product.image ? (Array.isArray(product.image) ? product.image : [product.image]) : [];
+            initProductImages(productImages);
             inputtype.value = product.type || 'san_pham';
 
             // Xóa các variants cũ
@@ -104,58 +173,7 @@
 
 
         }
-        // ham save (can chinh sua them ktra dau vao )
-        // document.querySelector('.btn-save').addEventListener('click', function () {
-        //     const editId = addView.getAttribute('data-edit-id');
-
-        //     // Thu thập dữ liệu từ input
-        //     const newProduct = {
-        //         id: editId ? parseInt(editId) : Date.now(), // nếu có id => update, nếu không => thêm mới
-        //         name: inputname.value,
-        //         category: inputcatalogy.value,
-        //         price: parseFloat(inputprice.value),
-        //         description: inputdescription.value,
-        //         image: inputimg.value,
-        //         type: inputtype.value,
-        //         variants: Array.from(variantContainer.querySelectorAll('.variant-item')).map(v => ({
-        //             color: v.querySelector('[name="variantColor"]').value,
-        //             size: v.querySelector('[name="variantSize"]').value,
-        //             material: v.querySelector('[name="variantMaterial"]').value,
-        //             image: v.querySelector('[name="variantImage"]').value,
-        //             priceExtra: parseFloat(v.querySelector('[name="variantPriceExtra"]').value),
-        //             stock: parseInt(v.querySelector('[name="variantStock"]').value)
-        //         }))
-        //     };
-
-        //     // Nếu edit => cập nhật trong mảng
-        //     if (editId) {
-        //         const index = productsData.findIndex(p => p.id == editId);
-        //         if (index !== -1) {
-        //             productsData[index] = newProduct;
-        //         }
-        //     }
-        //     // Nếu không có id => thêm mới
-        //     else {
-        //         productsData.push(newProduct);
-        //     }
-
-        // goi api luu
-        // fetch('/api/save-product', {
-        //     method: 'POST',
-        //     headers: { 'Content-Type': 'application/json' },
-        //     body: JSON.stringify(newProduct)
-        // })
-        //     .then(res => res.json())
-        //     .then(result => {
-        //         console.log('Đã lưu:', result);
-        //     })
-        //     .catch(err => console.error('Lỗi lưu:', err));
-
-        // Quay lại view danh sách
-        //     addView.style.display = 'none';
-        //     listView.style.display = 'block';
-        //     renderProducts();
-        // });
+        
 
         // Hàm setup edit buttons
         function setupEditButtons() {
@@ -219,6 +237,8 @@
             inputprice = document.getElementById('productPrice');
             inputdescription = document.getElementById('productDescription');
             inputimg = document.getElementById('productImage');
+            productImagesList = document.getElementById('productImagesList');
+            btnAddProductImg = document.getElementById('btnAddProductImg');
             inputtype = document.getElementById('productType');
 
             //end tinh nang edit sp
@@ -239,6 +259,17 @@
             }
             if (!listView) {
                 console.error('Không tìm thấy product-list-view');
+            }
+            // Ensure product images UI exists and initialize
+            if (productImagesList && productImagesList.children.length === 0) {
+                // if there's a prefilled inputimg value, use it (compat)
+                const initial = inputimg && inputimg.value ? (inputimg.value.split(',').map(s => s.trim()).filter(Boolean)) : [];
+                initProductImages(initial);
+            }
+            if (btnAddProductImg) {
+                btnAddProductImg.addEventListener('click', () => {
+                    if (productImagesList) productImagesList.appendChild(createProductImageRow('', true));
+                });
             }
             // Toggle view
             btnAdd.addEventListener('click', () => {
@@ -345,4 +376,39 @@
                 currentPage--;
                 renderProducts();
             }
+        }
+
+        // Create product-level image input row (removable=false => no delete button)
+        function createProductImageRow(value = '', removable = true) {
+            const row = document.createElement('div');
+            row.classList.add('product-image-row');
+            if (removable) {
+                row.innerHTML = `
+                    <input type="text" name="productImageInput" class="product-image-input" placeholder="Image URL" value="${value}">
+                    <button type="button" class="btn btn-remove-product-image">Xóa</button>
+                `;
+                row.querySelector('.btn-remove-product-image').addEventListener('click', () => row.remove());
+            } else {
+                row.innerHTML = `
+                    <input type="text" name="productImageInput" class="product-image-input" placeholder="Image URL" value="${value}">
+                `;
+            }
+            return row;
+        }
+
+        // Initialize product-level images list with an array of image URLs
+        function initProductImages(images = []) {
+            if (!productImagesList) return;
+            productImagesList.innerHTML = '';
+            if (images && images.length) {
+                images.forEach((img, idx) => productImagesList.appendChild(createProductImageRow(img, idx > 0)));
+            } else {
+                productImagesList.appendChild(createProductImageRow('', false));
+            }
+        }
+
+        // Collect product-level images into an array (filter out empty)
+        function getProductImages() {
+            if (!productImagesList) return [];
+            return Array.from(productImagesList.querySelectorAll('.product-image-input')).map(i => i.value).filter(v => v && v.trim() !== '');
         }

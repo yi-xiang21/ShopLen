@@ -487,8 +487,8 @@
                     <td>${u.phone || ''}</td>
                     <td>${u.role || ''}</td>
                     <td>
-                        <button class="btn-edit" data-id="${u.id}">Edit</button>
-                        <button class="btn-delete" data-id="${u.id}">Delete</button>
+                        <button class="btn-edit" data-id="${u.id}">Sửa</button>
+                        <button class="btn-delete" data-id="${u.id}">Xóa</button>
                     </td>
                 </tr>
             `).join('') || '<tr><td colspan="7">No users</td></tr>';

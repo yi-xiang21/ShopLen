@@ -30,6 +30,11 @@
                 <input type="tel" id="phone" name="phone" required placeholder="Số Điện Thoại">
 
                 <input type="text" id="address" name="address" required placeholder="Địa Chỉ">
+                <div >
+                    <input type="checkbox" id="address_add" style="align-items: right;"> Thêm địa chỉ
+                    <input type="text" id="address2"  required placeholder="Địa Chỉ khác" style="display: none;">
+                </div>
+                
 
                 <select id="tinhthanh" name="tinhthanh" required>
                     <option value="1"> TP Hồ Chí Minh</option>
@@ -40,14 +45,14 @@
                     <option value="3"> 3</option>
                 </select>
                 <select id="phuong" name="phuong" required>
-                    <option value="1"> 12</option>
+                    <option value="1"> rỗng</option default>
                     <option value="2"> 2</option>
                     <option value="3"> 5</option>
                 </select>
 
             </div>
             <div class="bill2">
-                <h2>Ship Method</h2>
+                <h2>đơn vị vận chuyển</h2>
                 <div class="ship-method">
                     <div>
                         <input type="radio" id="standard" name="ship" value="standard" checked>
@@ -59,7 +64,7 @@
                     </div>
 
                 </div>
-                <H2>Pay Method</H2>
+                <H2>Pphương thức thanh toán</H2>
                 <div class="pay-method">
                     <div>
 
@@ -111,5 +116,6 @@
     <script src="js/js.js"></script>
     <script src="js/footer.js" defer></script>
     <script src="js/breadcrumb.js" defer></script>  
+    <script src="js/bill.js"></script>
 
 </html>

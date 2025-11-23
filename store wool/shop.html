@@ -20,7 +20,7 @@
         <div id="shop">
             <div class="direction" id="breadcrumb"></div>
             <section class="tag-menu">
-                <p>Enjoy Your Shopping</p>
+                <p>Tận hưởng mua hàng</p>
             </section>
             <section class="search-row">
                 <form class="search-form" onsubmit="find(event)">
@@ -30,87 +30,42 @@
                     </button>
                 </form>
                 <button type="button" class="all-item" onclick="showAllItems()">
-                    View All
+                    Xem tất cả
                 </button>
                 <button type="button" class="sort-mobile"
                     onclick="document.getElementById('toggle-mobile-filter').checked = true;">
-                    Sort
+                    Bộ lọc
                 </button>
                 <input type="checkbox" id="toggle-mobile-filter" hidden>
                 <label for="toggle-mobile-filter" class="overlay-mobile-filter"></label>
                 <div class="mobile-filter">
                     <form action="">
-                        <p class="filer-text">Sort</p>
-                        <p>Price</p>
+                        <p class="filer-text">Bộ lọc</p>
+                        <p>Giá tiền</p>
                         <div class="range-price">
                             <input type="text" placeholder="min" id="mincost">
                             -
                             <input type="text" placeholder="max" id="maxcost">
                         </div>
                         <div class="Used">
-                            <p class="filter-title">Product Type</p>
-                            <input type="radio" name="find" value="option1"> Wool Yarn
-                            <input type="radio" name="find" value="option2"> Tool
+                            <p class="filter-title">Loại sản phẩm</p>
+                            <input type="radio" name="find" value="option1"> Len
+                            <input type="radio" name="find" value="option2"> công cụ
                         </div>
                         <div class="filter-material">
-                            <p class="filter-title">Material</p>
-                            <label><input type="checkbox"> Merino</label><br>
-                            <label><input type="checkbox"> Alpaca</label><br>
-                            <label><input type="checkbox"> Acrylic</label><br>
-                            <label><input type="checkbox"> Cotton</label>
-                        </div>
-                        <div class="filter-weight">
-                            <p class="filter-title"> Yarn Weight</p>
-                            <label><input type="checkbox">Lace</label><br>
-                            <label><input type="checkbox">Super Fine</label><br>
-                            <label><input type="checkbox"> Light</label><br>
-                            <label><input type="checkbox"> Medium </label>
-                        </div>
-                        <div class="filter-color">
-                            <p class="filter-title">Color</p>
-                            <div class="color-list">
-                                <label>
-                                    <input type="radio" name="color" value="#a31616" style="display:none;">
-                                    <span class="color-dot" style="background:#a31616"></span>
-                                </label>
-                                <label>
-                                    <input type="radio" name="color" value="#ed0556" style="display:none;">
-                                    <span class="color-dot" style="background:#ed0556"></span>
-                                </label>
-                                <label>
-                                    <input type="radio" name="color" value="#74036c" style="display:none;">
-                                    <span class="color-dot" style="background:#74036c"></span>
-                                </label>
-                                <label>
-                                    <input type="radio" name="color" value="#0e0800" style="display:none;">
-                                    <span class="color-dot" style="background:#0e0800"></span>
-                                </label>
-                                <label>
-                                    <input type="radio" name="color" value="#e3b6c2" style="display:none;">
-                                    <span class="color-dot" style="background:#e3b6c2"></span>
-                                </label>
-                                <label>
-                                    <input type="radio" name="color" value="#3c0479" style="display:none;">
-                                    <span class="color-dot" style="background:#3c0479"></span>
-                                </label>
-                                <label>
-                                    <input type="radio" name="color" value="#02452b" style="display:none;">
-                                    <span class="color-dot" style="background:#02452b"></span>
-                                </label>
-                                <label>
-                                    <input type="radio" name="color" value="#038d61" style="display:none;">
-                                    <span class="color-dot" style="background:#038d61"></span>
-                                </label>
-                                <label>
-                                    <input type="radio" name="color" value="#d58d3f" style="display:none;">
-                                    <span class="color-dot" style="background:#d58d3f"></span>
-                                </label>
-                                <label>
-                                    <input type="radio" name="color" value="#964B00" style="display:none;">
-                                    <span class="color-dot" style="background:#964B00"></span>
-                                </label>
+                                <p class="filter-title">Chất liệu</p>
+                                <label><input type="checkbox"> Len Cừu</label><br>
+                                <label><input type="checkbox"> Len Alpaca</label><br>
+                                <label><input type="checkbox"> Len Acrylic</label><br>
+                                <label><input type="checkbox"> Len Cotton</label>
                             </div>
-                        </div>
+                            <div class="filter-material">
+                                <p class="filter-title">Kích Cỡ</p>
+                                <label><input type="checkbox"> 50g </label><br>
+                                <label><input type="checkbox"> 70g</label><br>
+                                <label><input type="checkbox"> 100g</label><br>
+                                <label><input type="checkbox"> 200g</label>
+                            </div>
                         <div class="form-start">
                             <button type="reset">Reset</button>
                             <button type="button" id="sort-button-mobile">Let Sort</button>
@@ -123,79 +78,34 @@
                     <div class="filter-price">
                         <form action="" >
                             <p class="filer-text">Sort</p>
-                            <p>Price</p>
+                            <p>Giá</p>
                             <div class="range-price">
                                 <input type="text" placeholder="min">
                                 -
                                 <input type="text" placeholder="max">
                             </div>
                             <div class="Used">
-                                <p class="filter-title">Product Type</p>
-                                <input type="radio" name="find" value="option1"> Wool Yarn
-                                <input type="radio" name="find" value="option2"> Tool
+                                <p class="filter-title">Loại sản phẩm</p>
+                                <input type="radio" name="find" value="option1"> Len
+                                <input type="radio" name="find" value="option2"> Công cụ
                             </div>
                             <div class="filter-material">
-                                <p class="filter-title">Material</p>
-                                <label><input type="checkbox"> Merino</label><br>
-                                <label><input type="checkbox"> Alpaca</label><br>
-                                <label><input type="checkbox"> Acrylic</label><br>
-                                <label><input type="checkbox"> Cotton</label>
+                                <p class="filter-title">Chất liệu</p>
+                                <label><input type="checkbox"> Len Cừu</label><br>
+                                <label><input type="checkbox"> Len Alpaca</label><br>
+                                <label><input type="checkbox"> Len Acrylic</label><br>
+                                <label><input type="checkbox"> Len Cotton</label>
                             </div>
-                            <div class="filter-weight">
-                                <p class="filter-title"> Yarn Weight</p>
-                                <label><input type="checkbox">Lace</label><br>
-                                <label><input type="checkbox">Super Fine</label><br>
-                                <label><input type="checkbox"> Light</label><br>
-                                <label><input type="checkbox"> Medium </label>
-                            </div>
-                            <div class="filter-color">
-                                <p class="filter-title">Color</p>
-                                <div class="color-list">
-                                    <label>
-                                        <input type="radio" name="color" value="#a31616" style="display:none;">
-                                        <span class="color-dot" style="background:#a31616"></span>
-                                    </label>
-                                    <label>
-                                        <input type="radio" name="color" value="#ed0556" style="display:none;">
-                                        <span class="color-dot" style="background:#ed0556"></span>
-                                    </label>
-                                    <label>
-                                        <input type="radio" name="color" value="#74036c" style="display:none;">
-                                        <span class="color-dot" style="background:#74036c"></span>
-                                    </label>
-                                    <label>
-                                        <input type="radio" name="color" value="#0e0800" style="display:none;">
-                                        <span class="color-dot" style="background:#0e0800"></span>
-                                    </label>
-                                    <label>
-                                        <input type="radio" name="color" value="#e3b6c2" style="display:none;">
-                                        <span class="color-dot" style="background:#e3b6c2"></span>
-                                    </label>
-                                    <label>
-                                        <input type="radio" name="color" value="#3c0479" style="display:none;">
-                                        <span class="color-dot" style="background:#3c0479"></span>
-                                    </label>
-                                    <label>
-                                        <input type="radio" name="color" value="#02452b" style="display:none;">
-                                        <span class="color-dot" style="background:#02452b"></span>
-                                    </label>
-                                    <label>
-                                        <input type="radio" name="color" value="#038d61" style="display:none;">
-                                        <span class="color-dot" style="background:#038d61"></span>
-                                    </label>
-                                    <label>
-                                        <input type="radio" name="color" value="#d58d3f" style="display:none;">
-                                        <span class="color-dot" style="background:#d58d3f"></span>
-                                    </label>
-                                    <label>
-                                        <input type="radio" name="color" value="#964B00" style="display:none;">
-                                        <span class="color-dot" style="background:#964B00"></span>
-                                    </label>
-                                </div>
+                            <div class="filter-material">
+                                <p class="filter-title">Kích Cỡ</p>
+                                <label><input type="checkbox"> 50g </label><br>
+                                <label><input type="checkbox"> 70g</label><br>
+                                <label><input type="checkbox"> 100g</label><br>
+                                <label><input type="checkbox"> 200g</label>
                             </div>
                             <div class="form-start">
-                                <button type="reset">Reset</button>
-                                <button type="button" id="sort-button-default">Let Sort</button>
+                                <button type="reset">Làm mới </button>
+                                <button type="button" id="sort-button-default">Lọc</button>
                             </div>
                         </form>
                     </div>
