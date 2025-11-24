@@ -37,7 +37,7 @@ async function fetchHistoryBuy() {
             <div class="Historyorder-down">
                 <div class="order-total">
                     <span>Tổng số tiền:</span>
-                    <span class="price-history">₫${LichSu.tong_tien}</span>
+                    <span class="price-history">${LichSu.tong_tien}đ</span>
                 </div>
 
                 <div class="Historyorder-actions">
