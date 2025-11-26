@@ -84,15 +84,29 @@ body {
     color: #4c0303;
     font-weight: 600;
 }
-
-.btn {
+.variant-image-input{
+    width:70%;
+}
+.btn-remove-product-image:hover{
+     background-color: #28061e;
+    color: #fff;
+}
+.product-image-input{
+    margin: 1% 0;
+}
+.btn , #btnAddProductImg {
     padding: 8px 14px;
     border: none;
     border-radius: 6px;
     cursor: pointer;
     font-weight: 500;
+    width: 30%;
 }
-
+#btnAddProductImg:hover{
+    background-color: #28061e;
+    color: #fff;
+    
+}
 #btn-add {
     color: #6b1f3a;
     border: 1px solid #392727;
@@ -196,14 +210,16 @@ body {
     color: #fff;
 }
 
-.card-item .btn-delete {
+.card-item .btn-delete,
+.card-item .btn-delete-product {
     flex: 1;
     background-color: #fff;
     color: #a10000;
     border: 1px solid #a10000;
 }
 
-.card-item .btn-delete:hover {
+.card-item .btn-delete:hover,
+.card-item .btn-delete-product:hover {
     background-color: #a10000;
     color: #fff;
 }
@@ -481,12 +497,14 @@ body {
     background-color: #4a1529;
 }
 
-.users-table .btn-delete {
+.users-table .btn-delete,
+.users-table .btn-delete-user {
     background-color: #a10000;
     color: #fff;
 }
 
-.users-table .btn-delete:hover {
+.users-table .btn-delete:hover,
+.users-table .btn-delete-user:hover {
     background-color: #7a0000;
 
 }
@@ -563,6 +581,7 @@ body {
     padding: 6px 10px;
     border-radius: 6px;
     cursor: pointer;
+    width: auto;
 }
 
 #btn-edit-category:hover,

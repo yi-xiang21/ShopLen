@@ -1,113 +1,112 @@
-// JavaScript cho trang chi tiết sản phẩm
 let currentProduct = null;
 let allProducts = [];
 let selectedVariant = null;
 
-// Lấy ID sản phẩm từ tham số URL
 function getProductId() {
-    const urlParams = new URLSearchParams(window.location.search);
-    return urlParams.get('id');
+	const urlParams = new URLSearchParams(window.location.search);
+	return urlParams.get('id');
 }
 
-// Tải dữ liệu sản phẩm từ file products.json
+function getEndpoint(path) {
+	if (typeof getApiUrl === 'function') return getApiUrl(path);
+	return path;
+}
+
 async function loadProduct() {
-    const productId = getProductId();
-    try {
-        // Lấy tất cả sản phẩm từ products.json
-        const response = await fetch('api/products.json');
-        const data = await response.json();
-        allProducts = data.products || [];
-        
-        // Tìm sản phẩm cụ thể theo ma_san_pham
-        const product = allProducts.find(p => p.ma_san_pham == productId);
-        
-        if (!product) {
-            showError('Không tìm thấy sản phẩm');
-            return;
-        }
+	const productId = getProductId();
+	if (!productId) {
+		showError('Không tìm thấy sản phẩm');
+		return;
+	}
+	try {
+		const [productRes, listRes] = await Promise.all([
+			fetch(getEndpoint(`/products/${productId}`)),
+			fetch(getEndpoint('/products'))
+		]);
+		const productData = await productRes.json();
+		if (productData.status !== 'success') throw new Error(productData.message || 'Không tìm thấy sản phẩm');
+		currentProduct = convertProductFormat(productData.product);
+		selectedVariant = null;
 
-        // Chuyển đổi sản phẩm sang định dạng nội bộ
-        currentProduct = convertProductFormat(product);
+		const listData = await listRes.json();
+		allProducts = listData.products || [];
 
-        // Hiển thị thông tin sản phẩm
-        displayProduct();
-        
-        // Tải sản phẩm liên quan
-        loadRelatedProducts();
-        
-        // Khởi tạo các tương tác
-        initCollapsibleSections();
-    } catch (error) {
-        console.error('Lỗi khi tải sản phẩm:', error);
-        showError('Có lỗi xảy ra khi tải sản phẩm');
-    }
+		displayProduct();
+		loadRelatedProducts();
+		initCollapsibleSections();
+	} catch (error) {
+		console.error('Lỗi khi tải sản phẩm:', error);
+		showError('Có lỗi xảy ra khi tải sản phẩm');
+	}
 }
 
-// Chuyển đổi sản phẩm từ định dạng products.json sang định dạng nội bộ
 function convertProductFormat(product) {
-    // Lấy biến thể đầu tiên làm mặc định
-    const firstVariant = product.bien_the && product.bien_the.length > 0 ? product.bien_the[0] : null;
-    
-    // Tính tổng tồn kho từ tất cả các biến thể
-    const totalStock = product.bien_the ? 
-        product.bien_the.reduce((sum, variant) => sum + (variant.ton_kho?.so_luong_ton || 0), 0) : 0;
-    
-    // Lấy chất liệu từ biến thể đầu tiên hoặc mặc định
-    const material = firstVariant?.chat_lieu || 'LEN';
-    
-    // Tính giá với giảm giá nếu có
-    let finalPrice = product.gia || 0;
-    let hasDiscount = false;
-    let discountPercent = 0;
-    
-    if (product.khuyen_mai && product.khuyen_mai.length > 0) {
-        const activePromo = product.khuyen_mai.find(promo => {
-            const now = new Date();
-            const start = new Date(promo.ngay_bat_dau);
-            const end = new Date(promo.ngay_ket_thuc);
-            return now >= start && now <= end;
-        });
-        if (activePromo) {
-            hasDiscount = true;
-            discountPercent = activePromo.phan_tram_giam;
-            finalPrice = finalPrice * (1 - discountPercent / 100);
-        }
-    }
-    
-    // Chuyển đổi biến thể sang định dạng màu sắc
-    const colors = product.bien_the ? product.bien_the.map((variant, index) => ({
-        id: variant.ma_bien_the,
-        name: variant.mau_sac,
-        hex: getColorHex(variant.mau_sac),
-        available: (variant.ton_kho?.so_luong_ton || 0) > 0,
-        image: variant.url_hinh_anh_bien_the || product.hinh_anh_url,
-        variant: variant
-    })) : [];
-    
-    return {
-        id: product.ma_san_pham,
-        name: product.ten_san_pham,
-        cost: finalPrice,
-        originalCost: product.gia,
-        hasDiscount: hasDiscount,
-        discountPercent: discountPercent,
-        description: product.mo_ta || '',
-        detailedDescription: product.mo_ta || '',
-        material: material,
-        stock: totalStock,
-        code: product.ma_san_pham,
-        catalogries: product.danh_muc?.ma_danh_muc,
-        categoryName: product.danh_muc?.ten_danh_muc,
-        images: {
-            main: firstVariant?.url_hinh_anh_bien_the || product.hinh_anh_url,
-            thumbnails: product.bien_the ? 
-                product.bien_the.map(v => v.url_hinh_anh_bien_the || product.hinh_anh_url) : 
-                [product.hinh_anh_url]
-        },
-        colors: colors,
-        variants: product.bien_the || [],
-        originalProduct: product
-    };
+	if (!product) return null;
+	const isLegacy = typeof product.ma_san_pham !== 'undefined';
+	const id = isLegacy ? product.ma_san_pham : product.id;
+	const name = isLegacy ? product.ten_san_pham : product.name;
+	const price = Number(isLegacy ? product.gia : product.price) || 0;
+	const image = isLegacy ? (product.hinh_anh_url || 'img/default.jpg') : (product.imageUrl || 'img/default.jpg');
+	const description = isLegacy ? product.mo_ta : product.description;
+	const categoryId = isLegacy ? product.danh_muc?.ma_danh_muc : product.categoryId;
+	const categoryName = isLegacy ? product.danh_muc?.ten_danh_muc : product.categoryName;
+	const type = (isLegacy ? product.loai_san_pham : product.type || product.productType) || 'LEN';
+	
+	// Xử lý biến thể: API mới trả về `variants`, định dạng cũ là `bien_the`
+	let variants = [];
+	if (product.variants && Array.isArray(product.variants)) {
+		// Định dạng API mới
+		variants = product.variants.map(v => ({
+			ma_bien_the: v.id,
+			mau_sac: v.color,
+			kich_co: v.size,
+			chat_lieu: v.material,
+			url_hinh_anh_bien_the: v.imageUrl || v.imagePath,
+			gia_them: v.extraPrice || 0
+		}));
+	} else if (product.bien_the && Array.isArray(product.bien_the)) {
+		// Định dạng cũ
+		variants = product.bien_the;
+	}
+
+	return {
+		id,
+		name,
+		cost: price,
+		originalCost: price,
+		hasDiscount: false,
+		discountPercent: 0,
+		description: description || '',
+		detailedDescription: description || '',
+		material: type,
+		stock: 99,
+		code: id,
+		catalogries: categoryId,
+		categoryName,
+		images: {
+			main: image,
+			thumbnails: variants.length ? variants.map(v => v.url_hinh_anh_bien_the || image) : [image]
+		},
+		colors: variants.map((variant, index) => ({
+			id: variant.ma_bien_the,
+			name: variant.mau_sac,
+			hex: getColorHex(variant.mau_sac),
+			available: true,
+			image: variant.url_hinh_anh_bien_the || image,
+			variant: variant,
+			active: index === 0
+		})),
+		variants: variants,
+		originalProduct: {
+			...product,
+			gia: price,
+			hinh_anh_url: image,
+			khuyen_mai: product.khuyen_mai || [],
+			danh_muc: product.danh_muc || { ma_danh_muc: categoryId, ten_danh_muc: categoryName },
+			loai_san_pham: type,
+			bien_the: variants
+		}
+	};
 }
 
 // Lấy mã màu hex từ tên màu tiếng Việt
@@ -319,50 +318,52 @@ function loadRelatedProducts() {
     const relatedProducts = getRelatedProducts();
     const similarContainer = document.getElementById('similar-products');
     
-    if (relatedProducts.length === 0) {
+    if (!relatedProducts.length) {
         similarContainer.innerHTML = '<p style="text-align: center; color: #666; padding: 20px;">Không có sản phẩm tương tự</p>';
         return;
     }
     
     similarContainer.innerHTML = relatedProducts.map(product => {
         const converted = convertProductFormat(product);
-        const image = converted.images.main || product.hinh_anh_url;
+        if (!converted) return '';
+        const image = converted.images.main;
         return `
-            <div class="similar-item" onclick="goToProduct('${product.ma_san_pham}')">
-                <img src="${image}" alt="${product.ten_san_pham}">
+            <div class="similar-item" onclick="goToProduct('${converted.id}')">
+                <img src="${image}" alt="${converted.name}">
                 <div class="similar-item-info">
-                    <div class="similar-item-title">${product.ten_san_pham}</div>
-                    <div class="similar-item-price">${formatPrice(converted.cost || product.gia || 0)}</div>
+                    <div class="similar-item-title">${converted.name}</div>
+                    <div class="similar-item-price">${formatPrice(converted.cost || 0)}</div>
                 </div>
             </div>
         `;
     }).join('');
 }
 
-// Lấy sản phẩm liên quan dựa trên danh mục
 function getRelatedProducts() {
     if (!currentProduct) return [];
 
     const currentCategory = currentProduct.catalogries;
     const currentProductId = currentProduct.id;
     
-    const related = allProducts.filter(product =>
-        product.ma_san_pham != currentProductId &&
-        product.danh_muc?.ma_danh_muc === currentCategory &&
-        product.loai_san_pham === 'len' // Chỉ hiển thị sản phẩm len, không hiển thị workshop
-    );
+    const related = allProducts.filter(product => {
+        const id = product.ma_san_pham ?? product.id;
+        const categoryId = product.danh_muc?.ma_danh_muc ?? product.categoryId;
+        const type = (product.loai_san_pham ?? product.productType || '').toLowerCase();
+        if (id == currentProductId) return false;
+        if (type === 'workshop') return false;
+        return categoryId === currentCategory;
+    });
 
-    // Nếu không có sản phẩm liên quan theo danh mục, trả về sản phẩm ngẫu nhiên
-    if (related.length === 0) {
+    if (!related.length) {
         return allProducts
-            .filter(product => 
-                product.ma_san_pham != currentProductId && 
-                product.loai_san_pham === 'len'
-            )
+            .filter(product => {
+                const id = product.ma_san_pham ?? product.id;
+                const type = (product.loai_san_pham ?? product.productType || '').toLowerCase();
+                return id != currentProductId && type !== 'workshop';
+            })
             .slice(0, 8);
     }
 
-    // Trả về tối đa 8 sản phẩm liên quan
     return related.slice(0, 8);
 }
 

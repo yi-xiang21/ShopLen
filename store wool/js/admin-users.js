@@ -34,8 +34,8 @@
 				<td>${u.phone || ''}</td>
 				<td>${u.role || ''}</td>
 				<td>
-					<button class="btn-edit" data-id="${u.id}">Edit</button>
-					<button class="btn-delete" data-id="${u.id}">Delete</button>
+					<button class="btn-edit" data-id="${u.id}">Sửa</button>
+					<button class="btn-delete-user" data-id="${u.id}">Xóa</button>
 				</td>
 			</tr>
 		`).join('');
@@ -207,12 +207,15 @@
 				};
 				openModal('Edit User', user);
 			}
-			if (e.target.classList.contains('btn-delete')) {
+			if (e.target.classList.contains('btn-delete-user')) {
 				const id = e.target.dataset.id;
-				if (!confirm('Xóa tài khoản này?')) return;
+				const tr = e.target.closest('tr');
+				const userName = tr ? tr.children[1].textContent : 'tài khoản này';
+				if (!confirm(`Bạn có chắc chắn muốn xóa tài khoản "${userName}"? Hành động này không thể hoàn tác.`)) return;
 				try {
 					const resp = await deleteUser(id);
 					if (resp.status !== 'success') throw new Error(resp.message || 'Delete failed');
+					alert('Đã xóa tài khoản thành công!');
 					await reload();
 				} catch (err) {
 					if (err.message === 'UNAUTHORIZED') {
@@ -487,8 +490,8 @@
 //                     <td>${u.phone || ''}</td>
 //                     <td>${u.role || ''}</td>
 //                     <td>
-//                         <button class="btn-edit" data-id="${u.id}">Edit</button>
-//                         <button class="btn-delete" data-id="${u.id}">Delete</button>
+//                         <button class="btn-edit" data-id="${u.id}">Sửa</button>
+//                         <button class="btn-delete" data-id="${u.id}">Xóa</button>
 //                     </td>
 //                 </tr>
 //             `).join('') || '<tr><td colspan="7">No users</td></tr>';
