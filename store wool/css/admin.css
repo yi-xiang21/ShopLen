@@ -246,27 +246,16 @@ body {
     color: #fff;
 }
 
-#add-product-view form {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    width: 50%;
-    margin-top: 20px;
-}
-
-.form-buttons {
-    display: flex;
-    gap: 10px;
-}
-
 /*css form add sp*/
-#addProductForm {
+#productForm{
     padding: 10px;
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+.gridItemForm{
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 16px;
+    gap: 12px;
 }
 
 .form-section {
@@ -300,10 +289,21 @@ body {
 .form-section textarea {
     resize: vertical;
     min-height: 80px;
-}
 
+}
+.form-buttons{
+    margin-top: 3%;
+}
+#saveProducts:hover{
+    background-color: #28061e;
+    color: #fff;
+}
+#productBackToSelect:hover{
+    background-color: #28061e;
+    color: #fff;
+}
 .variant-section {
-    padding: 10px;
+    padding: 2%;
 }
 
 .variant-section .btn {
@@ -957,4 +957,31 @@ body {
 .actions {
     display: flex;
     flex-direction: column
+}
+#selecttype {
+    shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    padding: 8px 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+    text-align: center;
+}
+#productType{
+    width: 30%;
+    margin:2% 0 10% 0;
+    shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    padding: 8px 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+    text-align: center;
+
+}
+#btnSelectType:hover{
+    background-color: #28061e;
+    color: #fff;
+}
+#btnBackToList:hover{
+    background-color: #28061e;
+    color: #fff;
 }

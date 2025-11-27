@@ -1,6 +1,6 @@
         // Khai báo biến global
-        let inputname, inputcatalogy, inputprice, inputdescription, inputimg, inputtype;
-        let btnAdd, btnBack, listView, addView, variantContainer, btnAddVariant, form;
+        let inputname, inputcatalogy, inputprice, inputdescription, inputimg, inputType;
+        let btnAdd, btnBack, listView, addView, variantContainer, btnAddVariant, form , selectType ,productBackToSelect;
 
         //nut search(chua viet)
 
@@ -17,11 +17,9 @@
             if (inputprice) inputprice.value = '';
             if (inputdescription) inputdescription.value = '';
             if (inputimg) inputimg.value = '';
-            if (inputtype) inputtype.value = 'san_pham';
             if (variantContainer) variantContainer.innerHTML = '';
             if (productImagesList) {
                 productImagesList.innerHTML = '';
-                // ensure one non-removable empty image input is present
                 productImagesList.appendChild(createProductImageRow('', false));
             }
         }
@@ -62,11 +60,9 @@
                 </div>
             </div>
         `;
-
             variantContainer.appendChild(variantDiv);
-
+            function setupVariantImagesUI() {
             const imagesList = variantDiv.querySelector('.images-list');
-
             // helper to create one image row (input + optional remove button)
             // removable === false => do not render remove button (used for first/default image)
             function createImageRow(value = '', removable = true) {
@@ -99,6 +95,9 @@
             variantDiv.querySelector('.btn-add-img').addEventListener('click', () => {
                 imagesList.appendChild(createImageRow('', true));
             });
+            }
+            // Khởi tạo UI quản lý hình ảnh cho variant
+            setupVariantImagesUI();
 
             // Thêm sự kiện xóa variant
             variantDiv.querySelector('.btn-remove-variant').addEventListener('click', () => {
@@ -138,9 +137,6 @@
             inputcatalogy.value = product.category || '';
             inputprice.value = product.price || 0;
             inputdescription.value = product.description || '';
-            // product.image may be string or array
-            // inputimg.value = Array.isArray(product.image) ? product.image.join(', ') : (product.image || '');
-            // initialize product-level images UI
             const productImages = product.image ? (Array.isArray(product.image) ? product.image : [product.image]) : [];
             initProductImages(productImages);
             inputtype.value = product.type || 'san_pham';
@@ -165,16 +161,11 @@
             if (formTitle) {
                 formTitle.textContent = 'Edit Product';
             }
-
             // Lưu productId để dùng khi save
             addView.setAttribute('data-edit-id', productId);
 
 
-
-
         }
-        
-
         // Hàm setup edit buttons
         function setupEditButtons() {
             const editButtons = document.querySelectorAll('.btn-edit[data-product-id]');
@@ -187,34 +178,7 @@
         }
         // Hàm xóa sản phẩm
         async function deleteProduct(productId) {
-            // Xác nhận xóa
-            if (!confirm('Bạn có chắc chắn muốn xóa sản phẩm này?')) {
-                return;
-            }
-            // Fetch dữ liệu hiện tại
-            const response = await fetch('api/item-management.json');
-            const data = await response.json();
-
-            // Tìm và xóa sản phẩm
-            const index = data.items.findIndex(item => item.id === productId);
-            if (index !== -1) {
-                data.items.splice(index, 1);
-
-                // Xóa khỏi productsData
-                const productIndex = productsData.findIndex(item => item.id === productId);
-                if (productIndex !== -1) {
-                    productsData.splice(productIndex, 1);
-                }
-
-
-                alert('Xóa sản phẩm thành công!');
-
-                // Reload danh sách
-                renderProducts();
-            } else {
-                alert('Không tìm thấy sản phẩm để xóa!');
-
-            }
+            //code xoa sp o day
         }
 
         // Hàm setup delete buttons
@@ -227,28 +191,50 @@
                 });
             });
         }
-        
+        function fetchCatalogy() {
+            //code fetch catalogy o day
+            fetch('api/catalogy.json')
+                .then(res => res.json())
+                .then(data => {
+                    data.categories.forEach(category => {
+                        const option = document.createElement('option');
+                        option.value = category.id;
+                        option.textContent = category.name;
+                        inputcatalogy.appendChild(option);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error loading categories:', error);
+                });
+        };
         document.addEventListener('DOMContentLoaded', function () {
             setupSidebarTabs();
-
+            fetchCatalogy();
+            //lua chon sp
+            selectType = document.getElementById('selecttype');
             //cac input formsp
             inputname = document.getElementById('productName');
             inputcatalogy = document.getElementById('productCategory');
             inputprice = document.getElementById('productPrice');
             inputdescription = document.getElementById('productDescription');
-            inputimg = document.getElementById('productImage');
             productImagesList = document.getElementById('productImagesList');
             btnAddProductImg = document.getElementById('btnAddProductImg');
-            inputtype = document.getElementById('productType');
-
-            //end tinh nang edit sp
+            inputType = document.getElementById('inputType');
+            //end tinh nang edit sp\
+            //nút them sp
             btnAdd = document.getElementById('btn-add');
-            btnBack = document.getElementById('btnBackToList');
+            //tro ve trang chu quan ly sp
+            btnBackToView = document.getElementById('btnBackToList');
+            //len tro ve lua chon loai sp
+            productBackToSelect = document.getElementById('productBackToSelect');
+
+
             listView = document.getElementById('product-list-view');
             addView = document.getElementById('add-product-view');
             variantContainer = document.getElementById('variantContainer');
             btnAddVariant = document.getElementById('btnAddVariant');
-            form = document.getElementById('addProductForm');
+            formLen = document.getElementById('productForm');
+            // formWorkshop = document.getElementById('workshopForm');
 
             // Kiểm tra các element có tồn tại không
             if (!variantContainer) {
@@ -262,7 +248,6 @@
             }
             // Ensure product images UI exists and initialize
             if (productImagesList && productImagesList.children.length === 0) {
-                // if there's a prefilled inputimg value, use it (compat)
                 const initial = inputimg && inputimg.value ? (inputimg.value.split(',').map(s => s.trim()).filter(Boolean)) : [];
                 initProductImages(initial);
             }
@@ -271,30 +256,50 @@
                     if (productImagesList) productImagesList.appendChild(createProductImageRow('', true));
                 });
             }
-            // Toggle view
             btnAdd.addEventListener('click', () => {
-                // Reset form khi thêm mới
-                resetForm();
-                if (addView) {
-                    addView.removeAttribute('data-edit-id');
-                    const formTitle = addView.querySelector('h3');
-                    if (formTitle) {
-                        formTitle.textContent = 'Add New Product';
-                    }
+                selectType.style.display='block'  
+                listView.style.display = 'none';
+                btnAdd.style.display = 'none';          
+            });
+            // Chọn loại sản phẩm
+            document.getElementById("btnSelectType").addEventListener("click", function (e) {
+                let type = document.getElementById("productType").value;
+                let textType = document.getElementById("productType").options[document.getElementById("productType").selectedIndex].text;
+                // Hiện đúng loại
+                if (type === "0" || type === "1") 
+                {
+                    resetForm();
+                    inputType.value = textType;
+                    selectType.style.display='none';
+                    addView.style.display = "block";
+                    formLen.style.display = "block";
                 }
-                if (listView) {
-                    listView.style.display = 'none';
-                }
-                if (addView) {
-                    addView.style.display = 'block';
-                }
-                if (btnAdd) {
-                    btnAdd.style.display = 'none';
+                // if (type === "1") 
+                // {
+                //     alert("da chon cong cu");
+                //     // resetForm();
+                //     // selectType.style.display='none';
+                //     // addView.style.display = "block";
+                //     // formLen.style.display = "block";    
+                                    
+                // }
+                if (type === "2") {
+                    resetForm();
+                    //formLen.style.display = "none";
+                    // selectType.style.display='none';
+                    // addView.style.display = "block";
+                    // formWorkshop.style.display = "block";
+                    alert('Workshop chua viet');
                 }
             });
-            btnBack.addEventListener('click', () => {
+            //tro ve trnag chinh quan ly sp
+            btnBackToView.addEventListener('click', () => {
                 if (addView) {
                     addView.style.display = 'none';
+                }
+                if(selectType)
+                {
+                    selectType.style.display='none';
                 }
                 if (listView) {
                     listView.style.display = 'block';
@@ -302,7 +307,6 @@
                 if (btnAdd) {
                     btnAdd.style.display = 'inline-block';
                 }
-                // Reset form
                 resetForm();
                 if (addView) {
                     addView.removeAttribute('data-edit-id');
@@ -312,7 +316,18 @@
                     }
                 }
             });
-
+            // tro ve lua chon loia sp
+            productBackToSelect.addEventListener('click',() =>{
+                if (addView) {
+                    addView.style.display = 'none';
+                }
+                if(selectType)
+                {
+                    selectType.style.display='block';
+                }
+                resetForm();
+            });
+           
             // Thêm biến thể
             btnAddVariant.addEventListener('click', () => {
                 addVariantToForm();

@@ -54,58 +54,88 @@
                         <button class="btn btn-next" onclick="next()">Tiếp</button>
                     </div>
                 </div>
-
+                <!-- chon loai de hien thi form nhap tuong ung -->
+                <div id="selecttype" style="display: none;">
+                    <h3>Vui lòng chọn loại sản phẩm bạn muốn thêm</h3>
+                    <select id="productType" name="productType" >
+                        <option value="0" >Len </option>
+                        <option value="1" >cong cu</option>
+                        <option value="2">Workshop</option>
+                    </select>
+                    <div id="actionforselect">
+                        <button class="btn" id="btnSelectType">chon</button>
+                        <button class="btn btn-back" id="btnBackToList">Quay lại</button>
+                    </div>
+                </div>
+                <!-- noi chua form nhap sp chung -->
                 <div id="add-product-view" style="display: none;">
                     <h3>Thêm sản phẩm mới</h3>
-                    <form id="productForm" enctype="multipart/form-data">
-                        <input type="hidden" id="productId">
+                    <!-- form khi chon type la len -->
+                    <form id="productForm" enctype="multipart/form-data" style="display: none;">
+                        <div class="gridItemForm">
+                            <div class="form-section">
+                                <input type="hidden" id="productId">
+                                <label>Tên sản phẩm:</label>
+                                <input type="text" id="productName" name="name" required>
+                                <label>Loại sản phẩm:</label>
+                                <input type="text" id="inputType" name="type" readonly></input>
+                                <label>Danh mục:</label>
+                                <select id="productCategory" name="categoryId" required>
+                                    <!-- render tu database -->
+                                </select>
+                                <label>Giá:</label>
+                                <input type="number" id="productPrice" name="price" step="0.01" min="0" required>
+                                <label>Mô tả:</label>
+                                <textarea id="productDescription" name="description" rows="3"></textarea>
+                                <div class="form-buttons">
+                                    <button type="submit" class="btn btn-save" id="saveProducts">Lưu sản phẩm</button>
+                                    <button type="button" class="btn btn-back" id="productBackToSelect">Quay lại</button>
+                                </div>
+                            </div>
+                            <div class="variant-section">
+                                <h4 style="margin-bottom: 15px;">Biến thể sản phẩm</h4>
+                                <div id="variantContainer">
+                                    <!-- Biến thể sẽ được thêm vào đây -->
+                                </div>  
+                                <button type="button" class="btn btn-add-variant" id="btnAddVariant" style="margin-top: 10px;">+ Thêm biến thể</button>
+                            </div>
+                        </div>
+                        
+                    </form>
+                    <!-- form khi chon type bang Workshop -->
+                    <!-- <form id="workshopForm" enctype="multipart/form-data">
+                        <input type="hidden" id="toolId">
                         <div class="form-section">
                             <label>Tên sản phẩm:</label>
-                            <input type="text" id="productName" name="name" required>
-
+                            <input type="text" id="toolName" name="name" required>
                             <label>Danh mục:</label>
-                            <select id="productCategory" name="categoryId" required>
-                                <option value="">-- Chọn danh mục --</option>
-                                <option value="1">Len</option>
-                                <option value="2">Công cụ</option>
-                                <option value="3">Workshop</option>
+                            <select id="toolCategory" name="categoryId" required>
+                                render tu database 
                             </select>
-
                             <label>Giá:</label>
-                            <input type="number" id="productPrice" name="price" step="0.01" min="0" required>
-
+                            <input type="number" id="toolPrice" name="price" step="0.01" min="0" required>
                             <label>Mô tả:</label>
-                            <textarea id="productDescription" name="description" rows="3"></textarea>
-
+                            <textarea id="toolDescription" name="description" rows="3"></textarea>
                             <label>Hình ảnh sản phẩm:</label>
-                            <div id="productImagesList" class="images-list-product">
-                                <!-- Product image inputs will be injected here -->
+                            <div id="productImagesList toolimages" class="images-list-product">
+                               
                             </div>
                             <button type="button" id="btnAddProductImg" class="btn-add-product-img">+ Thêm hình</button>
-
                             <label>Loại sản phẩm:</label>
-                            <select id="productType" name="productType">
-                                <option value="">-- Chọn loại sản phẩm --</option>
-                                <option value="Len Cotton">Len Cotton</option>
-                                <option value="Len Alpaca">Len Alpaca</option>
-                                <option value="Len Acrylic">Len Acrylic</option>
-                                <option value="Len Cừu">Len Cừu</option>
-                            </select>
+                            <input type="text" id="tooltype" name="type" value="Cong cu" readonly></input>
                         </div>
-
                         <div class="variant-section" style="margin-top: 20px; padding: 20px; border: 1px solid #ddd; border-radius: 8px;">
                             <h4 style="margin-bottom: 15px;">Biến thể sản phẩm</h4>
                             <div id="variantContainer">
-                                <!-- Biến thể sẽ được thêm vào đây -->
+                                Biến thể sẽ được thêm vào đây 
                             </div>
                             <button type="button" class="btn btn-add-variant" id="btnAddVariant" style="margin-top: 10px;">+ Thêm biến thể</button>
                         </div>
-
                         <div class="form-buttons">
-                            <button type="submit" class="btn btn-save">Lưu sản phẩm</button>
-                            <button type="button" class="btn btn-back" id="btnBackToList">Quay lại</button>
+                            <button type="submit" class="btn btn-save" id="saveTools">Lưu sản phẩm</button>
+                            <button type="button" class="btn btn-back" id="toolBackToSelect">Quay lại</button>
                         </div>
-                    </form>
+                    </form> -->
                 </div>
 
             </section>
@@ -318,13 +348,13 @@
 
     </script>
     <script src="js/config.js"></script>
-    <script src="js/admin-products.js"></script>
-    <script src="js/admin-users.js"></script>
+    <!-- <script src="js/admin-products.js"></script> -->
+    <!-- <script src="js/admin-users.js"></script> -->
     <script src="js/header.js"></script>
     <script src="js/footer.js"></script>
     <script src="js/js.js"></script>
     <script src="js/ai-integration.js"></script>
-    <!-- <script src="js/managemant-products.js"></script> Disabled: admin-products.js -> Backend -->
+    <script src="js/managemant-products.js"></script> 
     <script src="js/managemant-catagogy.js"></script>
     <script src="js/managemant-order.js"></script>
 
