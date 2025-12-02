@@ -10,7 +10,7 @@ function getProductId() {
 function getEndpoint(path) {
 	if (typeof getApiUrl === 'function') return getApiUrl(path);
 	return path;
-}
+}   
 
 async function loadProduct() {
 	const productId = getProductId();
@@ -24,13 +24,17 @@ async function loadProduct() {
 			fetch(getEndpoint('/products'))
 		]);
 		const productData = await productRes.json();
-		if (productData.status !== 'success') throw new Error(productData.message || 'Không tìm thấy sản phẩm');
-		currentProduct = convertProductFormat(productData.product);
+		if (productData.status !== 'success')
+        {
+
+            throw new Error(productData.message || 'Không tìm thấy sản phẩm');
+        }
+        currentProduct = convertProductFormat(productData.product);
+        
 		selectedVariant = null;
 
 		const listData = await listRes.json();
 		allProducts = listData.products || [];
-
 		displayProduct();
 		loadRelatedProducts();
 		initCollapsibleSections();
@@ -90,7 +94,6 @@ function convertProductFormat(product) {
 		colors: variants.map((variant, index) => ({
 			id: variant.ma_bien_the,
 			name: variant.mau_sac,
-			hex: getColorHex(variant.mau_sac),
 			available: true,
 			image: variant.url_hinh_anh_bien_the || image,
 			variant: variant,
@@ -109,34 +112,12 @@ function convertProductFormat(product) {
 	};
 }
 
-// Lấy mã màu hex từ tên màu tiếng Việt
-function getColorHex(colorName) {
-    const colorMap = {
-        'Hồng Pastel': '#FFB6C1',
-        'Xanh Pastel': '#B0E0E6',
-        'Đỏ': '#FF6B6B',
-        'Xanh dương': '#4ECDC4',
-        'Xanh lá': '#45B7D1',
-        'Tím': '#96CEB4',
-        'Trắng tinh': '#FFFFFF',
-        'Đen': '#000000',
-        'Xám': '#808080',
-        'Hồng nhạt': '#FFB6C1',
-        'Kem vàng': '#FFF8DC',
-        'Nâu': '#8B4513',
-        'Nâu cam': '#D2691E',
-        'Kaki': '#C3B091',
-        'Xanh cẩm': '#4169E1',
-        'Tím khoai môn': '#9370DB',
-        'Ghi': '#708090'
-    };
-    return colorMap[colorName] || '#CCCCCC';
-}
 
 // Hiển thị thông tin sản phẩm
 function displayProduct() {
-    if (!currentProduct) return;
-
+     if (!currentProduct) 
+         return;
+    
     // Cập nhật breadcrumb
     document.getElementById('product-name').textContent = currentProduct.name;
     
@@ -146,6 +127,7 @@ function displayProduct() {
     document.getElementById('main-product-image').alt = currentProduct.name;
     
     // Cập nhật hình ảnh thumbnail
+    
     const thumbnailContainer = document.getElementById('thumbnail-images');
     const thumbnails = currentProduct.images.thumbnails || [mainImage];
     if (thumbnails.length > 0) {
@@ -164,7 +146,7 @@ function displayProduct() {
     // Cập nhật mã sản phẩm
     document.getElementById('product-code').textContent = currentProduct.code || currentProduct.id || '-';
     
-    // Cập nhật giá sản phẩm (định dạng tiếng Việt)
+    // Cập nhật giá sản phẩm
     updateProductPrice();
     
     // Cập nhật mô tả sản phẩm
@@ -236,80 +218,89 @@ function formatPrice(price) {
 // Tải các tùy chọn màu sắc từ biến thể
 function loadColorOptions() {
     const colorContainer = document.getElementById('color-options');
-    
-    if (!currentProduct.colors || currentProduct.colors.length === 0) {
-        colorContainer.innerHTML = '<p style="color: #666; font-size: 14px;">Không có tùy chọn màu sắc</p>';
+
+    if (!currentProduct.variants || currentProduct.variants.length === 0) {
+        colorContainer.innerHTML = '<p>Không có biến thể</p>';
         return;
     }
-    
-    colorContainer.innerHTML = currentProduct.colors.map((color, index) => {
-        const isActive = index === 0;
-        if (isActive && color.variant) {
-            selectedVariant = color.variant.ma_bien_the;
-        }
-        
+
+    colorContainer.innerHTML = currentProduct.variants.map((v, i) => {
+        const text = `${v.mau_sac} – ${v.kich_co}`;
         return `
-            <button class="color-option ${isActive ? 'active' : ''}" 
-                    data-variant-id="${color.id}"
-                    data-color-name="${color.name}"
-                    onclick="selectVariant('${color.id}', '${color.image}')"
-                    style="background-color: ${color.hex || '#ccc'};">
-                ${color.variant.kich_co}
+            <button class="color-option ${i === 0 ? 'active' : ''}"
+                data-variant-id="${v.ma_bien_the}"
+                onclick="selectVariant('${v.ma_bien_the}', '${v.url_hinh_anh_bien_the || currentProduct.images.main}')">
+                ${text}
             </button>
         `;
     }).join('');
+
+    selectedVariant = currentProduct.variants[0].ma_bien_the;
 }
+
+
 
 // Chọn biến thể (màu sắc)
 function selectVariant(variantId, imageUrl) {
     selectedVariant = variantId;
-    
-    // Tìm biến thể
+
     const variant = currentProduct.variants.find(v => v.ma_bien_the == variantId);
-    if (variant) {
-        // Cập nhật thông tin tồn kho
-        const stock = variant.ton_kho?.so_luong_ton || 0;
-        document.getElementById('stock-info').textContent = `${stock} sản phẩm có sẵn`;
-    }
-    
-    // Cập nhật giá (bao gồm cả giá gốc nếu có giảm giá)
+    const stock = variant?.ton_kho?.so_luong_ton ?? currentProduct.stock ?? 99;
+
+    document.getElementById('stock-info').textContent = `${stock} sản phẩm có sẵn`;
+
     updateProductPrice();
-    
-    // Cập nhật trạng thái active
-    document.querySelectorAll('.color-option').forEach(btn => {
-        btn.classList.remove('active');
-    });
+
+    document.querySelectorAll('.color-option').forEach(btn => btn.classList.remove('active'));
     document.querySelector(`[data-variant-id="${variantId}"]`)?.classList.add('active');
-    
-    // Cập nhật hình ảnh chính nếu biến thể có hình ảnh riêng
+
     if (imageUrl) {
-        document.getElementById('main-product-image').src = imageUrl;
         changeMainImage(imageUrl);
     }
 }
 
+
 // Thay đổi hình ảnh chính
 function changeMainImage(imageSrc) {
-    document.getElementById('main-product-image').src = imageSrc;
-    
-    // Cập nhật thumbnail active
-    document.querySelectorAll('.thumbnail-images img').forEach(img => {
+    const mainImage = document.getElementById('main-product-image');
+    mainImage.src = imageSrc;
+
+    const thumbnails = document.querySelectorAll('#thumbnail-images img');
+    thumbnails.forEach((img, index) => {
         img.classList.remove('active');
-        if (img.src.includes(imageSrc.split('/').pop())) {
+        if (img.src === imageSrc) {
             img.classList.add('active');
+            currentThumbIndex = index; // đồng bộ chỉ số
         }
     });
 }
 
+
+
+
 // Cuộn thumbnail
+let currentThumbIndex = 0;
+
 function scrollThumbnails(direction) {
-    const container = document.querySelector('.thumbnail-images');
-    const scrollAmount = 100;
-    container.scrollBy({
-        left: direction * scrollAmount,
-        behavior: 'smooth'
-    });
+    const thumbnails = document.querySelectorAll('#thumbnail-images img');
+    if (thumbnails.length === 0) return;
+
+    // Tính index mới
+    currentThumbIndex += direction;
+
+    if (currentThumbIndex < 0) currentThumbIndex = thumbnails.length - 1;
+    if (currentThumbIndex >= thumbnails.length) currentThumbIndex = 0;
+
+    const newImage = thumbnails[currentThumbIndex].src;
+
+    // Đổi ảnh chính
+    changeMainImage(newImage);
+
+    // Cập nhật active thumbnail
+    thumbnails.forEach(img => img.classList.remove('active'));
+    thumbnails[currentThumbIndex].classList.add('active');
 }
+
 
 // Tải sản phẩm liên quan/tương tự
 function loadRelatedProducts() {
@@ -340,31 +331,7 @@ function loadRelatedProducts() {
 }
 
 function getRelatedProducts() {
-    if (!currentProduct) return [];
-
-    const currentCategory = currentProduct.catalogries;
-    const currentProductId = currentProduct.id;
-    
-    const related = allProducts.filter(product => {
-        const id = product.ma_san_pham ?? product.id;
-        const categoryId = product.danh_muc?.ma_danh_muc ?? product.categoryId;
-        const type = (product.loai_san_pham ?? product.productType || '').toLowerCase();
-        if (id == currentProductId) return false;
-        if (type === 'workshop') return false;
-        return categoryId === currentCategory;
-    });
-
-    if (!related.length) {
-        return allProducts
-            .filter(product => {
-                const id = product.ma_san_pham ?? product.id;
-                const type = (product.loai_san_pham ?? product.productType || '').toLowerCase();
-                return id != currentProductId && type !== 'workshop';
-            })
-            .slice(0, 8);
-    }
-
-    return related.slice(0, 8);
+    return allProducts.filter(p => p.id != currentProduct.id).slice(0, 10);
 }
 
 // Điều hướng đến trang chi tiết sản phẩm

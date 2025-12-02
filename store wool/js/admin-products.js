@@ -110,36 +110,32 @@
 		const images = variant ? (Array.isArray(variant.images) ? variant.images : (variant.imageUrl ? [variant.imageUrl] : [])) : [];
 		
 		variantDiv.innerHTML = `
-			<div style="border: 1px solid #ccc; padding: 15px; margin-bottom: 10px; border-radius: 5px; background: #f9f9f9;">
-				<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px;">
-					<div>
-						<label>Màu sắc:</label>
-						<input type="text" class="variant-color" value="${variant?.color || ''}" placeholder="Ví dụ: Hồng Pastel">
-					</div>
-					<div>
-						<label>Kích cỡ:</label>
-						<input type="text" class="variant-size" value="${variant?.size || ''}" placeholder="Ví dụ: 100g">
-					</div>
+			
+			<div class="variant-fields">
+                <label>Màu:</label>
+                <input type="text" name="variantColor" placeholder="red" value="${variant ? (variant.color || '') : ''}">
+
+                <label>Kích cỡ:</label>
+                <input type="text" name="variantSize" placeholder="100gr" value="${variant ? (variant.size || '') : ''}">
+
+                <label>Chất lượng:</label>
+                <input type="text" name="variantMaterial" placeholder="Cotton" value="${variant ? (variant.material || '') : ''}">
+
+                <label>Hình ảnh:</label>
+                <div class="variant-images-list" ">
+					<!-- Hình ảnh sẽ được thêm vào đây -->
 				</div>
-				<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px;">
-					<div>
-						<label>Chất liệu:</label>
-						<input type="text" class="variant-material" value="${variant?.material || ''}" placeholder="Ví dụ: Milk Cotton">
-					</div>
-					<div>
-						<label>Giá thêm (VND):</label>
-						<input type="number" class="variant-extraPrice" value="${variant?.extraPrice || 0}" step="0.01" min="0">
-					</div>
-				</div>
-				<div style="margin-bottom: 10px;">
-					<label>Hình ảnh biến thể:</label>
-					<div class="variant-images-list" style="margin-top: 5px;">
-						<!-- Hình ảnh sẽ được thêm vào đây -->
-					</div>
-					<button type="button" class="btn-add-variant-image" style="background: #28a745; color: white; border: none; padding: 5px 10px; border-radius: 3px; cursor: pointer; margin-top: 5px;">+ Thêm hình</button>
-				</div>
-				<button type="button" class="btn-remove-variant" style="background: #dc3545; color: white; border: none; padding: 5px 10px; border-radius: 3px; cursor: pointer;">Xóa biến thể</button>
-			</div>
+				<button type="button" class="btn btn-add-variant-image">+ Thêm hình</button>
+                <label>Giá thêm :</label>
+                <input type="number" name="variantPriceExtra" step="0.01" value="${variant ? (variant.priceExtra || 0) : 0}">
+
+                <label>Tồn kho:</label>
+                <input type="number" name="variantStock" step="1" value="${variant ? (variant.stock || 0) : 0}">
+
+                <div class="variant-actions">
+                    <button type="button" class="btn btn-remove-variant">Remove Variant</button>
+                </div>
+            </div>
 		`;
 		container.appendChild(variantDiv);
 
