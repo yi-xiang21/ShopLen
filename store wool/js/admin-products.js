@@ -93,21 +93,30 @@
   }
 
   // Lấy danh sách sản phẩm từ API để admin quản lý
-  async function fetchProducts() {
+async function fetchProducts(keyword = '', catId = '') {
     try {
-      const res = await fetch(
-        typeof getApiUrl === "function" ? getApiUrl("/products") : "/products"
-      );
-      const data = await res.json();
-      if (data.status !== "success")
-        throw new Error(data.message || "Không thể tải sản phẩm");
-      products = data.products || [];
-      renderCards();
+        // Xây dựng URL với query params
+        let url = typeof getApiUrl === "function" ? getApiUrl("/products") : "/products";
+        const params = new URLSearchParams();
+        
+        if (keyword) params.append('search', keyword);
+        if (catId) params.append('categoryId', catId);
+        
+        // Nếu có tham số thì nối vào URL
+        if (params.toString()) {
+            url += '?' + params.toString();
+        }
+        const res = await fetch(url);
+        const data = await res.json();
+        if (data.status !== "success")
+            throw new Error(data.message || "Không thể tải sản phẩm");
+        products = data.products || [];
+        renderCards();
     } catch (err) {
-      console.error(err);
-		alert(err.message || 'Không thể tải sản phẩm');
+        console.error(err);
+        alert(err.message || 'Không thể tải sản phẩm');
     }
-  }
+}
 
   let variantCounter = 0;
 
