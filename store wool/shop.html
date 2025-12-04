@@ -23,12 +23,12 @@
                 <p>Tận hưởng mua hàng</p>
             </section>
             <section class="search-row">
-                <form class="search-form" onsubmit="find(event)">
-                    <input type="text" placeholder="Search..." class="search-item" />
-                    <button type="submit">
-                        <i class="bi bi-search"></i>
-                    </button>
-                </form>
+            <form class="search-form" onsubmit="find(event)">
+                <input type="text" placeholder="Search..." class="search-item" />
+                <button type="submit">
+                    <i class="bi bi-search"></i>
+                </button>
+            </form>
                 <button type="button" class="all-item" onclick="showAllItems()">
                     Xem tất cả
                 </button>
@@ -49,8 +49,9 @@
                         </div>
                         <div class="Used">
                             <p class="filter-title">Loại sản phẩm</p>
-                            <input type="radio" name="find" value="option1"> Len
-                            <input type="radio" name="find" value="option2"> công cụ
+                            <input type="radio" name="find" value="1"> Len
+                            <input type="radio" name="find" value="2"> Công cụ
+                            <input type="radio" name="find" value="3"> Workshop
                         </div>
                         <div class="filter-material">
                                 <p class="filter-title">Chất liệu</p>
@@ -86,8 +87,9 @@
                             </div>
                             <div class="Used">
                                 <p class="filter-title">Loại sản phẩm</p>
-                                <input type="radio" name="find" value="option1"> Len
-                                <input type="radio" name="find" value="option2"> Công cụ
+                                <input type="radio" name="find" value="1"> Len
+                                <input type="radio" name="find" value="2"> Công cụ
+                                <input type="radio" name="find" value="3"> Workshop
                             </div>
                             <div class="filter-material">
                                 <p class="filter-title">Chất liệu</p>
@@ -105,7 +107,7 @@
                             </div>
                             <div class="form-start">
                                 <button type="reset">Làm mới </button>
-                                <button type="button" id="sort-button-default">Lọc</button>
+                                <button type="button" id="sort-button-default" onclick="filter()">Lọc</button>
                             </div>
                         </form>
                     </div>
@@ -132,6 +134,7 @@
     <script src="js/js.js"></script>
     <script src="js/footer.js"></script>
     <script src="js/breadcrumb.js" defer></script>
+    <script src="js/admin-products.js"></script>
 </body>
 
 </html>

@@ -150,7 +150,10 @@ async function fetchProducts(keyword = '', catId = '') {
 				</div>
 				<button type="button" class="btn btn-add-variant-image">+ Thêm hình</button>
                 <label>Giá thêm :</label>
-                <input type="number" class="variantPriceExtra" step="0.01" value="${variant ? (variant.priceExtra || 0) : 0}">
+                <input type="number" class="variantPriceExtra" step="0.01" value="${variant ? 
+                  (typeof variant.extraPrice !== 'undefined' ? variant.extraPrice : 
+                  (typeof variant.priceExtra !== 'undefined' ? variant.priceExtra : 0)): 0
+                }">
 
                 <label>Tồn kho:</label>
                 <input type="number" class="variantStock" step="1" value="${variant ? (variant.stock || 0) : 0}">
@@ -408,7 +411,7 @@ async function fetchProducts(keyword = '', catId = '') {
             const size = item.querySelector('.variantSize')?.value.trim() || '';
             const material = item.querySelector('.variantMaterial')?.value.trim() || '';
             const extraPrice = Number(item.querySelector('.variantPriceExtra')?.value) || 0;
-			// const stock = Number(item.querySelector('.variantStock')?.value) || 0;
+			      const stock = Number(item.querySelector('.variantStock')?.value) || 0;
 
             // Thu thập hình ảnh từ biến thể
             const imageInputs = item.querySelectorAll('.variant-image-input');
@@ -433,7 +436,7 @@ async function fetchProducts(keyword = '', catId = '') {
                     material,
                     extraPrice,
                     imageUrls: imageUrls,
-                    stock: Number(item.querySelector('.variantStock')?.value) || 0,
+                    stock,
                 };
         variants.push(variantData);
     }
@@ -511,6 +514,32 @@ async function fetchProducts(keyword = '', catId = '') {
         }
       }
     });
+    const searchInput = document.querySelector('.filters input[type="text"]');
+    const categorySelect = document.querySelector('.filters select');
+    // Biến để debounce (tránh gọi API liên tục khi gõ)
+    let searchTimeout;
+    if (searchInput) {
+        searchInput.addEventListener('input', (e) => {
+            clearTimeout(searchTimeout);
+            // Đợi 500ms sau khi ngừng gõ mới gọi API
+            searchTimeout = setTimeout(() => {
+                const keyword = e.target.value.trim();
+                // Lấy giá trị danh mục hiện tại (nếu có)
+                const catId = categorySelect ? categorySelect.value : '';
+                // Gọi hàm fetchProducts với tham số
+                fetchProducts(keyword, catId);
+            }, 500);
+        });
+    }
+    if (categorySelect) {
+        categorySelect.addEventListener('change', (e) => {
+            const catId = e.target.value;
+            // Lấy từ khóa tìm kiếm hiện tại (nếu có)
+            const keyword = searchInput ? searchInput.value.trim() : '';
+            // Gọi hàm fetchProducts với tham số
+            fetchProducts(keyword, catId);
+        });
+    }
   }
 
   document.addEventListener('DOMContentLoaded', () => {
