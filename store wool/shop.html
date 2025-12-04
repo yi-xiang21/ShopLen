@@ -43,23 +43,15 @@
                         <p class="filer-text">Bộ lọc</p>
                         <p>Giá tiền</p>
                         <div class="range-price">
-                            <input type="text" placeholder="min" id="mincost">
-                            -
-                            <input type="text" placeholder="max" id="maxcost">
+                            <select name="" id="">
+                                <option value=""></option>  
+                            </select>
                         </div>
                         <div class="Used">
                             <p class="filter-title">Loại sản phẩm</p>
                             <input type="radio" name="find" value="1"> Len
-                            <input type="radio" name="find" value="2"> Công cụ
-                            <input type="radio" name="find" value="3"> Workshop
+                            <input type="radio" name="find" value="2"> Công cụ  
                         </div>
-                        <div class="filter-material">
-                                <p class="filter-title">Chất liệu</p>
-                                <label><input type="checkbox"> Len Cừu</label><br>
-                                <label><input type="checkbox"> Len Alpaca</label><br>
-                                <label><input type="checkbox"> Len Acrylic</label><br>
-                                <label><input type="checkbox"> Len Cotton</label>
-                            </div>
                             <div class="filter-material">
                                 <p class="filter-title">Kích Cỡ</p>
                                 <label><input type="checkbox"> 50g </label><br>
@@ -81,29 +73,26 @@
                             <p class="filer-text">Sort</p>
                             <p>Giá</p>
                             <div class="range-price">
-                                <input type="text" placeholder="min">
-                                -
-                                <input type="text" placeholder="max">
+                                <select id="rangePriceSelect">
+                                    <option value="">0k - 50k</option>  
+                                    <option value="">50k - 100k</option>  
+                                    <option value="">100k - 150k</option>  
+                                    <option value="">150k - 200k</option>  
+                                    <option value="">200k - 250k</option>  
+                                    <option value="">250k - 300k</option>  
+                                </select>
                             </div>
                             <div class="Used">
                                 <p class="filter-title">Loại sản phẩm</p>
                                 <input type="radio" name="find" value="1"> Len
                                 <input type="radio" name="find" value="2"> Công cụ
-                                <input type="radio" name="find" value="3"> Workshop
-                            </div>
-                            <div class="filter-material">
-                                <p class="filter-title">Chất liệu</p>
-                                <label><input type="checkbox"> Len Cừu</label><br>
-                                <label><input type="checkbox"> Len Alpaca</label><br>
-                                <label><input type="checkbox"> Len Acrylic</label><br>
-                                <label><input type="checkbox"> Len Cotton</label>
                             </div>
                             <div class="filter-material">
                                 <p class="filter-title">Kích Cỡ</p>
-                                <label><input type="checkbox"> 50g </label><br>
-                                <label><input type="checkbox"> 70g</label><br>
-                                <label><input type="checkbox"> 100g</label><br>
-                                <label><input type="checkbox"> 200g</label>
+                                <label><input type="checkbox"> 50gram </label><br>
+                                <label><input type="checkbox"> 75gram </label><br>
+                                <label><input type="checkbox"> 100gram </label><br>
+                                <label><input type="checkbox"> 125gram </label><br>
                             </div>
                             <div class="form-start">
                                 <button type="reset">Làm mới </button>

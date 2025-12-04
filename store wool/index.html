@@ -214,7 +214,7 @@
                 images: {
                     main: product.imageUrl || 'img/default.jpg'
                 },
-                categoryId: product.categoryId
+                type:product.type
             };
         }
 
@@ -233,10 +233,11 @@
                 const res = await fetch(endpoint);
                 const data = await res.json();
                 const allProducts = data.products || [];
+                console.log(allProducts);
 
                 const filteredProducts = allProducts.filter(product => {
-                    const categoryId = product.categoryId;
-                    return categoryId === 1 || categoryId === 2;
+                    const typeProduct = product.type;
+                    return typeProduct === "Len" || typeProduct === "Công Cụ";
                 });
 
                 if (!filteredProducts.length) {
@@ -245,7 +246,6 @@
                 }
 
                 const products = filteredProducts.map(convertProductFormat);
-
                 container.innerHTML = products.map(p => `
                     <div class="product-item" data-id="${p.id || ''}">
                         <div class="product-inner">
