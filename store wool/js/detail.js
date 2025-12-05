@@ -27,7 +27,9 @@ async function loadProduct() {
     if (productData.status !== "success") {
       throw new Error(productData.message || "Không tìm thấy sản phẩm");
     }
-    currentProduct = convertProductFormat(productData.product);
+
+    // Sử dụng trực tiếp dữ liệu từ API
+    currentProduct = productData.product;
 
     selectedVariant = null;
 
@@ -42,92 +44,12 @@ async function loadProduct() {
   }
 }
 
-function convertProductFormat(product) {
-  if (!product) return null;
-
-  const isLegacy = typeof product.ma_san_pham !== "undefined";
-  const id = isLegacy ? product.ma_san_pham : product.id;
-  const name = isLegacy ? product.ten_san_pham : product.name;
-  const price = Number(isLegacy ? product.gia : product.price) || 0;
-  const image = isLegacy
-    ? product.hinh_anh_url || "img/default.jpg"
-    : product.imageUrl || "img/default.jpg";
-  const description = isLegacy ? product.mo_ta : product.description;
-  const categoryId = isLegacy
-    ? product.danh_muc?.ma_danh_muc
-    : product.categoryId;
-  const categoryName = isLegacy
-    ? product.danh_muc?.ten_danh_muc
-    : product.categoryName;
-  const type =
-    (isLegacy ? product.loai_san_pham : product.type || product.productType) ||
-    "LEN";
-  let stock = isLegacy ? product.soluong : product.stock;
-
-  // Xử lý biến thể: API mới trả về `variants`, định dạng cũ là `bien_the`
-  let variants = [];
-  if (product.variants && Array.isArray(product.variants)) {
-    // Định dạng API mới
-    variants = product.variants.map((v) => ({
-      ma_bien_the: v.id,
-      mau_sac: v.color,
-      kich_co: v.size,
-      chat_lieu: v.material,
-      url_hinh_anh_bien_the: v.imageUrl || v.imagePath,
-      danh_sach_hinh_anh:
-        v.images && Array.isArray(v.images)
-          ? v.images.map((img) => img.imageUrl || img.imagePath || img)
-          : [v.imageUrl || v.imagePath],
-      gia_them: v.extraPrice || 0,
-      soluong: v.stock || 0,
-    }));
-  } else if (product.bien_the && Array.isArray(product.bien_the)) {
-    // Định dạng cũ
-    variants = product.bien_the;
-  }
-
-  return {
-    id,
-    name,
-    cost: price,
-    originalCost: price,
-    hasDiscount: false,
-    discountPercent: 0,
-    description: description || "",
-    detailedDescription: description || "",
-    material: type,
-    code: id,
-    catalogries: categoryId,
-    categoryName,
-    images: {
-      main: image,
-      thumbnails: variants.length
-        ? variants.map((v) => v.url_hinh_anh_bien_the || image)
-        : [image],
-    },
-    colors: variants.map((variant, index) => ({
-      id: variant.ma_bien_the,
-      name: variant.mau_sac,
-      available: true,
-      image: variant.url_hinh_anh_bien_the || image,
-      variant: variant,
-      stock: variant.soluong,
-      active: index === 0,
-    })),
-    variants: variants,
-    originalProduct: {
-      ...product,
-      gia: price,
-      hinh_anh_url: image,
-      khuyen_mai: product.khuyen_mai || [],
-      danh_muc: product.danh_muc || {
-        ma_danh_muc: categoryId,
-        ten_danh_muc: categoryName,
-      },
-      loai_san_pham: type,
-      bien_the: variants,
-    },
-  };
+// Helper lấy URL ảnh từ object hoặc string
+function getImageUrl(img) {
+  if (!img) return "khong co hinh anh";
+  return typeof img === "string"
+    ? img
+    : img.imageUrl || img.imagePath || "khong co hinh anh";
 }
 
 // Render thumbnails
@@ -151,102 +73,45 @@ function renderThumbnails(images, productName) {
     .join("");
 }
 
-// Hiển thị thông tin sản phẩm
-function displayProduct() {
-  if (!currentProduct) return;
-
-  // Cập nhật breadcrumb
-  document.getElementById("product-name").textContent = currentProduct.name;
-
-  // Cập nhật tên sản phẩm
-  document.getElementById("product-title").textContent = currentProduct.name;
-
-  // Cập nhật mã sản phẩm
-  document.getElementById("product-code").textContent =
-    currentProduct.code || currentProduct.id || "-";
-
-  // Cập nhật mô tả sản phẩm
-  const detailedDesc =
-    currentProduct.detailedDescription || currentProduct.description || "";
-  document.getElementById("detailed-description").innerHTML =
-    detailedDesc.replace(/\n/g, "<br>");
-
-  // Cập nhật chất liệu
-  document.getElementById("product-material").textContent =
-    currentProduct.material || "LEN";
-
-  // Xác định biến thể mặc định và hình ảnh
-  let currentImages = [
-    currentProduct.images.main || currentProduct.originalProduct.hinh_anh_url,
-  ];
-
-  if (currentProduct.variants && currentProduct.variants.length > 0) {
-    selectedVariant = currentProduct.variants[0].ma_bien_the;
-    document.getElementById(
-      "stock-info"
-    ).textContent = ` ${currentProduct.variants[0].soluong} sản phẩm có sẵn`;
-
-    // Lấy danh sách hình ảnh của biến thể đầu tiên
-    if (
-      currentProduct.variants[0].danh_sach_hinh_anh &&
-      currentProduct.variants[0].danh_sach_hinh_anh.length > 0
-    ) {
-      currentImages = currentProduct.variants[0].danh_sach_hinh_anh;
-    }
-  } else {
-    // Fallback stock info if no variants
-    document.getElementById("stock-info").textContent = `${
-      currentProduct.stock || 0
-    } sản phẩm có sẵn`;
-  }
-
-  // Cập nhật hình ảnh chính
-  if (currentImages.length > 0) {
-    document.getElementById("main-product-image").src = currentImages[0];
-    document.getElementById("main-product-image").alt = currentProduct.name;
-  }
-
-  // Render thumbnails
-  renderThumbnails(currentImages, currentProduct.name);
-
-  // Cập nhật giá sản phẩm
-  updateProductPrice();
-
-  // Tải các tùy chọn màu sắc
-  loadColorOptions();
-}
-
 // Cập nhật hiển thị giá sản phẩm (bao gồm giá gốc nếu có giảm giá)
 function updateProductPrice() {
   const priceContainer = document.getElementById("product-price");
-  const selectedVariantData = currentProduct.variants.find(
-    (v) => v.ma_bien_the == selectedVariant
+  const selectedVariantData = currentProduct.variants?.find(
+    (v) => v.id == selectedVariant
   );
 
-  // Tính giá cơ bản với biến thể
-  let basePrice =
-    (currentProduct.originalProduct.gia || 0) +
-    (selectedVariantData?.gia_them || 0);
+  // Logic: Biến thể đầu tiên (index 0) giữ nguyên giá gốc từ API.
+  // Các biến thể sau (index > 0) mới cộng thêm giá (extraPrice).
+  let basePrice = currentProduct.price || 0;
+  const variantIndex = currentProduct.variants?.findIndex(
+    (v) => v.id == selectedVariant
+  );
+
+  if (variantIndex > 0) {
+    basePrice = basePrice * (1 + selectedVariantData?.extraPrice || 0);
+  }
+
   let finalPrice = basePrice;
   let hasDiscount = false;
   let discountPercent = 0;
 
-  // Áp dụng giảm giá nếu có
-  if (
-    currentProduct.originalProduct.khuyen_mai &&
-    currentProduct.originalProduct.khuyen_mai.length > 0
-  ) {
-    const activePromo = currentProduct.originalProduct.khuyen_mai.find(
-      (promo) => {
-        const now = new Date();
-        const start = new Date(promo.ngay_bat_dau);
-        const end = new Date(promo.ngay_ket_thuc);
-        return now >= start && now <= end;
-      }
-    );
+  // Tìm khuyến mãi hợp lệ
+  const promotions = currentProduct.promotions || [];
+
+  if (promotions && promotions.length > 0) {
+    const activePromo = promotions.find((promo) => {
+      const now = new Date();
+      const startDate = promo.startDate;
+      const endDate = promo.endDate;
+
+      const start = new Date(startDate);
+      const end = new Date(endDate);
+      return now >= start && now <= end;
+    });
+
     if (activePromo) {
       hasDiscount = true;
-      discountPercent = activePromo.phan_tram_giam;
+      discountPercent = activePromo.discountPercent || 0;
       finalPrice = basePrice * (1 - discountPercent / 100);
     }
   }
@@ -268,6 +133,43 @@ function updateProductPrice() {
     )}</span>`;
   }
 }
+// Hiển thị thông tin sản phẩm
+function displayProduct() {
+  const p = currentProduct;
+  if (!p) return;
+
+  document.getElementById("product-name").textContent = p.name;
+  document.getElementById("product-title").textContent = p.name;
+  document.getElementById("product-code").textContent = p.id;
+  document.getElementById("detailed-description").innerHTML = (
+    p.description || ""
+  ).replace(/\n/g, "<br>");
+  document.getElementById("product-material").textContent = p.type || "LEN";
+
+  // Ảnh mặc định
+  let images = [getImageUrl(p.imageUrl || p.imagePath)];
+
+  // Nếu có biến thể
+  if (p.variants?.length > 0) {
+    const v = p.variants[0];
+    document.getElementById("stock-info").textContent = `${
+      v.stock || 0
+    } sản phẩm có sẵn`;
+
+    if (v.images?.length > 0) images = v.images.map(getImageUrl);
+    else if (v.imageUrl || v.imagePath) images = [getImageUrl(v)];
+  } else {
+    document.getElementById("stock-info").textContent = `${
+      p.stock || 0
+    } sản phẩm có sẵn`;
+  }
+
+  // Gán ảnh
+  document.getElementById("main-product-image").src = images[0];
+  renderThumbnails(images);
+  updateProductPrice();
+  loadColorOptions();
+}
 
 // Định dạng giá theo định dạng tiếng Việt
 function formatPrice(price) {
@@ -286,32 +188,36 @@ function loadColorOptions() {
     return;
   }
 
+  // Main product image as fallback
+  const mainImgUrl = getImageUrl(
+    currentProduct.imageUrl || currentProduct.imagePath
+  );
+
   colorContainer.innerHTML = currentProduct.variants
     .map((v, i) => {
-      const text = `${v.mau_sac} – ${v.kich_co}`;
+      const text = `${v.color} – ${v.size}`;
+      // Lấy ảnh đại diện cho variant
+      const vImg = getImageUrl(v.imageUrl || v.imagePath || mainImgUrl);
+
       return `
             <button class="color-option ${i === 0 ? "active" : ""}"
-                data-variant-id="${v.ma_bien_the}"
-                onclick="selectVariant('${v.ma_bien_the}', '${
-        v.url_hinh_anh_bien_the || currentProduct.images.main
-      }')">
+                data-variant-id="${v.id}"
+                onclick="selectVariant('${v.id}', '${vImg}')">
                 ${text}
             </button>
         `;
     })
     .join("");
 
-  selectedVariant = currentProduct.variants[0].ma_bien_the;
+  selectedVariant = currentProduct.variants[0].id;
 }
 
 // Chọn biến thể (màu sắc)
 function selectVariant(variantId, imageUrl) {
   selectedVariant = variantId;
 
-  const variant = currentProduct.variants.find(
-    (v) => v.ma_bien_the == variantId
-  );
-  const stock = variant?.soluong ?? currentProduct.stock ?? 0;
+  const variant = currentProduct.variants.find((v) => v.id == variantId);
+  const stock = variant?.stock ?? currentProduct.stock ?? 0;
 
   document.getElementById(
     "stock-info"
@@ -329,12 +235,15 @@ function selectVariant(variantId, imageUrl) {
   // Cập nhật thumbnails và hình ảnh chính theo biến thể
   if (variant) {
     let variantImages = [];
-    if (variant.danh_sach_hinh_anh && variant.danh_sach_hinh_anh.length > 0) {
-      variantImages = variant.danh_sach_hinh_anh;
-    } else if (variant.url_hinh_anh_bien_the) {
-      variantImages = [variant.url_hinh_anh_bien_the];
+    if (variant.images && variant.images.length > 0) {
+      variantImages = variant.images.map(getImageUrl);
+    } else if (variant.imageUrl || variant.imagePath) {
+      variantImages = [getImageUrl(variant.imageUrl || variant.imagePath)];
     } else {
-      variantImages = [currentProduct.images.main];
+      // Fallback to main product image
+      variantImages = [
+        getImageUrl(currentProduct.imageUrl || currentProduct.imagePath),
+      ];
     }
 
     renderThumbnails(variantImages, currentProduct.name);
@@ -401,17 +310,17 @@ function loadRelatedProducts() {
 
   similarContainer.innerHTML = relatedProducts
     .map((product) => {
-      const converted = convertProductFormat(product);
-      if (!converted) return "";
-      const image = converted.images.main;
+      // product ở đây là raw data từ API list
+      const image = getImageUrl(product.imageUrl || product.imagePath);
+      // Fallback price if needed
+      const price = product.price || 0;
+
       return `
-            <div class="similar-item" onclick="goToProduct('${converted.id}')">
-                <img src="${image}" alt="${converted.name}">
+            <div class="similar-item" onclick="goToProduct('${product.id}')">
+                <img src="${image}" alt="${product.name}">
                 <div class="similar-item-info">
-                    <div class="similar-item-title">${converted.name}</div>
-                    <div class="similar-item-price">${formatPrice(
-                      converted.cost || 0
-                    )}</div>
+                    <div class="similar-item-title">${product.name}</div>
+                    <div class="similar-item-price">${formatPrice(price)}</div>
                 </div>
             </div>
         `;
@@ -465,49 +374,61 @@ function toggleSection(button) {
   }
 }
 
-// Thêm vào giỏ hàng( sua doi sang kieu lay du lieu xuat thanh json gui request den api them vao gio hang )
+// Thêm vào giỏ hàng
 function addToCart() {
   if (!currentProduct) return;
 
   const quantity = parseInt(document.getElementById("quantity").value) || 1;
-  const selectedVariantData = currentProduct.variants.find(
-    (v) => v.ma_bien_the == selectedVariant
+  const selectedVariantData = currentProduct.variants?.find(
+    (v) => v.id == selectedVariant
   );
 
   // Tính giá cuối cùng với biến thể và giảm giá
-  let basePrice =
-    (currentProduct.originalProduct.gia || 0) +
-    (selectedVariantData?.gia_them || 0);
+  // Logic: Biến thể đầu tiên (index 0) giữ nguyên giá gốc.
+  let basePrice = currentProduct.price || 0;
+  const variantIndex = currentProduct.variants?.findIndex(
+    (v) => v.id == selectedVariant
+  );
+
+  if (variantIndex > 0) {
+    basePrice += selectedVariantData?.extraPrice || 0;
+  }
 
   // Áp dụng giảm giá nếu có
-  if (
-    currentProduct.originalProduct.khuyen_mai &&
-    currentProduct.originalProduct.khuyen_mai.length > 0
-  ) {
-    const activePromo = currentProduct.originalProduct.khuyen_mai.find(
-      (promo) => {
-        const now = new Date();
-        const start = new Date(promo.ngay_bat_dau);
-        const end = new Date(promo.ngay_ket_thuc);
-        return now >= start && now <= end;
-      }
-    );
+  const promotions = currentProduct.promotions || [];
+  if (promotions && promotions.length > 0) {
+    const activePromo = promotions.find((promo) => {
+      const now = new Date();
+      const startDate = promo.startDate;
+      const endDate = promo.endDate;
+      const start = new Date(startDate);
+      const end = new Date(endDate);
+      return now >= start && now <= end;
+    });
+
     if (activePromo) {
-      basePrice = basePrice * (1 - activePromo.phan_tram_giam / 100);
+      const discountPercent = activePromo.discountPercent || 0;
+      basePrice = basePrice * (1 - discountPercent / 100);
     }
   }
 
+  // Define product object for cart
   const productToAdd = {
     id: currentProduct.id,
     name: currentProduct.name,
     price: basePrice,
-    image:
-      selectedVariantData?.url_hinh_anh_bien_the || currentProduct.images.main,
+    image: getImageUrl(
+      selectedVariantData?.imageUrl ||
+        selectedVariantData?.imagePath ||
+        currentProduct.imageUrl ||
+        currentProduct.imagePath
+    ),
     variant: selectedVariantData,
     quantity: quantity,
     ma_san_pham: currentProduct.id,
     ma_bien_the: selectedVariant,
-    mau_sac: selectedVariantData?.mau_sac || "",
+    mau_sac: selectedVariantData?.color || "",
+    kich_co: selectedVariantData?.size || "",
   };
 
   // Lấy giỏ hàng hiện có từ localStorage

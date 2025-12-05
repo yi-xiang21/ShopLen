@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener("DOMContentLoaded", () => {
   if (document.querySelector('header[data-inserted="true"]')) return;
 
   const headerHTML = `
@@ -10,13 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
           <li><a href="shop.html">Shop</a></li>
           <li><a href="workshop.html">Workshops</a></li>
           <li><a href="about.html">About</a></li>
-          <li class="search-li">
-            <input type="checkbox" id="toggle-search" hidden>
-            <label for="toggle-search" class="search-btn">
-              <i class="bi bi-search" style="cursor: pointer;"></i>
-            </label>
-            <input type="text" class="search-input" placeholder="Search...">
-          </li>
+          
           <li class="cart">
             <a href="cart.html">
               <i class="cart bi bi-cart"></i>
@@ -60,12 +54,17 @@ document.addEventListener('DOMContentLoaded', () => {
   `;
 
   // Chèn vào đầu body hoặc thay thế placeholder nếu có
-  const placeholder = document.getElementById('header-placeholder') || document.querySelector('[data-insert-header]');
-  const headerEl = document.createElement('div');
+  const placeholder =
+    document.getElementById("header-placeholder") ||
+    document.querySelector("[data-insert-header]");
+  const headerEl = document.createElement("div");
   headerEl.innerHTML = headerHTML;
   if (placeholder) {
     placeholder.replaceWith(headerEl.firstElementChild);
   } else {
-    document.body.insertAdjacentElement('afterbegin', headerEl.firstElementChild);
+    document.body.insertAdjacentElement(
+      "afterbegin",
+      headerEl.firstElementChild
+    );
   }
 });
