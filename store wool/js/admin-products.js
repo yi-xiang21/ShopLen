@@ -160,11 +160,6 @@ function renderCards() {
                   variant ? variant.size || "" : ""
                 }">
 
-                <label>Chất liệu:</label>
-                <input type="text" class="variantMaterial" placeholder="Cotton" value="${
-                  variant ? variant.material || "" : ""
-                }">
-
                 <label>Hình ảnh:</label>
                 <div class="variant-images-list" ">
                   <!-- Hình ảnh sẽ được thêm vào đây -->
@@ -294,12 +289,15 @@ function renderCards() {
       if (variantContainer) variantContainer.innerHTML = "";
       variantCounter = 0;
 
+      
       // Điền thông tin sản phẩm
       form.productName.value = product.name || "";
       form.productCategory.value = product.categoryId || "";
       form.productPrice.value = product.price || "";
       form.productDescription.value = product.description || "";
       form.inputType.value = product.type || "";
+      materialValue = product.variants[0].material || "";
+      document.getElementById("variantMaterial").value = materialValue;
 
       // Load biến thể nếu có (hình ảnh trong biến thể)
       if (
@@ -307,6 +305,7 @@ function renderCards() {
         Array.isArray(product.variants) &&
         product.variants.length > 0
       ) {
+        
         product.variants.forEach((v) => {
           // Xử lý hình ảnh: có thể là array hoặc string
           const variantImages = v.images || (v.imageUrl ? [v.imageUrl] : []);
@@ -331,6 +330,7 @@ function renderCards() {
       editingId = null;
       form.reset();
       document.getElementById("productId").value = "";
+      document.getElementById("variantMaterial").value = "";
 
       // Xóa tất cả biến thể cũ
       const variantContainer = document.getElementById("variantContainer");
@@ -399,23 +399,40 @@ function renderCards() {
       });
     }
 
+    //kiem tra dau vao cua size
+    function checkDonVi(inputSize) {
+      //Chuyển toàn bộ về chữ thường để tránh lỗi
+      let sizeChuan = inputSize.toLowerCase();
+
+      //Cắt 2 ký tự cuối cùng bằng hàm slice(-2)
+      let haiKyTuCuoi = sizeChuan.slice(-2);
+
+      //Kiểm tra xem có đúng là 'gr' không
+      if (haiKyTuCuoi === "gr") {
+        if (isNaN(sizeChuan.slice(0, -2))) 
+        {
+          return false;
+        }
+        else
+        {
+          return true;
+        }
+      } else {
+        return false;
+      }
+    }
+
+    
+
+    // Xử lý submit form thêm/sửa sản phẩm
     if (form) {
       form.addEventListener("submit", async (e) => {
         e.preventDefault();
         try {
           // Tạo FormData mới thay vì từ form để tránh conflict với Multer
           const formData = new FormData();
-
-          // Thêm các field text từ form
-          formData.append("name", form.productName.value.trim());
-          formData.append("categoryId", form.productCategory.value);
-          formData.append("price", form.productPrice.value);
-          formData.append("description", form.productDescription.value);
           const inputType = document.getElementById("inputType");
-          if (inputType) {
-            formData.append("productType", inputType.value);
-          }
-
+          const globalmaterial = document.getElementById("variantMaterial").value.trim();
           // Thu thập dữ liệu biến thể (hình ảnh chỉ lưu trong biến thể)
           const variants = [];
           const variantItems = document.querySelectorAll(".variant-item");
@@ -423,8 +440,9 @@ function renderCards() {
             const color =
               item.querySelector(".variantColor")?.value.trim() || "";
             const size = item.querySelector(".variantSize")?.value.trim() || "";
-            const material =
-              item.querySelector(".variantMaterial")?.value.trim() || "";
+            
+            const material = globalmaterial || "";
+
             const extraPrice =
               Number(item.querySelector(".variantPriceExtra")?.value) || 0;
             const stock =
@@ -432,6 +450,7 @@ function renderCards() {
 
             // Thu thập hình ảnh từ biến thể
             const imageInputs = item.querySelectorAll(".variant-image-input");
+            let checkFileImage = false; // tao bien ktra ìput file co rong ko
             const imageUrls = [];
             imageInputs.forEach((input, imgIdx) => {
               const file = input.files[0];
@@ -444,11 +463,26 @@ function renderCards() {
                   `variantImages_${variantIndex}_${imgIdx}`,
                   file
                 );
+                checkFileImage = true;
               } else if (existingUrl && existingUrl.trim()) {
                 // Giữ lại URL cũ
                 imageUrls.push(existingUrl.trim());
+                checkFileImage = true;
               }
             });
+            //ktra neu ko co du lieu hinh thi xuat loi
+            if(!checkFileImage) {
+              throw new Error("Vui lòng chọn ít nhất một hình ảnh cho biến thể.");
+            }
+
+            // Kiểm tra đuôi 'gr' nếu là loại Len
+            if (inputType.value === "Len") {
+              // Hàm checkDonVi kiểm tra đuôi 'gr'
+              if (checkDonVi(size)!== true) {
+                item.querySelector(".variantSize").value = "";
+                throw new Error(`Vui long nhap dung dinh dang vd:125gr `); // Dừng hàm submit ngay lập tức
+              }
+            }
 
             if (
               color ||
@@ -468,9 +502,18 @@ function renderCards() {
               variants.push(variantData);
             }
           });
+          // Thêm các field text từ form
+          formData.append("name", form.productName.value.trim());
+          formData.append("categoryId", form.productCategory.value);
+          formData.append("price", form.productPrice.value);
+          formData.append("description", form.productDescription.value);
+          if (inputType) {
+            formData.append("productType", inputType.value);
+          }
 
           // Thêm variants vào FormData dưới dạng JSON
           formData.append("variants", JSON.stringify(variants));
+          
 
           let res;
           if (editingId) {
