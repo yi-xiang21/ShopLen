@@ -80,15 +80,12 @@ function updateProductPrice() {
     (v) => v.id == selectedVariant
   );
 
-  // Logic: Biến thể đầu tiên (index 0) giữ nguyên giá gốc từ API.
-  // Các biến thể sau (index > 0) mới cộng thêm giá (extraPrice).
   let basePrice = currentProduct.price || 0;
-  const variantIndex = currentProduct.variants?.findIndex(
-    (v) => v.id == selectedVariant
-  );
-
-  if (variantIndex > 0) {
-    basePrice = basePrice * (1 + selectedVariantData?.extraPrice || 0);
+  if (selectedVariantData) {
+      const variantPrice = Number(selectedVariantData.extraPrice) || 0;
+      if (variantPrice > 0) {
+          basePrice = variantPrice;
+      }
   }
 
   let finalPrice = basePrice;
@@ -297,6 +294,7 @@ function scrollThumbnails(direction) {
 
 // Tải sản phẩm liên quan/tương tự
 function loadRelatedProducts() {
+  updateProductPrice(); // Cập nhật giá tiền của biến thể
   if (!currentProduct || !allProducts.length) return;
 
   const relatedProducts = getRelatedProducts();
@@ -383,32 +381,35 @@ function addToCart() {
     (v) => v.id == selectedVariant
   );
 
-  // Tính giá cuối cùng với biến thể và giảm giá
-  // Logic: Biến thể đầu tiên (index 0) giữ nguyên giá gốc.
-  let basePrice = currentProduct.price || 0;
-  const variantIndex = currentProduct.variants?.findIndex(
-    (v) => v.id == selectedVariant
-  );
+  let finalPrice = Number(currentProduct.price) || 0;
 
-  if (variantIndex > 0) {
-    basePrice += selectedVariantData?.extraPrice || 0;
+  if (selectedVariantData) {
+    const variantPrice = Number(selectedVariantData.extraPrice) || 0;
+
+    if (variantPrice > 0) {
+      finalPrice = variantPrice;
+    }
   }
+  
+  // Giá biến thể trước khi giảm giá
+  const priceBeforeDiscount = finalPrice; 
 
-  // Áp dụng giảm giá nếu có
+  // Áp dụng giảm giá
   const promotions = currentProduct.promotions || [];
+  let activePromo = null;
+
   if (promotions && promotions.length > 0) {
-    const activePromo = promotions.find((promo) => {
+    activePromo = promotions.find((promo) => {
       const now = new Date();
-      const startDate = promo.startDate;
-      const endDate = promo.endDate;
-      const start = new Date(startDate);
-      const end = new Date(endDate);
+      const start = new Date(promo.startDate);
+      const end = new Date(promo.endDate);
       return now >= start && now <= end;
     });
 
     if (activePromo) {
       const discountPercent = activePromo.discountPercent || 0;
-      basePrice = basePrice * (1 - discountPercent / 100);
+      // Áp dụng giảm giá lên finalPrice đã xử lý biến thể
+      finalPrice = finalPrice * (1 - discountPercent / 100);
     }
   }
 
@@ -416,7 +417,7 @@ function addToCart() {
   const productToAdd = {
     id: currentProduct.id,
     name: currentProduct.name,
-    price: basePrice,
+    price: finalPrice, 
     image: getImageUrl(
       selectedVariantData?.imageUrl ||
         selectedVariantData?.imagePath ||
@@ -429,6 +430,7 @@ function addToCart() {
     ma_bien_the: selectedVariant,
     mau_sac: selectedVariantData?.color || "",
     kich_co: selectedVariantData?.size || "",
+    price_before_discount: priceBeforeDiscount,
   };
 
   // Lấy giỏ hàng hiện có từ localStorage
@@ -453,7 +455,7 @@ function addToCart() {
   // Hiển thị thông báo
   alert(`Đã thêm ${quantity} sản phẩm vào giỏ hàng!`);
 
-  // Cập nhật số lượng giỏ hàng nếu hàm tồn tại
+  // Cập nhật số lượng giỏ hàng
   if (typeof updateCartCount === "function") {
     updateCartCount();
   }

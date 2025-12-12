@@ -52,58 +52,53 @@
     }).format(value || 0);
   }
 
-  // Render các thẻ sản phẩm dạng lưới trong Admin
-  function renderCards() {
-    const container = document.getElementById("grid-item");
-    if (!container) return;
-    if (!products.length) {
-      container.innerHTML =
-        '<p style="padding:16px;">Chưa có sản phẩm nào.</p>';
-      return;
-    }
-
-    // Tạo giao diện từng card sản phẩm
-    // Lấy hình ảnh từ biến thể đầu tiên (nếu có), nếu không thì dùng default
-    container.innerHTML = products
-      .map((product) => {
-        let imageUrl = "img/default.jpg";
-        if (
-          product.variants &&
-          Array.isArray(product.variants) &&
-          product.variants.length > 0
-        ) {
-          const firstVariant = product.variants[0];
-          if (
-            firstVariant.images &&
-            Array.isArray(firstVariant.images) &&
-            firstVariant.images.length > 0
-          ) {
-            imageUrl =
-              firstVariant.images[0].imageUrl ||
-              firstVariant.images[0] ||
-              imageUrl;
-          } else if (firstVariant.imageUrl) {
-            imageUrl = firstVariant.imageUrl;
-          }
-        } else if (product.imageUrl) {
-          imageUrl = product.imageUrl; // Fallback nếu vẫn có imageUrl ở product level
-        }
-
-        return `
-				<div class="card-item">
-					<img src="${imageUrl}" alt="${product.name}">
-					<h3 class="item-name">${product.name}</h3>
-					<p class="item-category">${product.categoryName || ""}</p>
-					<p class="item-price">${formatCurrency(product.price)}</p>
-					<div class="card-actions">
-						<button class="btn btn-edit" data-id="${product.id}">Edit</button>
-						<button class="btn btn-delete-product" data-id="${product.id}">Delete</button>
-					</div>
-				</div>
-			`;
-      })
-      .join("");
+// Render các thẻ sản phẩm dạng lưới trong Admin
+function renderCards() {
+  const container = document.getElementById("grid-item");
+  if (!container) return;
+  
+  if (!products || products.length === 0) { 
+    container.innerHTML =
+      '<p style="padding:16px;">Chưa có sản phẩm nào.</p>';
+    return;
   }
+
+  // Tạo giao diện từng card sản phẩm
+  container.innerHTML = products
+    .map((product) => {
+
+      const firstVariant = product.variants?.[0]; // Lấy biến thể đầu tiên
+      
+      const imageUrl = 
+        firstVariant?.images?.[0]?.imageUrl ||
+        firstVariant?.images?.[0] ||
+        firstVariant?.imageUrl ||
+        product.imageUrl ||
+        "img/default.jpg";
+
+      let finalPrice = Number(product.price);
+
+      if (firstVariant) {
+        const extraPrice = Number(firstVariant.extraPrice) || 0;
+        
+        if (extraPrice > 0) finalPrice = extraPrice;
+      }
+
+      return `
+        <div class="card-item">
+          <img src="${imageUrl}" alt="${product.name}">
+          <h3 class="item-name">${product.name}</h3>
+          <p class="item-category">${product.categoryName || ""}</p>
+          <p class="item-price">${formatCurrency(finalPrice)}</p>
+          <div class="card-actions">
+            <button class="btn btn-edit" data-id="${product.id}">Edit</button>
+            <button class="btn btn-delete-product" data-id="${product.id}">Delete</button>
+          </div>
+        </div>
+      `;
+    })
+    .join("");
+}
 
   // Lấy danh sách sản phẩm từ API để admin quản lý
   async function fetchProducts(keyword = "", catId = "") {
@@ -175,8 +170,8 @@
                   <!-- Hình ảnh sẽ được thêm vào đây -->
                 </div>
                 <button type="button" class="btn btn-add-variant-image">+ Thêm hình</button>
-                <label>Giá thêm :</label>
-                <input type="number" class="variantPriceExtra" step="0.01" value="${
+                <label>Giá biến thể (Để trống nếu muốn biến thể có giá gốc):</label>
+                <input type="number" class="variantPriceExtra" value="${
                   variant
                     ? typeof variant.extraPrice !== "undefined"
                       ? variant.extraPrice

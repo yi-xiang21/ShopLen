@@ -15,12 +15,29 @@ function formatCurrency(value) {
 
 // Hàm lấy thông tin sản phẩm
 function convertProduct(product) {
+	let finalPrice = Number(product.price);
+	let imageUrl = product.imageUrl || 'img/default.jpg';
+    if (product.variants && Array.isArray(product.variants) && product.variants.length > 0) {
+        const firstVariant = product.variants[0];
+
+        const extraPrice = Number(firstVariant.extraPrice) || 0;
+        if (extraPrice > 0) {
+            finalPrice = extraPrice;
+        }
+
+        imageUrl = 
+            firstVariant.images?.[0]?.imageUrl ||
+            firstVariant.images?.[0] ||
+            firstVariant.imageUrl ||
+            product.imageUrl ||
+            imageUrl;
+    }
 	return {
 		id: product.id,
 		name: product.name,
-		price: Number(product.price) || 0,
+		price: finalPrice,
 		categoryId: product.categoryId,
-		imageUrl: product.imageUrl || 'img/default.jpg'
+		imageUrl: imageUrl
 	};
 }
 
