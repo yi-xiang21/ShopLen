@@ -36,6 +36,7 @@ async function loadProduct() {
     const listData = await listRes.json();
     allProducts = listData.products || [];
     displayProduct();
+    updateProductPrice(); // Cập nhật giá tiền của biến thể
     loadRelatedProducts();
     initCollapsibleSections();
   } catch (error) {
@@ -294,7 +295,6 @@ function scrollThumbnails(direction) {
 
 // Tải sản phẩm liên quan/tương tự
 function loadRelatedProducts() {
-  updateProductPrice(); // Cập nhật giá tiền của biến thể
   if (!currentProduct || !allProducts.length) return;
 
   const relatedProducts = getRelatedProducts();
