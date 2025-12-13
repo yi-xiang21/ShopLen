@@ -9,13 +9,22 @@
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/animation.css">
     <script src="js/ai-integration.js"></script>
+    <script src="js/catRandom.js"></script>
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
     <title>peace chill</title>
 </head>
 
 <body>
-   
+
     <main>
+
+        <div id="cat-container" class="cat-wrapper">
+            <lottie-player id="cat-animation" src="./animation/catSeek.json" background="transparent" speed="1"
+                mode="normal">
+            </lottie-player>
+        </div>
         <section id="banner">
             <div class="text-banner">
                 <p class="p1">Khám Phá Sự Thư Giãn Cho Tâm Hồn </p>
@@ -119,7 +128,8 @@
                             <i class="bi bi-star-fill"></i>
                             <i class="bi bi-star-fill"></i>
                         </div>
-                        <p>" Chất lượng của len thực sự ngoài sức tưởng tượng, và các workshop hàng tuần đã giúp tôi cải thiện
+                        <p>" Chất lượng của len thực sự ngoài sức tưởng tượng, và các workshop hàng tuần đã giúp tôi cải
+                            thiện
                             kỹ năng đan của mình rất nhiều. Tôi yêu thích cộng đồng thân thiện này! "</p>
                         <div id="customer">
                             <img src="img/cus1.png" alt="">
@@ -135,7 +145,8 @@
                             <i class="bi bi-star-fill"></i>
                             <i class="bi bi-star-fill"></i>
                         </div>
-                        <p>" Là một người mới bắt đầu, tôi lo lắng khi tham gia workshop, nhưng các giáo viên rất kiên nhẫn
+                        <p>" Là một người mới bắt đầu, tôi lo lắng khi tham gia workshop, nhưng các giáo viên rất kiên
+                            nhẫn
                             và hữu ích. Len merino mềm mại và dễ làm việc! "</p>
                         <div id="customer">
                             <img src="img/cus2.png" alt="">
@@ -150,7 +161,8 @@
                             <i class="bi bi-star-fill"></i>
                             <i class="bi bi-star"></i>
                         </div>
-                        <p>" Tôi đã đan len trong nhiều năm, nhưng các workshop theo chủ đề hàng tuần luôn truyền cảm hứng cho tôi thử các
+                        <p>" Tôi đã đan len trong nhiều năm, nhưng các workshop theo chủ đề hàng tuần luôn truyền cảm
+                            hứng cho tôi thử các
                             kỹ thuật mới. Bộ sưu tập len nhuộm tay thực sự tuyệt đẹp, tôi rất hạnh phúc! "</p>
                         <div id="customer">
                             <img src="img/cus3.png" alt="">
@@ -192,7 +204,8 @@
         <section id="mail">
             <div class="mail-details">
                 <p class="title-mail">Tham Gia Cộng Đồng Đan Của Chúng Tôi</p>
-                <p class="conten-mail">Đăng ký nhận bản tin của chúng tôi để cập nhật workshop hàng tuần, những sợi len mới, và
+                <p class="conten-mail">Đăng ký nhận bản tin của chúng tôi để cập nhật workshop hàng tuần, những sợi len
+                    mới, và
                     các mẫu độc quyền</p>
 
                 <div class="mail-form">
@@ -209,10 +222,10 @@
         function convertProductFormat(product) {
             let finalPrice = Number(product.price) || 0;
             let imageUrl = product.imageUrl || 'img/default.jpg';
-            
+
             if (product.variants && Array.isArray(product.variants) && product.variants.length > 0) {
                 const firstVariant = product.variants[0];
-                
+
                 // --- LOGIC MỚI: Ưu tiên giá biến thể ---
                 const variantPrice = Number(firstVariant.extraPrice) || 0;
                 if (variantPrice > 0) {

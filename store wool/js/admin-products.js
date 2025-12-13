@@ -428,6 +428,7 @@ function renderCards() {
     if (form) {
       form.addEventListener("submit", async (e) => {
         e.preventDefault();
+
         try {
           // Tạo FormData mới thay vì từ form để tránh conflict với Multer
           const formData = new FormData();
@@ -532,11 +533,11 @@ function renderCards() {
             window.location.href = "login.html";
             return;
           }
+
           const data = await res.json();
           if (data.status !== "success")
             throw new Error(data.message || "Thao tác thất bại");
           await fetchProducts();
-          hideForm();
         } catch (err) {
           alert(err.message || "Không thể lưu sản phẩm");
         }
@@ -578,8 +579,9 @@ function renderCards() {
             return;
           }
           const data = await res.json();
-          if (data.status !== "success")
+          if (data.status !== "success"){
             throw new Error(data.message || "Không thể xóa sản phẩm");
+          }
           await fetchProducts();
         } catch (err) {
           alert(err.message || "Không thể xóa sản phẩm");
@@ -613,6 +615,7 @@ function renderCards() {
       });
     }
   }
+  
 
   document.addEventListener("DOMContentLoaded", () => {
     const productSection = document.querySelector(

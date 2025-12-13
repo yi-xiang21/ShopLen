@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="css/bill.css">
     <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="css/about.css">
+    <link rel="stylesheet" href="css/animation.css">
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
     <script src="js/ai-integration.js"></script>
 
     <title>peace chill </title>
@@ -18,6 +20,14 @@
 
 <body>
     <div class="direction" id="breadcrumb"></div>
+    <!-- 
+    <div id="loadingOverlay" class="loading-overlay">
+        <lottie-player src="animation/load.json" background="transparent" speed="1" style="width: 250px; height: 250px;" loop
+            autoplay>
+        </lottie-player>
+        <div class="loading-text">Đang xử lý dữ liệu</div>
+    </div> -->
+
     <div class="bill-page">
         <div class="left-bill">
             <div class="bill1">
@@ -30,11 +40,11 @@
                 <input type="tel" id="phone" name="phone" required placeholder="Số Điện Thoại">
 
                 <input type="text" id="address" name="address" required placeholder="Địa Chỉ">
-                <div >
+                <div>
                     <input type="checkbox" id="address_add" style="align-items: right;"> Thêm địa chỉ
-                    <input type="text" id="address2"  required placeholder="Địa Chỉ khác" style="display: none;">
+                    <input type="text" id="address2" required placeholder="Địa Chỉ khác" style="display: none;">
                 </div>
-                
+
 
                 <select id="tinhthanh" name="tinhthanh" required>
                     <option value="1"> TP Hồ Chí Minh</option>
@@ -56,20 +66,20 @@
                 <div class="ship-method">
                     <div>
                         <input type="radio" id="standard" name="ship" value="standard" checked>
-                        <label for="standard">Standard Shipping - Free</label><br>
+                        <label for="standard">xe đạp giao hàng - Free</label><br>
                     </div>
                     <div>
                         <input type="radio" id="express" name="ship" value="express">
-                        <label for="express">Express Shipping - 50.000₫</label><br>
+                        <label for="express">Hỏa tiễn giao hàng - 50.000₫</label><br>
                     </div>
 
                 </div>
-                <H2>Pphương thức thanh toán</H2>
+                <H2>phương thức thanh toán</H2>
                 <div class="pay-method">
                     <div>
-
                         <input type="radio" id="cod" name="pay" value="cod" checked>
                         <label for="cod">COD</label><br>
+
                     </div>
                     <div>
 
@@ -89,8 +99,26 @@
             <h2>Đơn Hàng Của Bạn</h2>
             <div class="checkout-summary">
                 <div class="order-items">
-                    <!-- Các mục đơn hàng thêm bằng JavaScript -->
-                   
+                    <div class="items-list">
+                        <div class="img-itemsdetailsorder">
+                            <img src="./img/item8.png" alt="">
+                        </div>
+                        <div class="item-detailsorder">
+                            <p class="item-nameorder">
+                                <label>Tên Sản Phẩm :</label>
+                                Sản Phẩm 1
+                            </p>
+                            <p class="item-quantityorder">
+                                <label>Số Lượng :</label>
+                                0
+                            </p>
+                            <p class="item-priceorder">
+                                <label>Giá :</label>
+                                0đ
+                            </p>
+                        </div>
+                    </div>
+
                 </div>
                 <div class="order-summary">
                     <div class="total">
@@ -106,16 +134,17 @@
             <h2 style="color: rgb(189, 39, 116);">COD là gì ?</h2>
             <p>
                 COD là một hình thức mua sắm trực tuyến cho phép bạn đặt hàng và nhận sản phẩm mà
-                không cần thanh toán ngay lập tức. Thay vào đó, bạn có thể thanh toán sau khi nhận được sản phẩm chứ hong phải giật lun nha mấy má
+                không cần thanh toán ngay lập tức. Thay vào đó, bạn có thể thanh toán sau khi nhận được sản phẩm chứ
+                hong phải giật lun nha mấy má
             </p>
         </div>
 
     </div>
 </body>
-    <script src="js/header.js"></script>
-    <script src="js/js.js"></script>
-    <script src="js/footer.js" defer></script>
-    <script src="js/breadcrumb.js" defer></script>  
-    <script src="js/bill.js"></script>
+<script src="js/header.js"></script>
+<script src="js/js.js"></script>
+<script src="js/footer.js" defer></script>
+<script src="js/breadcrumb.js" defer></script>
+<script src="js/bill.js"></script>
 
 </html>
