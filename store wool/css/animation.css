@@ -27,4 +27,15 @@
     pointer-events: none; /* Để chuột click xuyên qua, không che nút bấm của web */
 }
 
+/* css cho cat sleeping */
+.CatSleepingHeader{
+    position: absolute;
+    left: 8%;
+    top: -5%;
+    width: 100px; 
+    height:10px;
+    z-index: 9999; 
+    pointer-events: none; 
+}
+
 
