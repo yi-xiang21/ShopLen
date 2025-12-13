@@ -40,7 +40,6 @@ async function loadProduct() {
     loadRelatedProducts();
     initCollapsibleSections();
   } catch (error) {
-    console.error("Lỗi khi tải sản phẩm:", error);
     showError("Có lỗi xảy ra khi tải sản phẩm");
   }
 }
@@ -452,8 +451,50 @@ function addToCart() {
   // Lưu vào localStorage
   localStorage.setItem("cart", JSON.stringify(cart));
 
-  // Hiển thị thông báo
-  alert(`Đã thêm ${quantity} sản phẩm vào giỏ hàng!`);
+  const token = localStorage.getItem('token') || sessionStorage.getItem('token');
+  
+  if (token) {
+      // Nếu đã đăng nhập, gọi API để lưu vào bảng gio_hang
+      try {
+          const apiUrl = getApiUrl('/cart/add');
+
+          fetch(apiUrl, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token
+              },
+              body: JSON.stringify({
+                ma_bien_the: selectedVariant,  // ID biến thể
+                so_luong: quantity             // Số lượng
+              })
+          })
+          .then(res => res.json())
+          .then(data => {
+              if (data.status === 'success') {
+                  // Thành công: Báo cho người dùng biết
+                  alert(`Đã thêm ${quantity} sản phẩm vào giỏ hàng!`);
+              } else {
+                  // Thất bại: Báo lỗi để kiểm tra
+                  alert('Lỗi lưu Database: ' + (data.error || data.message));
+              }
+          })
+          .catch(err => {
+              alert('Lỗi kết nối Fetch: ' + err);
+          });
+      } catch (e) {
+          alert("Lỗi code (getApiUrl?): " + e);
+      }
+  } else {
+      // Nếu chưa đăng nhập, cảnh báo rõ ràng
+      const continueGuest = confirm("BẠN CHƯA ĐĂNG NHẬP!\n\nSản phẩm chỉ được lưu trên máy này và KHÔNG ĐƯỢC LƯU VÀO DỮ LIỆU CỦA TRANG WEB.\n\nBạn có muốn đăng nhập ngay để lưu giỏ hàng thật không?");
+      if (continueGuest) {
+          window.location.href = 'login.html'; // Chuyển trang đăng nhập nếu user muốn
+      } else {
+          alert("Đã lưu tạm vào máy khách.");
+      }
+  }
+  // ----------------------------------------------------------------
 
   // Cập nhật số lượng giỏ hàng
   if (typeof updateCartCount === "function") {

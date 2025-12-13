@@ -93,7 +93,7 @@ document.addEventListener('DOMContentLoaded', function() {
       const remember = loginForm.querySelector('input[type="checkbox"]').checked;
 
       try {
-        const apiUrl = typeof getApiUrl !== 'undefined' ? getApiUrl('/auth/login') : 'http://localhost:3000/auth/login';
+        const apiUrl = getApiUrl('/auth/login');
         const res = await fetch(apiUrl, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -121,6 +121,37 @@ document.addEventListener('DOMContentLoaded', function() {
           if (data.token) {
             storage.setItem('token', data.token);
           }
+
+          // // =========================Logic gộp giỏ hàng cho user khi đăng nhập=======================
+          // const localCart = JSON.parse(localStorage.getItem('cart') || '[]');
+          
+          // if (localCart.length > 0) {
+          //    try {
+          //       // Biến đổi cart localStorage thành dạng mà API mergeCart cần
+          //       const itemsToMerge = localCart.map(item => ({
+          //           ma_bien_the: item.ma_bien_the || item.variant?.id, // Tùy cách bạn lưu object
+          //           so_luong: item.quantity || item.so_luong
+          //       })).filter(i => i.ma_bien_the); // Lọc bỏ item lỗi
+          //       if (itemsToMerge.length > 0) {
+          //           const mergeApiUrl = getApiUrl('/cart/merge');
+                    
+          //           await fetch(mergeApiUrl, {
+          //               method: 'POST',
+          //               headers: {
+          //                   'Content-Type': 'application/json',
+          //                   'Authorization': 'Bearer ' + data.token // Dùng token mới nhận được
+          //               },
+          //               body: JSON.stringify({ cartItems: itemsToMerge })
+          //           });
+                    
+          //           // Xóa giỏ hàng tạm sau khi gộp giỏ hàng
+          //           localStorage.removeItem('cart'); 
+          //       }
+          //    } catch (err) {
+          //        console.error("Lỗi gộp giỏ hàng:", err);
+          //    }
+          // }
+          // // =============================================================================
 
           // Cập nhật menu ngay lập tức
           updateMenuVisibility();
@@ -161,7 +192,7 @@ document.addEventListener('DOMContentLoaded', function() {
       const city = '';
 
       try {
-        const apiUrl = typeof getApiUrl !== 'undefined' ? getApiUrl('/auth/register') : 'http://localhost:3000/auth/register';
+        const apiUrl = getApiUrl('/auth/register');
         const res = await fetch(apiUrl, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
