@@ -122,36 +122,36 @@ document.addEventListener('DOMContentLoaded', function() {
             storage.setItem('token', data.token);
           }
 
-          // // =========================Logic gộp giỏ hàng cho user khi đăng nhập=======================
-          // const localCart = JSON.parse(localStorage.getItem('cart') || '[]');
+          // =========================Logic gộp giỏ hàng cho user khi đăng nhập=======================
+          const localCart = JSON.parse(localStorage.getItem('cart') || '[]');
           
-          // if (localCart.length > 0) {
-          //    try {
-          //       // Biến đổi cart localStorage thành dạng mà API mergeCart cần
-          //       const itemsToMerge = localCart.map(item => ({
-          //           ma_bien_the: item.ma_bien_the || item.variant?.id, // Tùy cách bạn lưu object
-          //           so_luong: item.quantity || item.so_luong
-          //       })).filter(i => i.ma_bien_the); // Lọc bỏ item lỗi
-          //       if (itemsToMerge.length > 0) {
-          //           const mergeApiUrl = getApiUrl('/cart/merge');
+          if (localCart.length > 0) {
+             try {
+                // Biến đổi cart localStorage thành dạng mà API mergeCart cần
+                const itemsToMerge = localCart.map(item => ({
+                    ma_bien_the: item.ma_bien_the || item.variant?.id, // Tùy cách bạn lưu object
+                    so_luong: item.quantity || item.so_luong
+                })).filter(i => i.ma_bien_the); // Lọc bỏ item lỗi
+                if (itemsToMerge.length > 0) {
+                    const mergeApiUrl = typeof getApiUrl === 'function' ? getApiUrl('/cart/merge') : '/cart/merge';
                     
-          //           await fetch(mergeApiUrl, {
-          //               method: 'POST',
-          //               headers: {
-          //                   'Content-Type': 'application/json',
-          //                   'Authorization': 'Bearer ' + data.token // Dùng token mới nhận được
-          //               },
-          //               body: JSON.stringify({ cartItems: itemsToMerge })
-          //           });
+                    await fetch(mergeApiUrl, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': 'Bearer ' + data.token // Dùng token mới nhận được
+                        },
+                        body: JSON.stringify({ cartItems: itemsToMerge })
+                    });
                     
-          //           // Xóa giỏ hàng tạm sau khi gộp giỏ hàng
-          //           localStorage.removeItem('cart'); 
-          //       }
-          //    } catch (err) {
-          //        console.error("Lỗi gộp giỏ hàng:", err);
-          //    }
-          // }
-          // // =============================================================================
+                    // Xóa giỏ hàng tạm sau khi gộp giỏ hàng
+                    localStorage.removeItem('cart'); 
+                }
+             } catch (err) {
+                 console.error("Lỗi gộp giỏ hàng:", err);
+             }
+          }
+          // =============================================================================
 
           // Cập nhật menu ngay lập tức
           updateMenuVisibility();

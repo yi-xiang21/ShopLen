@@ -2,7 +2,7 @@
 
 let cartData = [];
 // Hàm tiện ích lấy URL API
-const getEndpoint = (path) => (typeof getApiUrl === "function" ? getApiUrl(path) : 'http://localhost:3000' + path);
+const getEndpoint = (path) => (typeof getApiUrl === "function" ? getApiUrl(path) : path);
 
 // Kiểm tra đăng nhập
 function getToken() {
@@ -46,7 +46,7 @@ async function initCart() {
 function resolveImage(url) {
     if (!url) return 'img/default.png';
     if (url.startsWith('http')) return url;
-    return 'http://localhost:3000' + url;
+    return typeof getApiUrl === "function" ? getApiUrl(url) : url;
 }
 
 // Render HTML
@@ -126,7 +126,11 @@ async function performUpdate(index, newQty) {
             const data = await res.json();
             
             if (data.status === 'success') {
-                    cartData[index].quantity = newQty;
+                    if (newQty === 0) {
+                        cartData.splice(index, 1);
+                    } else {
+                        cartData[index].quantity = newQty;
+                    }
                     renderCartItems();
                     updateTotalPrice();
                     

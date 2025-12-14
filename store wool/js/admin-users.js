@@ -34,7 +34,7 @@
 				<td>${u.phone || ''}</td>
 				<td>${u.role || ''}</td>
 				<td>
-					<button class="btn-edit" data-id="${u.id}">Sửa</button>
+					<button class="btn-edit-user" data-id="${u.id}">Sửa</button>
 					<button class="btn-delete-user" data-id="${u.id}">Xóa</button>
 				</td>
 			</tr>
@@ -194,7 +194,7 @@
 
 		//Xử lý Edit, Delete
 		document.addEventListener('click', async function(e) {
-			if (e.target.classList.contains('btn-edit')) {
+			if (e.target.classList.contains('btn-edit-user')) {
 				const tr = e.target.closest('tr');
 				const id = tr.dataset.id;
 				const user = {
