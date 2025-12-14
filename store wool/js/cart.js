@@ -23,6 +23,7 @@ async function initCart() {
             
             if (data.status === 'success') {
                 cartData = data.cart || [];
+                console.log(cartData);
             } else {
                 console.error("Lỗi tải giỏ hàng server:", data);
                 cartData = [];
@@ -39,6 +40,13 @@ async function initCart() {
 
     renderCartItems();
     updateTotalPrice();
+}
+
+// gan duogn dan bo sung url cho img
+function resolveImage(url) {
+    if (!url) return 'img/default.png';
+    if (url.startsWith('http')) return url;
+    return 'http://localhost:3000' + url;
 }
 
 // Render HTML
@@ -59,17 +67,19 @@ function renderCartItems() {
 
     cartContainer.innerHTML = cartData.map((item, index) => {
         const productName = item.name || 'Sản phẩm';
-        const productImage = item.image || 'img/default.png';
+        const productImage = resolveImage(item.image) ;
         const variantInfo = (item.mau_sac ? `Màu: ${item.mau_sac}` : '') + (item.kich_co ? ` - Size: ${item.kich_co}` : '');
         const price = Number(item.price) || 0;
         const transformPrice = formatPrice(price);
+        
         const quantity = item.quantity || item.so_luong || 1; // API trả về quantity
+        const total = (price * quantity) || 0;
 
         // data-attributes dùng để xử lý logic
         return `
             <div class="cart-row" data-index="${index}" data-variant-id="${item.ma_bien_the}">
                 <div class="product-col">
-                    <img class="product-thumb" src="${productImage}" alt="${productName}" onerror="this.src='img/product/1.png'">
+                    <img class="product-thumb" src="${productImage}" alt="ko load dc">
                     <div class="product-info">
                         <div class="name">${productName}</div>
                         <div class="meta">${variantInfo}</div>
@@ -81,8 +91,9 @@ function renderCartItems() {
                     <div class="qty-col">
                         <div class="qty-control">
                             <button onclick="changeQty(${index}, -1)">-</button>
-                            <input class="qty-input" type="number" value="${quantity}" min="1" onchange="manualQty(${index}, this.value)">
+                            <input class="qty-input" type="number" value="${quantity}" min="1" onblur="manualQty(${index}, this.value)">
                             <button onclick="changeQty(${index}, 1)">+</button>
+                            
                         </div>
                     </div>
                     <div class="total-col">${formatPrice(total)}</div>
@@ -96,6 +107,7 @@ function renderCartItems() {
 async function performUpdate(index, newQty) {
     const token = getToken();
     const item = cartData[index];
+
 
     if (token) {
         // -- DB UPDATE --
@@ -114,8 +126,10 @@ async function performUpdate(index, newQty) {
             const data = await res.json();
             
             if (data.status === 'success') {
-                // Làm mới danh sách giỏ hàng
-                await initCart(); 
+                    cartData[index].quantity = newQty;
+                    renderCartItems();
+                    updateTotalPrice();
+                    
             } else {
                 alert("Lỗi cập nhật giỏ hàng: " + data.message);
             }
@@ -133,6 +147,7 @@ async function performUpdate(index, newQty) {
         localStorage.setItem('cart', JSON.stringify(cartData));
         renderCartItems();
         updateTotalPrice();
+        
     }
 }
 
@@ -171,6 +186,8 @@ function updateTotalPrice() {
     });
     totalPriceElement.textContent = formatPrice(total);
 }
+
+
 
 // Start
 document.addEventListener('DOMContentLoaded', initCart);

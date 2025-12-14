@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const headerHTML = `
     <header data-inserted="true">
       <ul>
-        <li><img src="img/Logo.png" alt="Logo"></li>
+        <li><img src="img/Logo.png" alt="Logo" onclick="window.location.href='index.html'"></li>
         <div class="CatSleepingHeader">
             <lottie-player src="animation/SleepingCatHeader.json" background="transparent" speed="1" style="width: 250px; height: 250px;" loop autoplay>
             </lottie-player>

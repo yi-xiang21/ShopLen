@@ -23,10 +23,10 @@ main {
 }
 .register-container {
     width: 100%;
-    max-width: 520px;
     padding: 20px;
     display: flex;
     justify-content: center;
+    align-items: center;
 }
 
 
@@ -108,7 +108,7 @@ main {
     border-radius: 90px;
     font-weight: 400;
     transition: all 0.25s ease;
-    border: #ffffff;
+
 }
 
 .register-btn:hover {
@@ -128,7 +128,7 @@ main {
     padding: 10px 0;
     border-radius: 999px;
     font-size: 0.9rem;
-    border: #ffffff;
+
     transition: 0.3s ease;
 }
 
@@ -158,7 +158,7 @@ main {
     font-weight: 600;
     text-align: center;
     margin-top: 16px;
-    ;
+
 }
 @media (max-width: 768px) {
     main {
@@ -173,5 +173,10 @@ main {
 
     .register-title {
         font-size: 1.8rem;
+    }
+    .register-container{
+        align-items: center;
+        width: 100%;
+        padding: 20px 0px;
     }
 }

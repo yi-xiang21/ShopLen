@@ -1,32 +1,90 @@
+/* =======================
+   BASE
+======================= */
 body {
     background: #f8f6f7;
     font-family: 'Quicksand', sans-serif;
     height: 100%;
-    
 }
+
 #cart {
-    height: auto;
     width: 80%;
     margin: 24px auto;
-    border: 1px solid #e73b3b;
-    border-radius: 8px;
     padding: 20px;
     background: #fffaf9;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.06);
 }
 
-
+/* =======================
+   GRID HEAD & ROW
+======================= */
 .cart-head,
 .cart-row {
     display: grid;
     grid-template-columns: 1fr 2fr;
     gap: 30px;
     align-items: center;
+    position: relative;
+    overflow: hidden;
+    transition: transform .25s ease;
 }
 
+.cart-head {
+    font-weight: 700;
+    color: #7a294e;
+}
 
+/* =======================
+   ROW EFFECT (DESKTOP)
+======================= */
+.cart-row::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 30%;
+    height: 100%;
+    background: linear-gradient(
+        20deg,
+        #dda3bb,
+        #ff0f2f51,
+        #ff8a00
+    );
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity .25s ease, transform .25s ease;
+    z-index: 0;
+}
+
+.cart-row:hover {
+    transform: translateY(-5px);
+}
+
+.cart-row:hover::after {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.cart-row > * {
+    position: relative;
+    z-index: 1;
+}
+
+.cart-row {
+    margin: 10px 0;
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid rgba(122, 41, 78, 0.05);
+    background: transparent;
+}
+
+/* =======================
+   PRODUCT COLUMN
+======================= */
 .product-col {
     display: flex;
-    gap: 12px;
+    gap: 14px;
     align-items: center;
 }
 
@@ -49,12 +107,14 @@ body {
     margin-top: 6px;
 }
 
+/* =======================
+   RIGHT GRID
+======================= */
 .right-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;      
+    grid-template-columns: 1fr 1fr 1fr;
 }
 
-/* style cho từng cột nhỏ bên phải */
 .price-col,
 .qty-col,
 .total-col {
@@ -63,14 +123,15 @@ body {
     font-weight: 600;
 }
 
-/* Nút + - và input số */
+/* =======================
+   QTY CONTROL
+======================= */
 .qty-control {
-    margin:0 65px;
     display: inline-flex;
     border: 1px solid rgba(74, 2, 58, 0.06);
     border-radius: 6px;
     overflow: hidden;
-    
+    margin: 0 auto;
 }
 
 .qty-control button {
@@ -78,78 +139,168 @@ body {
     border: 0;
     padding: 6px 10px;
     cursor: pointer;
-    color:  #7a294e;
+    color: #7a294e;
     font-weight: 700;
 }
 
 .qty-control input {
-    width: 48px;    
+    width: 48px;
     text-align: center;
     border: 0;
     padding: 6px;
 }
 
-/* Header row (tiêu đề cột) */
-.cart-head .product-col {
-    font-weight: 700;
+/* =======================
+   REMOVE BUTTON
+======================= */
+.remove-cart-btn {
+    margin-top: 8px;
+    padding: 6px 10px;
+    font-size: 0.9rem;
+    border-radius: 5px;
+    border: none;
+    background: #f6dbe5;
+    color: #8f0a46;
+    cursor: pointer;
+    transition: background .3s, color .3s;
 }
 
-.cart-head .right-grid {
-    font-weight: 700;
-    color: 7a294e
+.remove-cart-btn:hover {
+    background: #c40c5f;
+    color: #fff;
 }
 
-/* Hàng item */
-.cart-row {
-    margin:10px 0;
-    padding: 10px;
-    border-radius: 8px;
-    border: 1px solid rgba(122, 41, 78, 0.05);
-    background: transparent;
-}
-
-
+/* =======================
+   SUMMARY
+======================= */
 .cart-summary {
     margin-top: 18px;
-    margin-left: auto;
-    max-width: 380px;
+    margin-left: 75%;
+    max-width: fit-content;
+    background: #fff;
+    padding: 24px;
+    border-radius: 16px;
+    box-shadow: 0 12px 30px rgba(179, 22, 22, 0.06);
 }
+
 .cart-summary .summary-row {
     display: flex;
-    gap: 5px;
-    margin-bottom: 12px;
+    gap: 6px;
+    margin-bottom: 18px;
     font-weight: 600;
     color: #141213;
 }
-#checkoutBtn{
-    background-color: #c40c5f;
-    color: white;
-    padding: 12px 24px;
+
+/* =======================
+   CHECKOUT BUTTON
+======================= */
+#checkoutBtn {
+    width: 100%;
+    padding: 15px 42px;
     border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 1rem;
+    border-radius: 10px;
+    background: linear-gradient(90deg, #300215, #e52e71);
+    color: #fff;
     font-weight: 600;
-    text-decoration: none ;
-}
-
-#checkoutBtn:hover{
-    background-color: #5e1f3e;
-    transition: 0.3s;
-}
-
-.remove-cart-btn{
-    border: 1px solid #000000;
-    border-radius: 5px;
-    color: #fefefe;
+    letter-spacing: 1.5px;
     cursor: pointer;
-    font-size: 0.9rem;
-    margin-top: 8px;
-    background-color: rgb(167, 4, 80);
-}
-.remove-cart-btn:hover{
-    background-color: #000000;
-    transition: 0.3s;
-    color: #ffffff;
+    transition: transform .25s ease, box-shadow .25s ease;
 }
 
+#checkoutBtn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 28px rgba(0,0,0,.25);
+    background: linear-gradient(90deg, #ff8a00, #e52e71);
+}
+
+#checkoutBtn:active {
+    transform: scale(0.96);
+}
+
+
+@media (max-width: 992px) {
+    #cart {
+        width: 92%;
+        padding: 16px;
+    }
+
+    .right-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+    }
+
+    .total-col {
+        display: none;
+    }
+
+    .cart-summary {
+        width: 100%;
+        max-width: fit-content;
+        margin: 20px auto 0;
+        text-align: center;
+        margin-left: 25%;
+    }
+}
+
+
+@media (max-width: 768px) {
+    .cart-head {
+        display: none;
+    }
+
+    .cart-row {
+        grid-template-columns: 1fr;
+        gap: 14px;
+    }
+
+    .product-thumb {
+        width: 64px;
+        height: 64px;
+    }
+
+    .right-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .price-col,
+    .qty-col,
+    .total-col {
+        text-align: left;
+    }
+
+    #checkoutBtn {
+        padding: 14px 0;
+    }
+}
+
+
+@media (max-width: 480px) {
+    .product-info .name {
+        font-size: 0.95rem;
+    }
+
+    .product-info .meta {
+        font-size: 0.85rem;
+    }
+
+    .qty-control input {
+        width: 40px;
+    }
+}
+
+@media (hover: none) {
+    .cart-row:hover {
+        transform: none;
+    }
+
+    .cart-row::after {
+        opacity: 0 !important;
+        transform: none !important;
+    }
+
+    #checkoutBtn:hover {
+        transform: none;
+        box-shadow: none;
+        background: linear-gradient(90deg, #300215, #e52e71);
+    }
+}

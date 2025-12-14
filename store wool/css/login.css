@@ -1,4 +1,8 @@
-/* Login Form Styles */
+/* =========================
+   LOGIN PAGE – OPTIMIZED CSS
+   ========================= */
+
+/* Layout chính */
 main {
     display: flex;
     align-items: center;
@@ -7,8 +11,10 @@ main {
     background-image: url("../img/background-register.png");
     background-repeat: no-repeat;
     background-position: center;
-    background-size: contain; /* Giữ nguyên tỷ lệ, không bị cắt */
+    background-size: contain;
 }
+
+/* Breadcrumb / direction */
 .direction {
     position: absolute;
     top: 100px;
@@ -16,11 +22,14 @@ main {
     font-size: 0.9rem;
     color: #7a294e;
 }
+
 .direction a {
     color: #7a294e;
     text-decoration: none;
     font-weight: 600;
 }
+
+/* Container */
 .login-container {
     min-height: 100vh;
     display: flex;
@@ -28,24 +37,37 @@ main {
     justify-content: center;
 }
 
+/* Form */
 .login-form {
-    background: #f1f0f6e0;
-    border-radius: 16px;
-    box-shadow: 0 4px 24px rgba(0,0,0,0.06);
-    padding: 40px;
+    background: rgba(241, 240, 246, 0.92);
+    backdrop-filter: blur(6px);
+    border-radius: 20px;
+    box-shadow:
+        0 10px 30px rgba(0,0,0,0.08),
+        0 2px 6px rgba(0,0,0,0.04);
+    padding: 42px;
     width: 100%;
     max-width: 400px;
     display: flex;
     flex-direction: column;
-    align-items: stretch;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
+.login-form:hover {
+    transform: translateY(-2px);
+    box-shadow:
+        0 14px 40px rgba(0,0,0,0.1),
+        0 4px 10px rgba(0,0,0,0.06);
+}
+
+/* Title */
 .login-title {
     color: #8f0a46;
     font-size: 2rem;
-    font-weight: bold;
+    font-weight: 700;
     text-align: center;
     margin-bottom: 8px;
+    letter-spacing: 0.2px;
 }
 
 .login-subtitle {
@@ -53,8 +75,10 @@ main {
     opacity: 0.7;
     text-align: center;
     margin-bottom: 24px;
+    letter-spacing: 0.2px;
 }
 
+/* Input group */
 .input-group {
     position: relative;
     margin-bottom: 18px;
@@ -62,22 +86,30 @@ main {
 
 .input-group input {
     width: 70%;
-    padding: 12px 40px 12px 40px;
+    padding: 12px 40px;
     border: 1px solid #e3dede;
-    border-radius: 8px;
+    border-radius: 10px;
     font-size: 1rem;
     outline: none;
     background: #faf7f7;
     color: #040002;
+    transition: border 0.25s ease, box-shadow 0.25s ease;
 }
 
+.input-group input:focus {
+    border-color: #7a294e;
+    box-shadow: 0 0 0 3px rgba(122, 41, 78, 0.15);
+}
+
+/* Icons */
 .input-icon {
     position: absolute;
     top: 50%;
     left: 12px;
     transform: translateY(-50%);
-    color: #000000;
+    color: #000;
     font-size: 1.1rem;
+    transition: color 0.25s ease, transform 0.25s ease;
 }
 
 .input-eye {
@@ -86,6 +118,12 @@ main {
     cursor: pointer;
 }
 
+.input-group input:focus ~ .input-icon {
+    color: #7a294e;
+    transform: translateY(-50%) scale(1.05);
+}
+
+/* Options */
 .login-options {
     display: flex;
     justify-content: space-between;
@@ -94,44 +132,48 @@ main {
     font-size: 0.95rem;
 }
 
-.login-options label {
-    color: #2a0315;
-    opacity: 0.8;
-    cursor: pointer;
-}
-
+.login-options label,
 .forgot-link {
     color: #2a0315;
     opacity: 0.8;
+    cursor: pointer;
     text-decoration: none;
-    font-size: 0.95rem;
 }
 
+/* Button */
 .login-btn {
-    background: #7a294e;
+    background: linear-gradient(135deg, #7a294e, #9c3b6a);
     color: #fff;
     border: none;
-    border-radius: 8px;
+    border-radius: 10px;
     padding: 12px 0;
     font-size: 1.1rem;
     font-weight: 600;
     margin-bottom: 22px;
     cursor: pointer;
-    transition: background 0.2s;
+    box-shadow: 0 6px 16px rgba(122, 41, 78, 0.35);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .login-btn:hover {
-    background: #5b0035d6;
+    transform: translateY(-1px);
+    box-shadow: 0 8px 20px rgba(122, 41, 78, 0.45);
 }
 
+.login-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 10px rgba(122, 41, 78, 0.3);
+}
+
+/* Divider */
 .login-divider {
-    align-items: center;
     text-align: center;
     margin: 10px;
     color: #2a0315;
     font-size: 0.95rem;
 }
 
+/* Social */
 .login-social {
     display: flex;
     gap: 12px;
@@ -145,37 +187,32 @@ main {
     justify-content: center;
     gap: 6px;
     border: 1px solid #e3dede;
-    border-radius: 6px;
+    border-radius: 10px;
     background: #faf7f7;
     color: #7a294e;
     font-size: 1rem;
     padding: 8px 0;
     cursor: pointer;
-    transition: background 0.2s, border 0.2s;
+    font-weight: 500;
+    transition: background 0.2s, border 0.2s, transform 0.2s;
 }
 
-.social-btn.google i {
-    color: #ea4335;
-}
-
-.social-btn.facebook i {
-    color: #1877f3;
-}
+.social-btn.google i { color: #ea4335; }
+.social-btn.facebook i { color: #1877f3; }
 
 .social-btn:hover {
     background: #f0ebd8;
     border-color: #bda1b6;
+    transform: translateY(-1px);
 }
 
+/* Bottom */
 .login-bottom {
-
-    border-radius: 0 0 16px 16px;
     text-align: center;
     padding: 18px 0;
     color: #7a294e;
     font-size: 1rem;
-    margin: 0 -32px;
-    margin-top: 16px;
+    margin: 16px -32px 0;
 }
 
 .login-bottom a {
@@ -185,33 +222,47 @@ main {
     margin-left: 4px;
 }
 
+/* =================
+   RESPONSIVE
+   ================= */
+
+/* Mobile */
 @media (max-width: 768px) {
     .login-container {
-        min-height: 80vh; /* hoặc height: 80vh; */
+        min-height: 80vh;
     }
+
     .login-form {
-        padding: 0px 8px 0 8px;
+        padding: 24px 18px;
         max-width: 300px;
+        border-radius: 16px;
     }
+
+    .login-title {
+        font-size: 1.6rem;
+    }
+
+    .login-subtitle {
+        font-size: 0.95rem;
+    }
+
     .login-bottom {
         margin: 0 -8px;
     }
-    .input-group input {
-        width: 70%;
-    }
+
     .input-eye {
         right: 20px;
     }
-    main {
-        background-image: url("../img/login-mobile.png");
-        margin: 0;
-        min-height: 70vh;
-    }
-    .footer{
-        margin-top: 20px;;
 
+    main {
+        background-image:  none;
     }
+
     .direction {
-    top: 50px;
+        top: 50px;
+    }
+
+    .footer {
+        margin-top: 20px;
     }
 }

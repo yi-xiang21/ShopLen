@@ -30,6 +30,7 @@ async function loadProduct() {
 
     // Sử dụng trực tiếp dữ liệu từ API
     currentProduct = productData.product;
+    console.log(currentProduct);
 
     selectedVariant = null;
 

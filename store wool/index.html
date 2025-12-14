@@ -14,6 +14,13 @@
     <script src="js/catRandom.js"></script>
     <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
     <title>peace chill</title>
+    <style>
+        @media (max-width: 768px) {
+            .CatSleepingHeader {
+                display: none;
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -29,10 +36,7 @@
             <div class="text-banner">
                 <p class="p1">Khám Phá Sự Thư Giãn Cho Tâm Hồn </p>
                 <p class="p2">Workshop hàng tuần để truyền cảm hứng sáng tạo</p>
-                <div class="button-banner">
-                    <a class="button-bannerL" href="Shop.html">Mua Sắm Bộ Sưu Tập</a>
-                    <a class="button-bannerR" href="workshop.html">Tham Gia Workshop</a>
-                </div>
+
             </div>
         </section>
         <section id="Collection">
@@ -99,6 +103,30 @@
                 </div>
             </div>
         </section>
+        <section class="video-section">
+            <div class="video-wrapper">
+                <div class="video-block left">
+                    <video autoplay muted loop playsinline>
+                        <source src="video/item3-index.mp4" type="video/mp4">
+                    </video>
+                </div>
+
+                <div class="video-block middle">
+                    <video class="top" autoplay muted loop playsinline>
+                        <source src="video/item2-index.mp4" type="video/mp4">
+                    </video>
+
+                </div>
+                <div class="video-block right">
+                    <video class="bottom" autoplay muted loop playsinline>
+                        <source src="video/item1-index.mp4" type="video/mp4">
+                    </video>
+                </div>
+
+
+            </div>
+        </section>
+
         <section id="product">
             <div class="title-collection">
                 <p class="title-collection-1">Bán Chạy Nhất</p>
@@ -219,6 +247,24 @@
     <!-- Render products from backend -->
     <script src="js/config.js"></script>
     <script>
+        // video scroll
+        const wrapper = document.querySelector('.video-wrapper');
+
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if (entry.isIntersecting) {
+                    wrapper.classList.add('active');
+                } else {
+                    wrapper.classList.remove('active');
+                }
+            },
+            {
+                threshold: 0.3
+            }
+        );
+
+        observer.observe(wrapper);
+        //ket thuc hieu ung video
         function convertProductFormat(product) {
             let finalPrice = Number(product.price) || 0;
             let imageUrl = product.imageUrl || 'img/default.jpg';
@@ -281,10 +327,12 @@
                 container.innerHTML = products.map(p => `
                     <div class="product-item" data-id="${p.id || ''}">
                         <div class="product-inner">
-                            <img src="${p.images.main || 'img/default.jpg'}" alt="${(p.name || '').replace(/"/g, '&quot;')}">
+                            <div class="img-box">
+                                <img src="${p.images.main || 'img/default.jpg'}" alt="${(p.name || '').replace(/"/g, '&quot;')}">
+                            </div>
                             <p class="title-item">${p.name || ''}</p>
                             <p class="cost">${formatPrice(p.cost || 0)}</p>
-                            <button class="btn-buy"><a href="detail.html?id=${p.id || ''}">Buy Now</a></button>
+                            <button class="btn-buy"><a href="detail.html?id=${p.id || ''}">Mua Ngay</a></button>
                         </div>
                     </div>
                 `).join('');

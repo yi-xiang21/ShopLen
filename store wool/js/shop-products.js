@@ -57,11 +57,13 @@ function renderShopProducts() {
 	// Hiển thị danh sách sản phẩm
 	list.innerHTML = showProducts.map(product => `
 		<div class="product-item">
-			<img src="${product.imageUrl}" alt="${product.name}">
+			<div class="img-box">
+				<img src="${product.imageUrl}" alt="${product.name}">
+			</div>
 			<p class="title-item">${product.name}</p>
 			<p class="cost">${formatCurrency(product.price)}</p>
 			<button class="btn-buy">
-				<a href="detail.html?id=${product.id}">Buy Now</a>
+				<a href="detail.html?id=${product.id}">Mua Ngay</a>
 			</button>
 		</div>
 	`).join(''); // Nối các phần tử trong mảng thành 1 chuỗi HTML

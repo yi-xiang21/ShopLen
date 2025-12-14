@@ -37,5 +37,11 @@
     z-index: 9999; 
     pointer-events: none; 
 }
+@media (max-width: 768px) {
+  .cat-wrapper {
+    width: 100px;
+    height: 100px;
+  }
 
+}
 
