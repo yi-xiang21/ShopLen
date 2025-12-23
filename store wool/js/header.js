@@ -2,8 +2,8 @@ document.addEventListener("DOMContentLoaded", () => {
   if (document.querySelector('header[data-inserted="true"]')) return;
 
   const headerHTML = `
-    <header data-inserted="true">
-      <ul>
+    <header data-inserted="true" >
+      <ul class="hero-header">
         <li><img src="img/Logo.png" alt="Logo" onclick="window.location.href='index.html'"></li>
         <div class="CatSleepingHeader">
             <lottie-player src="animation/SleepingCatHeader.json" background="transparent" speed="1" style="width: 250px; height: 250px;" loop autoplay>
@@ -57,6 +57,8 @@ document.addEventListener("DOMContentLoaded", () => {
     </header>
   `;
 
+      
+
   // Chèn vào đầu body hoặc thay thế placeholder nếu có
   const placeholder =
     document.getElementById("header-placeholder") ||
@@ -71,4 +73,7 @@ document.addEventListener("DOMContentLoaded", () => {
       headerEl.firstElementChild
     );
   }
+
+
 });
+
