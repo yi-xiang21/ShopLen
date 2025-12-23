@@ -61,7 +61,7 @@ async function loadOrderSummary() {
 
 // Render sản phẩm trong giỏ hàng
 function renderOrderItems(items) {
-  const container = document.querySelector(".items-list");
+  const container = document.querySelector(".order-items");
   const totalPriceElement = document.querySelector(".total-price");
   if (!container) return;
 
@@ -116,7 +116,7 @@ function renderOrderItems(items) {
                                 ${item.name || item.ten_san_pham}
                             </p>
                             <p class="item-sizecolororder">
-                                <label>màu và kích cỡ :</label>
+                                <label>Màu và kích cỡ :</label>
                                 ${item.mau_sac ? item.mau_sac : ""} +
                                 ${
                                   item.size || item.kich_co

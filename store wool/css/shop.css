@@ -236,7 +236,7 @@ main, .footer {
 
 /* Text sản phẩm */
 .product-item p {
-  margin: 10px 0;
+  margin: 2px 0;
   font-size: 16px;
   color: #333;
 }
@@ -247,7 +247,7 @@ main, .footer {
 .product-item .cost {
     color: #e1306c;
     font-weight: bold;
-    font-size: 18px;
+    font-size: 18px;  
 }
 
 /* --- Phân trang --- */

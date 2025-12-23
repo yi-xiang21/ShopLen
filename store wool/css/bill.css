@@ -117,9 +117,12 @@ body {
     margin-bottom: 20px;
 }
 .order-items{
-    max-height: 380px;
+    max-height: 350px;
     overflow-y: auto;
     margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
 }
 .items-list{
     display: flex;

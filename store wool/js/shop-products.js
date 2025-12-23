@@ -62,9 +62,7 @@ function renderShopProducts() {
 			</div>
 			<p class="title-item">${product.name}</p>
 			<p class="cost">${formatCurrency(product.price)}</p>
-			<button class="btn-buy">
-				<a href="detail.html?id=${product.id}">Mua Ngay</a>
-			</button>
+			<a class="btn-buy" href="detail.html?id=${product.id}">Mua Ngay</a>
 		</div>
 	`).join(''); // Nối các phần tử trong mảng thành 1 chuỗi HTML
 }
