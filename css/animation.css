@@ -1,0 +1,47 @@
+.loading-overlay {
+  display: none;  
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(9, 7, 7, 0.648); /* Nền trắng mờ */
+  z-index: 99999; /* Luôn nổi trên cùng */
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.loading-text {
+  margin-top: -10px;
+  color: #ffffff;
+  font-weight: bold;
+}
+
+/* css cat seek */
+.cat-wrapper {
+    bottom: 0;
+    position: fixed;
+    z-index: 9999; /* Luôn nổi trên cùng */
+    width:400px;  /* Kích thước con mèo, bạn chỉnh lại cho vừa web */
+    height: 200px;
+    transition: transform 1s cubic-bezier(0.68, -0.55, 0.27, 1.55); /* Hiệu ứng bật nảy nhẹ cho tự nhiên */
+    pointer-events: none; /* Để chuột click xuyên qua, không che nút bấm của web */
+}
+
+/* css cho cat sleeping */
+.CatSleepingHeader{
+    position: absolute;
+    left: 8%;
+    top: -5%;
+    width: 100px; 
+    height:10px;
+    z-index: 9999; 
+    pointer-events: none;   
+}
+@media (max-width: 768px) {
+  .cat-wrapper {
+    width: 100px;
+    height: 100px;
+  }
+
+}
+

@@ -1,0 +1,144 @@
+body {
+    background: #f8f6f7;
+    font-family: 'Quicksand', sans-serif;
+    height: 100%;
+    
+}
+.bill-page {
+    display: grid;
+    grid-template-columns: 4fr 2fr;
+    gap: 10px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 50px 40px;
+    padding: 20px;
+}
+.left-bill {
+    padding: 20px;
+    display: grid;
+    grid-template-columns: 3fr 3fr;
+    gap: 10px;   
+
+}
+.bill1{
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+
+}
+.bill1 input[type="text"],
+.bill1 input[type="email"],
+.bill1 input[type="tel"] {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+.bill1 h2 {
+    color: #333;
+    
+}
+.bill1 select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.bill2 {
+    padding: 10px;
+    border-right: 1px solid #c05757;
+
+}
+.bill2 .ship-method {
+    background-color: #33021f24;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 10px;
+    margin-bottom: 10%;
+}
+.bill2 .pay-method {
+    background-color: #33021f24;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 10px;
+    margin-bottom: 10%;
+}
+.note-section #note {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    height: 100px;
+    
+}
+.right-bill {
+    padding: 10px;
+    
+}
+.checkout-summary {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height:80%;
+}
+.right-bill h2 {
+    color: #333;
+    margin-bottom: 20px;
+}
+.place-order {
+    background-color: #c05757;
+    color: white;
+    padding: 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 100%;
+}
+.place-order:hover {
+    background-color: #a04545;
+
+}
+.total {
+    display: flex;
+    justify-content: space-between;
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+.order-items{
+    max-height: 350px;
+    overflow-y: auto;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.items-list{
+    display: flex;
+    gap: 10px;
+}
+.img-itemsdetailsorder img{
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+.item-detailsorder p label{
+    font-size: 15px;
+    font-weight: bold;
+}
+.item-detailsorder p{
+    margin: 0px;
+}
+

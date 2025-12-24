@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/admin.css">
+    <link rel="stylesheet" href="css/animation.css">
+    <title>peace chill</title>
+</head>
+
+<body>
+
+    <main>
+        <div class="admin-layout">
+            <!-- Sidebar -->
+            <div class="direction" id="breadcrumb"></div>
+            <div id="loadingOverlay" class="loading-overlay">
+                <lottie-player src="animation/load.json" background="transparent" speed="1"
+                    style="width: 250px; height: 250px;" loop autoplay>
+                </lottie-player>
+                <div class="loading-text">Đang xử lý dữ liệu</div>
+            </div>
+            <aside class="admin-sidebar">
+                <ul class="sidebar-menu">
+                    <li class="active" data-section="product-management"><i class="bi bi-wrench"></i>Quản lý sản phẩm
+                    </li>
+                    <li data-section="order-management"><i class="bi bi-cart"></i>Quản lý đơn hàng</li>
+                    <li data-section="account-management"><i class="bi bi-person"></i> Quản lý tài khoản</li>
+                    <li data-section="category-management"><i class="bi-list-nested"></i> Quản lý danh mục</li>
+                </ul>
+            </aside>
+
+            <!-- Main Content -->
+            <section class="main-section active" data-section="product-management">
+                <h2 class="section-title">
+                    <p>Quản lý sản phẩm</p>
+                    <button id="btn-add">+ Thêm sản phẩm</button>
+                </h2>
+                <div id="product-list-view">
+                    <div class="filters">
+                        <input type="text" placeholder="Tìm sản phẩm...">
+                        <select id="selectCatelogy">
+
+                        </select>
+                    </div>
+                    <div id="grid-item">
+                        <!-- Product Card -->
+
+                    </div>
+                    <div class="pagination">
+                        <button class="btn btn-prev" onclick="prev()">Trước</button>
+                        <button class="btn btn-next" onclick="next()">Tiếp</button>
+                    </div>
+                </div>
+                <!-- chon loai de hien thi form nhap tuong ung -->
+                <div id="selecttype" style="display: none;">
+                    <h3>Vui lòng chọn loại sản phẩm bạn muốn thêm</h3>
+                    <select id="productType" name="productType">
+                        <option value="0">Len </option>
+                        <option value="1">Công cụ</option>
+                        <option value="2">Workshop</option>
+                    </select>
+                    <div id="actionforselect">
+                        <button class="btn" id="btnSelectType">chon</button>
+                        <button class="btn btn-back" id="btnBackToList">Quay lại</button>
+                    </div>
+                </div>
+                <!-- noi chua form nhap sp chung -->
+                <div id="add-product-view" style="display: none;">
+                    <h3>Thêm sản phẩm mới</h3>
+                    <!-- form khi chon type la len -->
+                    <form id="productForm" enctype="multipart/form-data" style="display: none;">
+                        <div class="gridItemForm">
+                            <div class="form-section">
+                                <input type="hidden" id="productId">
+                                <label>Tên sản phẩm:</label>
+                                <input type="text" id="productName" name="name" required>
+                                <label>Loại sản phẩm:</label>
+                                <input type="text" id="inputType" name="type" readonly></input>
+                                <label>Danh mục:</label>
+                                <select id="productCategory" name="categoryId" required>
+                                    <!-- render tu database -->
+                                </select>
+                                <label>Chất Liệu</label>
+                                <input type="text" id="variantMaterial" name="marerial">
+                                <label>Giá:</label>
+                                <input type="number" id="productPrice" name="price" step="0.01" min="0" required>
+                                <label>Mô tả:</label>
+                                <textarea id="productDescription" name="description" rows="3"></textarea>
+                                <div class="form-buttons">
+                                    <button type="submit" class="btn btn-save" id="saveProducts">Lưu sản phẩm</button>
+                                    <button type="button" class="btn btn-back" id="productBackToSelect">Quay
+                                        lại</button>
+                                </div>
+                            </div>
+                            <div class="variant-section">
+                                <h4 style="margin-bottom: 15px;">Biến thể sản phẩm</h4>
+                                <div id="variantContainer">
+                                    <!-- Biến thể sẽ được thêm vào đây -->
+                                </div>
+                                <button type="button" class="btn btn-add-variant" id="btnAddVariant"
+                                    style="margin-top: 10px;">+ Thêm biến thể</button>
+                            </div>
+                        </div>
+
+                    </form>
+                    <!-- form khi chon type bang Workshop -->
+                    <!-- <form id="workshopForm" enctype="multipart/form-data">
+                        <input type="hidden" id="toolId">
+                        <div class="form-section">
+                            <label>Tên sản phẩm:</label>
+                            <input type="text" id="toolName" name="name" required>
+                            <label>Danh mục:</label>
+                            <select id="toolCategory" name="categoryId" required>
+                                render tu database 
+                            </select>
+                            <label>Giá:</label>
+                            <input type="number" id="toolPrice" name="price" step="0.01" min="0" required>
+                            <label>Mô tả:</label>
+                            <textarea id="toolDescription" name="description" rows="3"></textarea>
+                            <label>Hình ảnh sản phẩm:</label>
+                            <div id="productImagesList toolimages" class="images-list-product">
+                               
+                            </div>
+                            <button type="button" id="btnAddProductImg" class="btn-add-product-img">+ Thêm hình</button>
+                            <label>Loại sản phẩm:</label>
+                            <input type="text" id="tooltype" name="type" value="Cong cu" readonly></input>
+                        </div>
+                        <div class="variant-section" style="margin-top: 20px; padding: 20px; border: 1px solid #ddd; border-radius: 8px;">
+                            <h4 style="margin-bottom: 15px;">Biến thể sản phẩm</h4>
+                            <div id="variantContainer">
+                                Biến thể sẽ được thêm vào đây 
+                            </div>
+                            <button type="button" class="btn btn-add-variant" id="btnAddVariant" style="margin-top: 10px;">+ Thêm biến thể</button>
+                        </div>
+                        <div class="form-buttons">
+                            <button type="submit" class="btn btn-save" id="saveTools">Lưu sản phẩm</button>
+                            <button type="button" class="btn btn-back" id="toolBackToSelect">Quay lại</button>
+                        </div>
+                    </form> -->
+                </div>
+
+            </section>
+            <section class="main-section" data-section="order-management">
+                <h2 class="section-title">
+                    <p id="section-title-p">Quản lý đơn hàng</p>
+                    <button id="btn-export">Xuất đơn hàng</button>
+                </h2>
+                <div id="order-main">
+                    <div id="filters-Order">
+                        <input type="text" placeholder="Tìm mã đơn...">
+                        <select id="OrderStatus" required>
+                            <option value="">Trạng thái</option>
+                            <option value="1">Hoàn thành</option>
+                            <option value="2">Đang chờ</option>
+                        </select>
+                    </div>
+                    <div id="list-order">
+                        <div id="list-order-detail">
+                            <div class="order-header" id="oder-id-list">Mã đơn
+                                <div class="order-detail" id="order-id">
+                                    a
+                                </div>
+                            </div>
+                            <div class="order-header" id="order-cus-list">KHÁCH HÀNG
+                                <div class="order-detail" id="order-cus">
+                                    a
+                                </div>
+                            </div>
+                            <div class="order-header" id="oder-cost-list">TỔNG
+                                <div class="order-detail" id="order-cost">
+                                    a
+                                </div>
+                            </div>
+                            <div class="order-header" id="oder-status-list">TRẠNG THÁI
+                                <div class="order-detail" id="order-status">
+                                    a
+                                </div>
+                            </div>
+                            <div class="order-header" id="oder-date-list">NGÀY
+                                <div class="order-detail" class="order-detail" id="order-date">
+                                    a
+                                </div>
+                            </div>
+                            <div class="order-header" id="oder-action-list">HÀNH ĐỘNG
+                                <div id="order-action">
+                                    <button type="submit" id="btn-view-order">Xem</button>
+                                    <button type="button" id="btn-edit-order">Sửa</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="order-view" style="display: none;">
+                    <div id="order-detail">
+                        <div id="order-detail-left">
+                            <div id="order-detail-main" class="card">
+                                <div class="order-main-row">
+                                    <div>
+                                        <h3>Mã đơn hàng</h3>
+                                        <div class="muted">Ngày đặt</div>
+                                    </div>
+                                    <div class="order-actions">
+                                        <div class="order-price">50k</div>
+                                        <button class="btn btn-primary">Cập nhật trạng thái</button>
+                                        <button class="btn btn-outline">Xử lý hoàn tiền</button>
+                                    </div>
+                                </div>
+                                <div class="order-meta">
+                                    <div class="customer-card">
+                                        <div class="avatar">N</div>
+                                        <div class="customer-info">
+                                            <div class="name">Nam</div>
+                                            <div class="muted" id="numberphone">01232454</div>
+                                            <div class="muted" id="adress">TPHCM</div>
+                                        </div>
+                                    </div>
+                                    <div class="order-summary">
+                                        <div><strong>Mã đơn:</strong> 001</div>
+                                        <div><strong>Thanh toán:</strong> Momo</div>
+                                        <div class="total"><strong>Tổng tiền:</strong> 50k</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="order-detail-product" class="card">
+                                <h4>Thông tin sản phẩm</h4>
+                                <div class="product-row">
+                                    <img src="./img/item8.png" alt="product" class="product-thumb">
+                                    <div class="product-info">
+                                        <h5>Premium Merino Wool Yarn</h5>
+                                        <p class="muted">Luxuriously soft merino wool yarn perfect for knitting and
+                                            crocheting projects.</p>
+                                        <div class="product-meta">
+                                            <div><strong>Màu:</strong> Dusty Rose</div>
+                                            <div><strong>Khối lượng:</strong> 100g</div>
+                                            <div><strong>Chất liệu:</strong> 100% Merino Wool</div>
+                                            <div><strong>Số lượng:</strong> 1</div>
+                                            <div class="muted price">Giá: 50k</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="order-detail-right">
+                            <div id="order-detail-ship" class="card widget">
+                                <h4>Thông tin vận chuyển</h4>
+                                <div class="muted"><strong>Phương thức:</strong> Giao hàng</div>
+                                <div class="muted"><strong>Đơn vị:</strong> GHTK</div>
+                                <div class="muted"><strong>Mã vận đơn:</strong> 1Z999AA1234567890</div>
+                                <div class="muted"><strong>Dự kiến:</strong> Nov 6, 2025</div>
+                                <div class="muted"><strong>Thực tế:</strong> <span class="success">Nov 6, 2025</span>
+                                </div>
+                            </div>
+
+                            <div id="order-detail-payment" class="card widget">
+                                <h4>Chi tiết thanh toán</h4>
+                                <div><strong>Trạng thái:</strong> <span class="badge-paid">Hoàn thành</span></div>
+                                <div class="muted"><strong>Phương thức:</strong> Momo</div>
+                                <div class="muted"><strong>Mã giao dịch:</strong>123456789</div>
+
+                                <div class="summary">
+                                    <div><span>Tạm tính:</span><span>50k</span></div>
+                                    <div><span>Vận chuyển:</span><span>Miễn phí</span></div>
+                                    <div><span>Thuế:</span><span>0</span></div>
+                                    <div class="total-row"><strong>Tổng:</strong><strong>50k</strong></div>
+                                </div>
+                            </div>
+
+                            <div id="order-detail-history" class="card widget">
+                                <h4>Lịch sử khách hàng</h4>
+                                <div class="muted">Tổng đơn: <strong>7</strong></div>
+                                <div class="muted">Khách từ: <strong>7 2024</strong></div>
+                                <ul class="recent-orders">
+                                    <li>002 <span class="success">20k</span></li>
+                                    <li>045 <span class="success">30k</span></li>
+                                </ul>
+                            </div>
+
+                            <div id="order-detail-actions" class="card widget actions">
+                                <button class="btn btn-primary full">Gửi email khách</button>
+                                <button class="btn btn-outline full">In nhãn vận chuyển</button>
+                                <button class="btn btn-danger full">Hoàn tiền</button>
+                                <button class="btn btn-outline full" id="btn-back">Quay lại</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </section>
+            <section class="main-section" data-section="account-management">
+                <h2 class="section-title">Quản lý tài khoản</h2>
+                
+
+            </section>
+            <section class="main-section" data-section="category-management">
+                <div id="category-management-header">
+                    <h2 class="section-title">Quản lý danh mục</h2>
+                    <button id="btn-add-category">+ Thêm danh mục</button>
+                </div>
+                <div id="category-list-view">
+                    <div class="filters">
+                        <input type="text" placeholder="Tìm danh mục...">
+                    </div>
+                    <div id="category-list">
+
+                    </div>
+                </div>
+                <div id="form-catagory" style="display: none;">
+                    <p id="catagory-form-title">Thêm danh mục mới</p>
+                    <label>Tên danh mục:</label>
+                    <input type="text" id="cate-name" required>
+                    <H3>Mô tả</H3>
+                    <textarea id="note" name="note" rows="4" cols="50" placeholder="Mô tả..."></textarea>
+                    <div id="form-catagory-actions">
+                        <button type="submit" id="btn-save-catalo">Lưu</button>
+                        <button type="button" id="btn-back-catalo">Quay lại</button>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <script>
+        //hien thi tung side tuong ung
+        function setupSidebarTabs() {
+            const menuItems = document.querySelectorAll('.sidebar-menu li');
+            const sections = document.querySelectorAll('.main-section');
+
+            menuItems.forEach(item => {
+                item.addEventListener('click', function () {
+                    // Xóa active ở tất cả li
+                    menuItems.forEach(li => li.classList.remove('active'));
+                    this.classList.add('active');
+
+                    // Ẩn tất cả section
+                    sections.forEach(sec => sec.classList.remove('active'));
+                    // Hiện section tương ứng với hiệu ứng smooth
+                    const sectionName = this.getAttribute('data-section');
+                    const showSection = document.querySelector(`.main-section[data-section="${sectionName}"]`);
+                    if (showSection) showSection.classList.add('active');
+                });
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            setupSidebarTabs();
+        });
+
+
+    </script>
+    <script src="js/config.js"></script>
+    <script src="js/admin-products.js"></script>
+    <script src="js/admin-users.js"></script>
+    <script src="js/admin-categories.js"></script>
+    <script src="js/header.js"></script>
+    <script src="js/footer.js"></script>
+    <script src="js/js.js"></script>
+    <!-- <script src="js/managemant-products.js"></script>  -->
+    <!-- <script src="js/managemant-catagogy.js"></script> -->
+    <script src="js/managemant-order.js"></script>
+
+</body>
+
+</html>
