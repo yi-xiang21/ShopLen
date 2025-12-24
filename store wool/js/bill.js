@@ -219,7 +219,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 const res = await fetch(getApiUrl("/api/payment/momo"), {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ amount })
+                    body: JSON.stringify({ amount,token: getToken() }),
                 });
 
                 const data = await res.json();
