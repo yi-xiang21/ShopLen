@@ -4,7 +4,68 @@ document.addEventListener("DOMContentLoaded", async function () {
 
   await loadOrderSummary(); // Load giỏ hàng
   await fillUserInfo(); // Tự động điền thông tin user
+  await loadCities();
 });
+
+async function loadCities() {
+  const citySelect = document.getElementById('thanhpho');
+  const wardSelect = document.getElementById('phuong');
+
+  try {
+    const res = await fetch(getApiUrl('/locations/cities'));
+    const data = await res.json();
+
+    if (data.status === 'success') {
+      // Reset options
+      citySelect.innerHTML = '<option value="">Chọn thành phố</option>';
+
+      // Render dữ liệu vào select
+      data.data.forEach(city => {
+        const option = document.createElement('option');
+        option.value = city.ma_thanhpho;
+        option.textContent = city.ten_thanhpho;
+        citySelect.appendChild(option);
+      });
+
+      // Bắt sự kiện khi chọn thành thành phố
+      citySelect.addEventListener('change', function() {
+        const cityId = this.value;
+        if (cityId) {
+          loadWard(cityId);
+        } else {
+          wardSelect.innerHTML = '<option value="">Chọn phường</option>';
+          wardSelect.disabled = true;
+        }
+      });
+    }
+  } catch (err) {
+    console.error("Lỗi khi tải thành phố:", err);
+  }
+}
+
+async function loadWard(cityId) {
+  const wardSelect = document.getElementById('phuong');
+  wardSelect.innerHTML = '<option value="">Đang tải...</option>';
+  wardSelect.disabled = false;
+
+  try {
+    const res = await fetch(getApiUrl(`/locations/wards/${cityId}`));
+    const data = await res.json();
+
+    if (data.status === 'success') {
+      wardSelect.innerHTML = '<option value="">Chọn phường</option>';
+      data.data.forEach(ward => {
+        const option = document.createElement('option');
+        option.value = ward.ma_phuong;
+        option.textContent = ward.ten_phuong;
+        wardSelect.appendChild(option);
+      });
+    }
+  } catch (err) {
+    console.error("Lỗi khi tải phường:", err);
+    wardSelect.innerHTML = '<option value="">Lỗi khi tải dữ liệu</option>';
+  }
+}
 
 function getToken() {
   return localStorage.getItem("token") || sessionStorage.getItem("token");
@@ -47,6 +108,7 @@ async function loadOrderSummary() {
       const data = await res.json();
       if (data.status === "success") {
         cartItems = data.cart || [];
+        window.currentCartItems = cartItems;
       }
     } catch (error) {
       console.error("Lỗi khi lấy giỏ hàng:", error);
@@ -54,6 +116,7 @@ async function loadOrderSummary() {
   } else {
     const local = localStorage.getItem("cart");
     cartItems = local ? JSON.parse(local) : [];
+    window.currentCartItems = cartItems;
   }
 
   renderOrderItems(cartItems);
@@ -206,9 +269,87 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // TRƯỜNG HỢP COD
         if (payCOD) {
-            console.log("Thanh toán COD - tiến hành tạo đơn hàng bình thường...");
-            alert("Đặt hàng COD thành công!");
-            // await fetch("/api/order", {...})
+          showLoading();
+
+          // Thu thập dữ liệu thông tin
+          const name = document.getElementById('name').value;
+          const phone = document.getElementById('phone').value;
+          const address = document.getElementById('address').value;
+          const citySelect = document.getElementById('thanhpho');
+          const wardSelect = document.getElementById('phuong');
+          const cityId = citySelect.value;
+          const wardId = wardSelect.value;
+          const note = document.getElementById('note').value;
+
+          // Xử lý địa chỉ phụ (nếu có stick checkbox)
+          const add2 = document.getElementById('address2');
+          let finalAddress = address;
+          if (document.getElementById('address_add').checked && add2.value) {
+            finalAddress += " - " + add2.value;
+          }
+
+          // Kiểm tra dữ liệu
+          if (!name || !phone || !address || !cityId || !wardId) {
+            alert("Vui lòng điền đầy đủ thông tin giao hàng!");
+            hideLoading();
+            return;
+          }
+
+          // Lấy thông tin giỏ hàng
+          const token = getToken();
+          let itemsToOrder = [];
+
+          if (!window.currentCartItems || window.currentCartItems.length === 0) {
+            alert("Giỏ hàng trống!");
+            hideLoading();
+            return;
+          }
+
+          const orderBody = {
+            userId: 0, // Backend sẽ tự động lấy từ Token
+            items: window.currentCartItems.map(item => ({
+              productId: item.ma_san_pham,
+              variantId: item.ma_bien_the,
+              quantity: item.so_luong,
+              price: Number(item.price || item.gia)
+            })),
+            total: amount,
+            note: note,
+            customerInfo: {
+              cityId: cityCodeMap(cityId),
+              wardId: wardId,
+              address: finalAddress + ", " + wardSelect.options[wardSelect.selectedIndex].text + ", " + citySelect.options[citySelect.selectedIndex].text
+            },
+            paymentMethod: 'cod'
+          };
+
+          function cityCodeMap(id){
+            return id;
+          }
+
+          try {
+                const res = await fetch(getApiUrl('/orders/create'), {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify(orderBody)
+                });
+                const result = await res.json();
+                
+                if (result.status === 'success') {
+                    alert("Đặt hàng thành công! Mã đơn: " + result.orderId);
+                    window.location.reload(); // Load lại trang để reset form 
+                } else {
+                    alert("Lỗi: " + result.message);
+                }
+            } catch (err) {
+                console.error(err);
+                alert("Lỗi kết nối khi đặt hàng");
+            } finally {
+                hideLoading();
+            }
             return;
         }
 
