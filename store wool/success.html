@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thanh toán thành công</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container text-center" style="margin-top:100px;">
+    <h1 class="text-success">🎉 Thanh toán thành công!</h1>
+    <p>Số tiền: <span id="amount"></span> VNĐ</p>
+</div>
+
+<script>
+const params = new URLSearchParams(window.location.search);
+const result = {};
+const message = params.get("message");
+
+if(resultCode === "0"){
+    document.body.innerHTML = "<h1>Thanh toán thành công 🎉</h1>";
+} else {
+    document.body.innerHTML = `
+        <h1>Thanh toán thất bại ❌</h1>
+        <p>Lý do: ${message}</p>
+        <a href="/bill.html">Quay lại thanh toán</a>
+    `;
+}
+
+params.forEach((value, key) => {
+    result[key] = value;
+});
+
+// Hiển thị số tiền
+document.getElementById("amount").innerText = result.amount || "---";
+
+// Tạo 1 khung hiển thị JSON
+const pre = document.createElement("pre");
+pre.style.marginTop = "20px";
+pre.style.textAlign = "left";
+pre.style.background = "#f8f9fa";
+pre.style.padding = "15px";
+pre.style.borderRadius = "10px";
+pre.innerText = JSON.stringify(result, null, 2);
+
+document.body.appendChild(pre);
+</script>
+
+</body>
+</html>

@@ -173,14 +173,75 @@ async function fillUserInfo() {
   }
 }
 
-// //hien thi meo
-// function showLoading() {
-//     const overlay = document.getElementById("loadingOverlay");
-//     if (overlay) overlay.style.display = "flex"; // Dùng flex để căn giữa
-//   }
+//hien thi meo
+function showLoading() {
+    const overlay = document.getElementById("loadingOverlay");
+    if (overlay) overlay.style.display = "flex"; // Dùng flex để căn giữa
+}
 
-//   // Hàm ẩn con mèo (Tắt Loading)
-//   function hideLoading() {
-//     const overlay = document.getElementById("loadingOverlay");
-//     if (overlay) overlay.style.display = "none";
-//   }
+// Hàm ẩn con mèo (Tắt Loading)
+function hideLoading() {
+    const overlay = document.getElementById("loadingOverlay");
+    if (overlay) overlay.style.display = "none";
+}
+
+// Đặt hàng
+document.addEventListener("DOMContentLoaded", () => {
+    const orderBtn = document.querySelector(".place-order");
+
+    orderBtn.addEventListener("click", async () => {
+
+        const payCOD = document.getElementById("cod").checked;
+        const payMoMo = document.getElementById("creditcard").checked;
+
+        // Lấy tổng tiền
+        const totalEl = document.querySelector(".total-price");
+        const amountText = totalEl.innerText.replace(/[^\d]/g, "");
+        const amount = Number(amountText) || 0;
+
+        if(amount < 1000){
+            alert("Số tiền phải ≥ 1000 VNĐ");
+            return;
+        }
+
+        // TRƯỜNG HỢP COD
+        if (payCOD) {
+            console.log("Thanh toán COD - tiến hành tạo đơn hàng bình thường...");
+            alert("Đặt hàng COD thành công!");
+            // await fetch("/api/order", {...})
+            return;
+        }
+
+        // TRƯỜNG HỢP MOMO
+        if (payMoMo) {
+            try {
+                showLoading();
+                const res = await fetch(getApiUrl("/api/payment/momo"), {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ amount })
+                });
+
+                const data = await res.json();
+                console.log("MoMo Response:", data);
+
+                if (data.payUrl) {
+                    window.open(data.payUrl, '_blank');
+                } else {
+                    alert("Không tạo được link thanh toán MoMo");
+                    hideLoading();
+                }
+
+            } catch (err) {
+                console.error("Momo Error:", err);
+                alert("Không kết nối được server thanh toán");
+                hideLoading();
+            }
+
+            return;
+        }
+
+        alert("Vui lòng chọn phương thức thanh toán!");
+    });
+});
+

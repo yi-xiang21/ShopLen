@@ -20,13 +20,13 @@
 
 <body>
     <div class="direction" id="breadcrumb"></div>
-    <!-- 
+    
     <div id="loadingOverlay" class="loading-overlay">
         <lottie-player src="animation/load.json" background="transparent" speed="1" style="width: 250px; height: 250px;" loop
             autoplay>
         </lottie-player>
         <div class="loading-text">Đang xử lý dữ liệu</div>
-    </div> -->
+    </div>
 
     <div class="bill-page">
         <div class="left-bill">
@@ -46,23 +46,19 @@
                 </div>
 
 
-                <select id="tinhthanh" name="tinhthanh" required>
-                    <option value="1"> TP Hồ Chí Minh</option>
-                </select>
-                <select id="quan" name="quan" required>
-                    <option value="1"> 1</option>
-                    <option value="2"> 2</option>
-                    <option value="3"> 3</option>
+                <select id="thanhpho" name="thanhpho" required>
+                    <option value="1">Chọn thành phố</option>
+                    <option value="2"> TP Hồ Chí Minh</option>
                 </select>
                 <select id="phuong" name="phuong" required>
-                    <option value="1"> rỗng</option default>
-                    <option value="2"> 2</option>
-                    <option value="3"> 5</option>
+                    <option value="1">Chọn phường</option default>
+                    <option value="2">2</option>
+                    <option value="3">5</option>
                 </select>
 
             </div>
             <div class="bill2">
-                <h2>đơn vị vận chuyển</h2>
+                <h2>Đơn vị vận chuyển</h2>
                 <div class="ship-method">
                     <div>
                         <input type="radio" id="standard" name="ship" value="standard" checked>
@@ -74,7 +70,7 @@
                     </div>
 
                 </div>
-                <H2>phương thức thanh toán</H2>
+                <H2>Phương thức thanh toán</H2>
                 <div class="pay-method">
                     <div>
                         <input type="radio" id="cod" name="pay" value="cod" checked>
@@ -100,23 +96,7 @@
             <div class="checkout-summary">
                 <div class="order-items">   
                     <div class="items-list">
-                        <div class="img-itemsdetailsorder">
-                            <img src="./img/item8.png" alt="">
-                        </div>
-                        <div class="item-detailsorder">
-                            <p class="item-nameorder">
-                                <label>Tên Sản Phẩm :</label>
-                                Sản Phẩm 1
-                            </p>
-                            <p class="item-quantityorder">
-                                <label>Số Lượng :</label>
-                                0
-                            </p>
-                            <p class="item-priceorder">
-                                <label>Giá :</label>
-                                0đ
-                            </p>
-                        </div>
+                        
                     </div>
 
                 </div>
