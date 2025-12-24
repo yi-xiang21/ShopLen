@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/account.css">
+    <title>peace chill</title>
+</head>
+
+<body>
+
+    <main>
+        <div class="account-layout">
+            <!-- Sidebar -->
+            <div class="direction" id="breadcrumb"></div>
+            <aside class="account-sidebar">
+                <div class="sidebar-profile">
+                    <div class="sidebar-avatar"></div>
+                    <div>
+                        <div class="sidebar-name"></div>
+
+                    </div>
+                </div>
+                <ul class="sidebar-menu">
+                    <li class="active" data-section="overview"><i class="bi bi-person"></i> Tổng Quan Hồ Sơ</li>
+                    <li data-section="workshop"><i class="bi bi-clock-history"></i> Lịch Sử Workshop</li>
+                    <li data-section="cart"><i class="bi bi-cart"></i> Lịch Sử Giỏ Hàng</li>
+                    <li data-section="settingsaccount"><i class="bi bi-gear"></i> Cài Đặt</li>
+                </ul>
+            </aside>
+
+            <!-- Main Content -->
+            <section class="main-section active" data-section="overview">
+                <div class="main-header">
+                    <div class="main-avatar-wrap">
+                        <div class="main-avatar"></div>
+                    </div>
+                    <div>
+                        <div class="main-name"></div>
+                    </div>
+                </div>
+                <form class="account-form">
+                    <h2 class="form-title">Thông Tin Cá Nhân</h2>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Tên</label>
+                            <input type="text" name="firstName" value="">
+                        </div>
+                        <div class="form-group">
+                            <label>Họ</label>
+                            <input type="text" name="lastName" value="">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Địa Chỉ Email</label>
+                            <input type="email" name="email" value="">
+                        </div>
+                        <div class="form-group">
+                            <label>Số Điện Thoại</label>
+                            <input type="text" name="phone" value="">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group" style="flex:2;">
+                            <label>Địa Chỉ</label>
+                            <input type="text" name="address" value="">
+                        </div>
+                        <div class="form-group">
+                            <label>Thành Phố</label>
+                            <input type="text" name="city" value="">
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="save-btn">Lưu Thay Đổi</button>
+                    </div>
+                </form>
+            </section>
+            <section class="main-section" data-section="workshop">
+                <h2 class="section-title">Lịch Sử Workshop</h2>
+
+                <div class="workshop-section">
+                    <div class="workshop-header">
+                        <h3>Workshop Đã Tham Gia</h3>
+                    </div>
+                    <div class="workshop-list" id="past-workshops">
+                        <!-- Các workshop đã diễn ra sẽ được render ở đây -->
+
+                    </div>
+                    <div class="workshop-actions">
+                        <button class="clear-btn">Xóa Workshop</button>
+                    </div>
+                </div>
+            </section>
+            <section class="main-section" data-section="cart">
+                <div id="cart-history">
+                    <h2 class="section-title">Lịch Sử Giỏ Hàng</h2>
+                    <div id="History-items">
+                        
+                    </div>
+                </div>
+
+            </section>
+            <section class="main-section" data-section="settingsaccount">
+                <h2 class="section-title">Cài Đặt Tài Khoản</h2>
+
+                <!-- Change Password Section -->
+                <div class="settings-section">
+                    <div class="settings-header">
+                        <h3><i class="bi bi-shield-lock"></i> Đổi Mật Khẩu</h3>
+                        <p>Cập nhật mật khẩu của bạn để bảo vệ tài khoản</p>
+                    </div>
+                    <form class="settings-form" id="changePasswordForm">
+                        <div class="form-group">
+                            <label for="currentPassword">Mật Khẩu Hiện Tại</label>
+                            <input type="password" id="currentPassword" name="currentPassword" required>
+                            <i class="bi bi-eye-slash toggle-password" data-target="currentPassword"></i>
+                        </div>
+                        <div class="form-group">
+                            <label for="newPassword">Mật Khẩu Mới</label>
+                            <input type="password" id="newPassword" name="newPassword" required>
+
+                            <div class="password-strength" id="passwordStrength">
+                                <div class="strength-bar">
+                                    <div class="strength-fill" id="strengthFill"></div>
+                                </div>
+                                <span class="strength-text" id="strengthText">Độ mạnh mật khẩu</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="confirmPassword">Xác Nhận Mật Khẩu Mới</label>
+                            <input type="password" id="confirmPassword" name="confirmPassword" required>
+                            <i class="bi bi-eye-slash toggle-password" data-target="confirmPassword"></i>
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="save-btn">Đổi Mật Khẩu</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Account Actions Section -->
+                <div class="settings-section">
+                    <div class="settings-header">
+                        <h3><i class="bi bi-exclamation-triangle"></i> Hành Động Tài Khoản</h3>
+                        <p>Những hành động nguy hiểm ảnh hưởng đến tài khoản của bạn</p>
+                    </div>
+                    <div class="danger-actions">
+                        <button class="danger-btn" id="deleteAccountBtn">
+                            <i class="bi bi-trash"></i>
+                            Xóa Tài Khoản
+                        </button>
+                        <p class="danger-note">Hành động này không thể hoàn tác. Tất cả dữ liệu của bạn sẽ bị xóa vĩnh viễn.</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <script>
+        function setupSidebarTabs() {
+            const menuItems = document.querySelectorAll('.sidebar-menu li');
+            const sections = document.querySelectorAll('.main-section');
+
+            menuItems.forEach(item => {
+                item.addEventListener('click', function () {
+                    // Xóa active ở tất cả li
+                    menuItems.forEach(li => li.classList.remove('active'));
+                    this.classList.add('active');
+
+                    // Ẩn tất cả section
+                    sections.forEach(sec => sec.classList.remove('active'));
+                    // Hiện section tương ứng với hiệu ứng smooth
+                    const sectionName = this.getAttribute('data-section');
+                    const showSection = document.querySelector(`.main-section[data-section="${sectionName}"]`);
+                    if (showSection) showSection.classList.add('active');
+                });
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', setupSidebarTabs);
+
+        // Settings functionality
+        document.addEventListener('DOMContentLoaded', function () {
+            setupSettings();
+        });
+
+        function setupSettings() {
+            // Password visibility toggle
+            document.querySelectorAll('.toggle-password').forEach(toggle => {
+                toggle.addEventListener('click', function () {
+                    const targetId = this.getAttribute('data-target');
+                    const input = document.getElementById(targetId);
+                    const type = input.type === 'password' ? 'text' : 'password';
+                    input.type = type;
+                    this.classList.toggle('bi-eye');
+                    this.classList.toggle('bi-eye-slash');
+                });
+            });
+
+            // Password strength checker
+            const newPasswordInput = document.getElementById('newPassword');
+            if (newPasswordInput) {
+                newPasswordInput.addEventListener('input', function () {
+                    checkPasswordStrength(this.value);
+                });
+            }
+
+            // Change password form
+            const changePasswordForm = document.getElementById('changePasswordForm');
+            if (changePasswordForm) {
+                changePasswordForm.addEventListener('submit', handlePasswordChange);
+            }
+
+            // Delete account button
+            const deleteAccountBtn = document.getElementById('deleteAccountBtn');
+            if (deleteAccountBtn) {
+                deleteAccountBtn.addEventListener('click', handleDeleteAccount);
+            }
+
+        }
+
+        function checkPasswordStrength(password) {
+            const strengthFill = document.getElementById('strengthFill');
+            const strengthText = document.getElementById('strengthText');
+
+            if (!strengthFill || !strengthText) return;
+
+            let strength = 0;
+            let feedback = '';
+
+            // Check length
+            if (password.length >= 8) strength += 25;
+            if (password.length >= 12) strength += 25;
+
+            // Check for different character types
+            if (/[a-z]/.test(password)) strength += 25;
+            if (/[A-Z]/.test(password)) strength += 25;
+            if (/[0-9]/.test(password)) strength += 25;
+            if (/[^A-Za-z0-9]/.test(password)) strength += 25;
+
+            // Cap at 100%
+            strength = Math.min(strength, 100);
+
+            // Update Ui
+            strengthFill.style.width = strength + '%';
+
+            if (strength < 25) {
+                strengthFill.style.backgroundColor = '#ff4444';
+                feedback = 'Very Weak';
+            } else if (strength < 50) {
+                strengthFill.style.backgroundColor = '#ff8800';
+                feedback = 'Weak';
+            } else if (strength < 75) {
+                strengthFill.style.backgroundColor = '#ffbb33';
+                feedback = 'Fair';
+            } else if (strength < 100) {
+                strengthFill.style.backgroundColor = '#00C851';
+                feedback = 'Good';
+            } else {
+                strengthFill.style.backgroundColor = '#007E33';
+                feedback = 'Strong';
+            }
+
+            strengthText.textContent = feedback;
+        }
+
+        async function handlePasswordChange(e) {
+            e.preventDefault();
+
+            const formData = new FormData(e.target);
+            const currentPassword = formData.get('currentPassword');
+            const newPassword = formData.get('newPassword');
+            const confirmPassword = formData.get('confirmPassword');
+
+            // Validation
+            if (newPassword !== confirmPassword) {
+                alert('Mật khẩu mới không khớp!');
+                return;
+            }
+
+            if (newPassword.length < 8) {
+                alert('Mật khẩu mới phải có ít nhất 8 ký tự!');
+                return;
+            }
+
+            if (currentPassword === newPassword) {
+                alert('Mật khẩu mới phải khác mật khẩu hiện tại!');
+                return;
+            }
+
+            try {
+                // Simulate API call
+                await new Promise(resolve => setTimeout(resolve, 1000));
+
+                // In real app, you would send this to your backend
+                console.log('Password change request:', {
+                    currentPassword,
+                    newPassword
+                });
+
+                alert('Mật khẩu được thay đổi thành công!');
+                e.target.reset();
+                document.getElementById('strengthFill').style.width = '0%';
+                document.getElementById('strengthText').textContent = 'Độ mạnh mật khẩu';
+
+            } catch (error) {
+                alert('Không thể thay đổi mật khẩu. Vui lòng thử lại.');
+                console.error('Password change error:', error);
+            }
+        }
+
+        //xoa tk
+        function handleDeleteAccount() {
+            const confirmed = confirm('Bạn có chắc chắn muốn xóa tài khoản? Hành động này không thể hoàn tác.');
+
+            if (confirmed) {
+                const password = prompt('Vui lòng nhập mật khẩu của bạn để xác nhận xóa tài khoản:');
+
+                if (password) {
+                    // In real app, you would send this to your backend
+                    console.log('Account deletion requested with password confirmation');
+                    alert('Yêu cầu xóa tài khoản đã được gửi. Bạn sẽ nhận được email xác nhận.');
+                }
+            }
+            
+
+        }
+    </script>
+    <script src="js/config.js"></script>
+    <script src="js/account-profile.js"></script>
+    <script src="js/header.js"></script>
+    <script src="js/footer.js"></script>
+    <script src="js/js.js"></script>
+    <script src="js/ai-integration.js"></script>
+    <script src="js/history_Buy.js"></script>
+
+</body>
+
+</html>

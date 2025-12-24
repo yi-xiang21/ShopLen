@@ -1,0 +1,43 @@
+{
+    "LichSu":[
+    {
+      "ma_don_hang": 101,
+      "ngay_dat_hang": "2025-02-14 10:25:00",
+      "trang_thai": "thanh_cong",
+      "tong_tien": 350000,
+      
+      "san_pham": [
+        {
+          "ma_san_pham": 20,
+          "ten_san_pham": "Len Cotton Hàn Quốc",
+          "gia": 50000,
+          "so_luong": 3,
+          "hinh_anh_url":"./img/item3.png"
+        },
+        {
+          "ma_san_pham": 21,
+          "ten_san_pham": "Kim móc nhôm Nhật",
+          "gia": 200000,
+          "so_luong": 1,
+          "hinh_anh_url":"./img/item5.png"
+        }
+      ]
+    },
+    {
+      "ma_don_hang": 102,
+      "ngay_dat_hang": "2025-03-01 14:10:00",
+      "trang_thai": "thanh_cong",
+      "tong_tien": 120000,
+
+      "san_pham": [
+        {
+          "ma_san_pham": 25,
+          "ten_san_pham": "Len Merino Úc",
+          "gia": 60000,
+          "so_luong": 2,
+          "hinh_anh_url":"./img/item2.png"
+        }
+      ]
+    }
+  ]
+}
