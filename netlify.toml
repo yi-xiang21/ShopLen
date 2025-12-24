@@ -1,4 +1,4 @@
 [build]
-  base = "store wool"
+  base = "/"
   publish = "."
   command = ""
