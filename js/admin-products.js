@@ -514,7 +514,6 @@ function renderCards() {
 
           // Thêm variants vào FormData dưới dạng JSON
           formData.append("variants", JSON.stringify(variants));
-          
 
           let res;
           if (editingId) {
@@ -537,7 +536,11 @@ function renderCards() {
           const data = await res.json();
           if (data.status !== "success")
             throw new Error(data.message || "Thao tác thất bại");
-          await fetchProducts();
+          else{
+            alert("Lưu sản phẩm thành công");
+            hideForm();
+            await fetchProducts();
+          }
         } catch (err) {
           alert(err.message || "Không thể lưu sản phẩm");
         }
