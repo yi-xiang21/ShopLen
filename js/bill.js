@@ -310,7 +310,7 @@ document.addEventListener("DOMContentLoaded", () => {
             items: window.currentCartItems.map(item => ({
               productId: item.ma_san_pham,
               variantId: item.ma_bien_the,
-              quantity: item.so_luong,
+              quantity: item.so_luong || item.quantity,
               price: Number(item.price || item.gia)
             })),
             total: amount,
