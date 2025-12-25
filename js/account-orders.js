@@ -83,6 +83,14 @@ async function viewOrderDetail(orderId) {
 
 function renderOrderDetail(order, items) {
     const infoGrids = document.querySelectorAll('.order-detail-wrapper .order-info-grid');
+
+    // Cập nhật trạng thái đơn hàng
+    const statusEl = document.querySelector('.order-detail-header .order-status');
+    if (statusEl) {
+        statusEl.innerText = formatStatus(order.trang_thai);
+        statusEl.className = `order-status ${getStatusColor(order.trang_thai)}`;
+    }
+    
     
     // Fill thông tin đơn hàng (Grid đầu tiên)
     if (infoGrids[0]) {
@@ -135,13 +143,16 @@ function renderOrderDetail(order, items) {
     }
 
     document.querySelector('.final-total span').innerText = currencyFormat.format(order.tong_tien);
+    document.querySelector('.temp-total span').innerText = currencyFormat.format(order.tong_tien);
 }
 
 // Màu sắc trạng thái
 function getStatusColor(status) {
-    if(status === 'hoan_thanh') return 'success';
-    if(status === 'da_huy') return 'danger';
-    return 'processing';
+    if(status === 'hoan_thanh') return 'completed';
+    if(status === 'da_huy') return 'cancelled';
+    if(status === 'dang_giao') return 'shipping';
+    if(status === 'cho_xu_ly') return 'pending';
+    if(status === 'dang_xu_ly') return 'processing';
 }
 
 // Format status đơn hàng

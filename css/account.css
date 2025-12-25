@@ -1391,7 +1391,10 @@ input:checked+.toggle-slider:before {
   background: #e6f4ea;
   color: #1b5e20;
 }
-
+.order-status.shipped {
+  background: #e0f7fa;
+  color: #f75f00;
+}
 .order-status.cancelled {
   background: #fdecea;
   color: #b71c1c;
