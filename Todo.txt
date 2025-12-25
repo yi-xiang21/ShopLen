@@ -5,6 +5,6 @@ Chức năng:
 
 
 User
-3. Bổ sung giao diện cho người dùng tự quản lý đơn hàng, Chức năng: hủy đơn, xem chi tiết (xong)
+3. Bổ sung giao diện cho người dùng tự quản lý đơn hàng, Chức năng: hủy đơn, xem chi tiết
 4. Lọc sản phẩm theo giá tiền và size
-5. Chức năng xem lịch sử mua hàng 
+5. Chức năng xem lịch sử mua hàng
