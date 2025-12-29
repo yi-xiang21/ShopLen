@@ -889,6 +889,7 @@ body {
 .order-actions {
     display: flex;
     align-items: center;
+    justify-content: space-around;
     gap: 8px;
 }
 
@@ -899,6 +900,12 @@ body {
     margin-right: 8px;
 }
 
+.select-status{
+    padding: 6px 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;    
+}
 .btn-primary {
     background: #6b1f3a;
     color: #fff;
@@ -906,6 +913,7 @@ body {
     padding: 8px 12px;
     border-radius: 8px;
     cursor: pointer;
+    width: auto;
 }
 
 .btn-outline {
@@ -1198,7 +1206,7 @@ body {
 
 
 .status.pending { background: #fff3cd; color: #856404; }
-.status.processing { background: #ffe5b4; color: #8a6d3b; }
+.status.processing { background: #75c8e73d; color: #000000; }
 .status.shipping { background: #d1ecf1; color: #0c5460; }
 .status.done { background: #d4edda; color: #155724; }
 .status.cancel { background: #f8d7da; color: #721c24; }
@@ -1225,5 +1233,19 @@ body {
 .col-action .view-order-btn:active {
   transform: scale(0.95);
 }
-
+.list-product-order{
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    overflow-y: scroll;
+    max-height: 400px;
+}
+/* scrollbar  list product order*/
+.list-product-order::-webkit-scrollbar {
+  width: 6px;
+}
+.list-product-order::-webkit-scrollbar-thumb {
+  background: #ff0263;
+  border-radius: 10px;
+}   
     

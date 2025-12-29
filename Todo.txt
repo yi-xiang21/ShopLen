@@ -8,3 +8,7 @@ User
 3. Bổ sung giao diện cho người dùng tự quản lý đơn hàng, Chức năng: hủy đơn, xem chi tiết
 4. Lọc sản phẩm theo giá tiền và size
 5. Chức năng xem lịch sử mua hàng
+
+*
+1 Thanh toán bổ sung trường phương thức momo or cod;
+2 Bổ sung trạng thái sp true false;

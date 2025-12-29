@@ -152,7 +152,7 @@
                     <p id="section-title-p">Quản lý đơn hàng</p>
                     <button id="btn-export">Xuất đơn hàng</button>
                 </h2>
-                <div id="order-main">
+                <div id="order-main" display="block;">
                     <div id="filters-Order">
                         <input type="text" placeholder="Tìm mã đơn...">
                         <select id="OrderStatus" required>
@@ -177,96 +177,9 @@
                         </div>
                     </div>
                 </div>
-                <div id="order-view" style="display: block;">
+                <div id="order-view" style="display: none;">
                     <div id="order-detail">
-                        <div id="order-detail-left">
-                            <div id="order-detail-main" class="card">
-                                <div class="order-main-row">
-                                    <div>
-                                        <h3>Mã đơn hàng</h3>
-                                        <div class="muted">Ngày đặt</div>
-                                    </div>
-                                    <div class="order-actions">
-                                        <div class="order-price">50k</div>
-                                        <button class="btn btn-primary">Cập nhật trạng thái</button>
-                                    </div>
-                                </div>
-                                <div class="order-meta">
-                                    <div class="customer-card">
-                                        <div class="avatar">N</div>
-                                        <div class="customer-info">
-                                            <div class="name">Nam</div>
-                                            <div class="muted" id="numberphone">01232454</div>
-                                            <div class="muted" id="adress">TPHCM</div>
-                                        </div>
-                                    </div>
-                                    <div class="order-summary">
-                                        <div><strong>Mã đơn:</strong> 001</div>
-                                        <div><strong>Thanh toán:</strong> Momo</div>
-                                        <div class="total"><strong>Tổng tiền:</strong> 50k</div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div id="order-detail-product" class="card">
-                                <h4>Thông tin sản phẩm</h4>
-                                <div class="product-row">
-                                    <img src="./img/item8.png" alt="product" class="product-thumb">
-                                    <div class="product-info">
-                                        <h5>Premium Merino Wool Yarn</h5>
-                                        <div class="product-meta">
-                                            <div><strong>Màu:</strong> Dusty Rose</div>
-                                            <div><strong>Khối lượng:</strong> 100g</div>
-                                            <div><strong>Chất liệu:</strong> 100% Merino Wool</div>
-                                            <div><strong>Số lượng:</strong> 1</div>
-                                            <div class="muted price">Giá: 50k</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div id="order-detail-right">
-                            <div id="order-detail-ship" class="card widget">
-                                <h4>Thông tin vận chuyển</h4>
-                                <div class="muted"><strong>Phương thức:</strong> Giao hàng</div>
-                                <div class="muted"><strong>Đơn vị:</strong> GHTK</div>
-                                <div class="muted"><strong>Mã vận đơn:</strong> 1Z999AA1234567890</div>
-                                <div class="muted"><strong>Dự kiến:</strong> Nov 6, 2025</div>
-                                <div class="muted"><strong>Thực tế:</strong> <span class="success">Nov 6, 2025</span>
-                                </div>
-                            </div>
-
-                            <div id="order-detail-payment" class="card widget">
-                                <h4>Chi tiết thanh toán</h4>
-                                <div><strong>Trạng thái:</strong> <span class="badge-paid">Hoàn thành</span></div>
-                                <div class="muted"><strong>Phương thức:</strong> Momo</div>
-                                <div class="muted"><strong>Mã giao dịch:</strong>123456789</div>
-
-                                <div class="summary">
-                                    <div><span>Tạm tính:</span><span>50k</span></div>
-                                    <div><span>Vận chuyển:</span><span>Miễn phí</span></div>
-                                    <div><span>Thuế:</span><span>0</span></div>
-                                    <div class="total-row"><strong>Tổng:</strong><strong>50k</strong></div>
-                                </div>
-                            </div>
-
-                            <div id="order-detail-history" class="card widget">
-                                <h4>Lịch sử khách hàng</h4>
-                                <div class="muted">Tổng đơn: <strong>7</strong></div>
-                                <div class="muted">Khách từ: <strong>7 2024</strong></div>
-                                <ul class="recent-orders">
-                                    <li>002 <span class="success">20k</span></li>
-                                    <li>045 <span class="success">30k</span></li>
-                                </ul>
-                            </div>
-
-                            <div id="order-detail-actions" class="card widget actions">
-                                <button class="btn btn-primary full">Gửi email khách</button>
-                                <button class="btn btn-outline full">In nhãn vận chuyển</button>
-                                <button class="btn btn-danger full">Hoàn tiền</button>
-                                <button class="btn btn-outline full" id="btn-back">Quay lại</button>
-                            </div>
-                        </div>
+                        <!-- chi tiet don hang se duoc render tu database -->
                     </div>
                 </div>
 

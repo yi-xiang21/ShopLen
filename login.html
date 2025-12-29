@@ -28,6 +28,23 @@
                 left: 35%;
             }
         }
+        .cat-pass{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 5px;
+            padding: 0px;
+            position: relative;
+            top: -465px; 
+            right: 160px;
+            cursor: pointer;
+            z-index: 0; 
+            pointer-events: none; /* allow clicks to pass through */
+        }
+        #cat-animation {
+            width: 100px; /* adjust as needed */
+            height: 100px;
+        }
     </style>
 </head>
 
@@ -63,6 +80,11 @@
                     </div>
                     <div class="login-bottom">
                         tôi chưa có tài khoản? <a href="register.html">Đăng ký</a>
+                    </div>
+                    <div  class="cat-pass">
+                        <lottie-player id="cat-animation" src="./animation/cat icon.json"  background="transparent" speed="1" autoplay loop
+                            mode="normal">
+                        </lottie-player>
                     </div>
                 </form>
             </div>
