@@ -357,17 +357,99 @@ document.addEventListener("DOMContentLoaded", () => {
         if (payMoMo) {
             try {
                 showLoading();
-                const res = await fetch(getApiUrl("/api/payment/momo"), {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ amount })
+                
+                // BƯỚC 1: Thu thập dữ liệu thông tin giao hàng
+                const name = document.getElementById('name').value;
+                const phone = document.getElementById('phone').value;
+                const address = document.getElementById('address').value;
+                const citySelect = document.getElementById('thanhpho');
+                const wardSelect = document.getElementById('phuong');
+                const cityId = citySelect.value;
+                const wardId = wardSelect.value;
+                const note = document.getElementById('note').value;
+
+                // Xử lý địa chỉ phụ (nếu có)
+                const add2 = document.getElementById('address2');
+                let finalAddress = address;
+                if (document.getElementById('address_add').checked && add2.value) {
+                    finalAddress += " - " + add2.value;
+                }
+
+                // Kiểm tra dữ liệu
+                if (!name || !phone || !address || !cityId || !wardId) {
+                    alert("Vui lòng điền đầy đủ thông tin giao hàng!");
+                    hideLoading();
+                    return;
+                }
+
+                // Lấy thông tin giỏ hàng
+                const token = getToken();
+                
+                if (!token) {
+                    alert("Vui lòng đăng nhập để đặt hàng!");
+                    hideLoading();
+                    return;
+                }
+
+                if (!window.currentCartItems || window.currentCartItems.length === 0) {
+                    alert("Giỏ hàng trống!");
+                    hideLoading();
+                    return;
+                }
+
+                const orderBody = {
+                    userId: 0,
+                    items: window.currentCartItems.map(item => ({
+                        productId: item.ma_san_pham,
+                        variantId: item.ma_bien_the,
+                        quantity: item.so_luong || item.quantity,
+                        price: Number(item.price || item.gia)
+                    })),
+                    total: amount,
+                    note: note,
+                    customerInfo: {
+                        cityId: cityId,
+                        wardId: wardId,
+                        address: finalAddress + ", " + wardSelect.options[wardSelect.selectedIndex].text + ", " + citySelect.options[citySelect.selectedIndex].text
+                    },
+                    paymentMethod: 'momo'
+                };
+
+                // BƯỚC 2: Tạo đơn hàng
+                const createRes = await fetch(getApiUrl('/orders/create'), {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify(orderBody)
                 });
 
-                const data = await res.json();
-                console.log("MoMo Response:", data);
+                const orderResult = await createRes.json();
+                console.log("Order Create Response:", orderResult);
 
-                if (data.payUrl) {
-                    window.open(data.payUrl, '_blank');
+                if (orderResult.status !== 'success') {
+                    alert("Lỗi tạo đơn hàng: " + orderResult.message);
+                    hideLoading();
+                    return;
+                }
+
+                // BƯỚC 3: Gọi MoMo API với orderId từ database
+                const momoRes = await fetch(getApiUrl("/api/payment/momo"), {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ 
+                        amount: amount,
+                        orderId: orderResult.orderId  // Truyền orderId thật từ database
+                    })
+                });
+
+                const momoData = await momoRes.json();
+                console.log("MoMo Response:", momoData);
+
+                if (momoData.payUrl) {
+                    // BƯỚC 4: Redirect tới MoMo payment
+                    window.location.href = momoData.payUrl;
                 } else {
                     alert("Không tạo được link thanh toán MoMo");
                     hideLoading();
@@ -375,7 +457,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             } catch (err) {
                 console.error("Momo Error:", err);
-                alert("Không kết nối được server thanh toán");
+                alert("Lỗi: " + err.message);
                 hideLoading();
             }
 
@@ -386,3 +468,92 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
+document.getElementById('placeOrderBtn').addEventListener('click', async () => {
+    try {
+        // Validation
+        const fullName = document.getElementById('fullName').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const phone = document.getElementById('phone').value.trim();
+        const address = document.getElementById('address').value.trim();
+        const cityCode = document.getElementById('city').value;
+        const districtId = document.getElementById('district').value;
+
+        if (!fullName || !email || !phone || !address || !cityCode || !districtId) {
+            alert('Vui lòng điền đầy đủ thông tin giao hàng');
+            return;
+        }
+
+        // Lấy phương thức thanh toán được chọn
+        const selectedPayment = document.querySelector('input[name="payment"]:checked');
+        if (!selectedPayment) {
+            alert('Vui lòng chọn phương thức thanh toán');
+            return;
+        }
+        const paymentMethod = selectedPayment.value; // 'COD' hoặc 'MOMO'
+
+        const note = document.querySelector('textarea[placeholder*="Ghi chú"]').value.trim();
+
+        // Lấy thông tin giỏ hàng
+        const cartData = getCartFromLocalStorage();
+        if (!cartData || cartData.length === 0) {
+            alert('Giỏ hàng trống');
+            return;
+        }
+
+        // Tính tổng tiền
+        const totalAmount = cartData.reduce((sum, item) => {
+            return sum + (item.price * item.quantity);
+        }, 0);
+
+        // Chuẩn bị dữ liệu đơn hàng
+        const orderData = {
+            userId: getUserId(),
+            cartItems: cartData.map(item => ({
+                productId: item.productId,
+                variantId: item.variantId,
+                quantity: item.quantity,
+                price: item.price
+            })),
+            totalAmount: totalAmount,
+            shippingAddress: `${address}, ${document.querySelector('#district option:checked')?.text}, ${document.querySelector('#city option:checked')?.text}`,
+            note: note,
+            cityCode: cityCode,
+            districtId: parseInt(districtId),
+            paymentMethod: paymentMethod // Thêm payment method
+        };
+
+        // Gửi request tạo đơn hàng
+        const response = await fetch(getApiUrl('/orders'), {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${getToken()}`
+            },
+            body: JSON.stringify(orderData)
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+            alert('Đặt hàng thành công!');
+            
+            // Xóa giỏ hàng local
+            localStorage.removeItem('cart');
+            
+            // Chuyển hướng
+            if (paymentMethod === 'MOMO') {
+                // Nếu chọn MoMo, redirect đến trang thanh toán MoMo
+                window.location.href = `/payment-momo.html?orderId=${result.orderId}`;
+            } else {
+                // Nếu COD, về trang chủ
+                window.location.href = '/index.html';
+            }
+        } else {
+            alert('Lỗi: ' + result.message);
+        }
+
+    } catch (error) {
+        console.error('Lỗi đặt hàng:', error);
+        alert('Có lỗi xảy ra khi đặt hàng');
+    }
+});

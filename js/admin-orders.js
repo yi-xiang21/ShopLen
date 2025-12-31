@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     loadOrders();
+    setupEventListeners();
 });
 
 function formatDateTime(value) {
@@ -35,6 +36,54 @@ async function loadOrders() {
     }
 }
 
+// Setup event listeners
+function setupEventListeners() {
+    document.addEventListener('click', async function(event) {
+        // Update order status
+        if (event.target && event.target.id === 'btn-updateStatus') {
+            const select = document.querySelector('.select-status');
+            const maDonHangElement = document.getElementById('maDonHang');
+            const orderId = maDonHangElement ? maDonHangElement.getAttribute('data-order-id') : null;
+            const newStatus = select ? select.value : null;
+            
+            console.log('Cập nhật trạng thái đơn hàng:', orderId, newStatus);
+            
+            if (!orderId || !newStatus) {
+                alert('Thiếu thông tin đơn hàng hoặc trạng thái mới');
+                return;
+            }
+            
+            try {
+                const token = localStorage.getItem('token') || sessionStorage.getItem('token');
+                const res = await fetch(getApiUrl(`/orders/${orderId}/status`), {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({ newStatus: newStatus })
+                });
+                
+                const data = await res.json();
+                
+                if (data.status === 'success') {
+                    alert('✅ Cập nhật trạng thái đơn hàng thành công');
+                    // Tải lại danh sách đơn hàng
+                    loadOrders();
+                    // Cập nhật lại chi tiết đơn hàng nếu đang xem
+                    viewOrderDetails(orderId);
+                } else {
+                    alert('❌ Lỗi cập nhật trạng thái: ' + (data.message || ''));
+                }
+            } catch (err) {
+                console.error("Lỗi cập nhật trạng thái đơn hàng: ", err);
+                alert('❌ Có lỗi xảy ra khi cập nhật trạng thái đơn hàng');
+            }
+        }
+    });
+}
+
+// Hàm xem chi tiết đơn hàng
 async function viewOrderDetails(orderId) {
     try {
         const token = localStorage.getItem('token') || sessionStorage.getItem('token');
@@ -44,9 +93,12 @@ async function viewOrderDetails(orderId) {
         const data = await res.json();
         if (data.status === 'success') {
             renderOrderDetails(data.data);
+        } else {
+            alert('Lỗi: ' + (data.message || 'Không thể tải chi tiết đơn hàng'));
         }
     } catch (err) {
         console.error("Lỗi xem chi tiết đơn hàng: ", err);
+        alert('Có lỗi xảy ra khi tải chi tiết đơn hàng');
     }
 }
 
@@ -92,7 +144,7 @@ function renderOrderDetails(orderDetail) {
                         </div>
                     </div>
                     <div class="order-summary">
-                        <div><strong>Mã đơn:</strong>${order.ma_don_hang}</div>
+                        <div id="maDonHang" data-order-id="${order.ma_don_hang}"><strong>Mã đơn:</strong>${order.ma_don_hang}</div>
                         <div class="total"><strong>Tổng tiền:</strong>${formatCurrency(order.tong_tien)}</div>
                     </div>
                 </div>
@@ -115,9 +167,9 @@ function renderOrderDetails(orderDetail) {
 
             <div id="order-detail-payment" class="card widget">
                 <h4>Chi tiết thanh toán</h4>
-                <div><strong>Trạng thái:</strong> <span class="badge-paid">Hoàn thành</span></div>
-                <div class="muted"><strong>Phương thức:</strong> Momo</div>
-                <div class="muted"><strong>Mã giao dịch:</strong>123456789</div>
+                <div><strong>Trạng thái:</strong> <span class="badge-paid">${order.trang_thai_thanh_toan || 'Chưa thanh toán'}</span></div>
+                <div class="muted"><strong>Phương thức:</strong> ${order.phuong_thuc_thanh_toan || 'COD'}</div>
+                <div class="muted"><strong>Mã giao dịch:</strong>${order.ma_tham_chieu || 'N/A'}</div>
 
                 <div class="summary">
                     <div><span>Tạm tính:</span><span>${formatCurrency(order.tong_tien)}</span></div>
