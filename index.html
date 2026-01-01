@@ -285,6 +285,7 @@
                     imageUrl = firstVariant.imageUrl;
                 }
             }
+            let status = product.status == 1? "true" : "false";
             return {
                 id: product.id,
                 name: product.name,
@@ -292,7 +293,8 @@
                 images: {
                     main: imageUrl
                 },
-                type: product.type
+                type: product.type,
+                status: status
             };
         }
 
@@ -315,7 +317,9 @@
 
                 const filteredProducts = allProducts.filter(product => {
                     const typeProduct = product.type;
-                    return typeProduct === "Len" || typeProduct === "Công Cụ";
+                    const isValidType = typeProduct === "Len" || typeProduct === "Công Cụ";
+                    const isActive = product.status === true || product.status === 1;
+                    return isValidType && isActive;
                 });
 
                 if (!filteredProducts.length) {

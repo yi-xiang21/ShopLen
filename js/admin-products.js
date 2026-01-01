@@ -75,6 +75,7 @@ function renderCards() {
         "img/default.jpg";
 
       let finalPrice = Number(product.price);
+      const radioName = `status_${product.id}`;
 
       if (firstVariant) {
         const extraPrice = Number(firstVariant.extraPrice) || 0;
@@ -82,12 +83,22 @@ function renderCards() {
         if (extraPrice > 0) finalPrice = extraPrice;
       }
 
+
       return `
         <div class="card-item">
           <img src="${imageUrl}" alt="${product.name}">
           <h3 class="item-name">${product.name}</h3>
           <p class="item-category">${product.categoryName || ""}</p>
           <p class="item-price">${formatCurrency(finalPrice)}</p>
+          <div style="margin: 10px 0px; display: flex; gap: 10px; ">
+                <label>
+                    <input type="radio" name="${radioName}" value="true" ${product.status ? 'checked' : ''}> Mở
+                </label>
+                
+                <label>
+                    <input type="radio" name="${radioName}" value="false" ${!product.status ? 'checked' : ''}> Tắt
+                </label>
+            </div>
           <div class="card-actions">
             <button class="btn btn-edit" data-id="${product.id}">Edit</button>
             <button class="btn btn-delete-product" data-id="${product.id}">Delete</button>
@@ -587,6 +598,43 @@ function renderCards() {
           await fetchProducts();
         } catch (err) {
           alert(err.message || "Không thể xóa sản phẩm");
+        }
+      }
+    });
+
+    // Xử lý cập nhật trạng thái sản phẩm khi click radio button
+    document.addEventListener("change", async (e) => {
+      
+      if (e.target.type === "radio" && e.target.name.startsWith("status_")) {
+        const productId = e.target.name.replace("status_", "");
+        const status = e.target.value === "true" ? 1 : 0;
+        
+        try {
+          const res = await api(`/products/${productId}/status`, {
+            method: "PUT",
+            body: JSON.stringify({ status }),
+          });
+
+          
+          if (res.status === 401) {
+            alert("Phiên đăng nhập hết hạn.");
+            window.location.href = "login.html";
+            return;
+          }
+          
+          const data = await res.json();
+          console.log("Status update response:", data);
+          if (data.status !== "success") {
+            throw new Error(data.message || "Không thể cập nhật trạng thái");
+          }
+          else {          
+            alert(`Cập nhật trạng thái mã sản phẩm ${productId} thành công`);
+          }
+
+        } catch (err) {
+          alert(err.message || "Lỗi khi cập nhật trạng thái");
+          // Reload danh sách để quay về trạng thái cũ
+          await fetchProducts();
         }
       }
     });
