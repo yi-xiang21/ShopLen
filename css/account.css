@@ -1183,6 +1183,7 @@ input:checked+.toggle-slider:before {
   font-weight: 500;
   cursor: pointer;
   transition: background 0.2s;
+  text-decoration: none;
 }
 
 .btn-buyAgain:hover {
@@ -1209,7 +1210,6 @@ input:checked+.toggle-slider:before {
 .orders-wrapper {
   display: flex;
   flex-direction: column;
-  gap: 16px;
   max-width: 900px;
   margin: 0 auto;
   padding: 10px;
@@ -1222,9 +1222,11 @@ input:checked+.toggle-slider:before {
   background: #fff7f9;
   border: 1px solid #f0d6df;
   border-radius: 14px;
-  padding: 16px 18px;
+  padding:20px 18px;
   box-shadow: 0 4px 14px rgba(122, 41, 78, 0.08);
   transition: transform 0.25s ease, box-shadow 0.25s ease;
+  margin: 20px 0;
+
 }
 
 .order-item:hover {
@@ -1429,7 +1431,7 @@ input:checked+.toggle-slider:before {
   font-style: italic;
 }
 
-.order-product {
+.order-product , .order-productHistory {
   display: flex;
   align-items: center;
   gap: 18px;
@@ -1440,12 +1442,18 @@ input:checked+.toggle-slider:before {
   transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
-.order-product:hover {
+.order-product:hover, .order-productHistory:hover {
   transform: translateY(-2px);
   box-shadow: 0 8px 18px rgba(122, 41, 78, 0.12);
 }
 
 .order-product img {
+  width: 82px;
+  height: 82px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+.order-productHistory img {
   width: 82px;
   height: 82px;
   object-fit: cover;
@@ -1491,7 +1499,7 @@ input:checked+.toggle-slider:before {
   text-align: right;
 }
 
-.btn-backToOrder {
+.btn-backToOrder , .btn-backToOrderHistory {
   background: linear-gradient(135deg, #981358, #c2186a);
   color: #fff;
   border: none;
@@ -1503,7 +1511,7 @@ input:checked+.toggle-slider:before {
   transition: all 0.25s ease;
 }
 
-.btn-backToOrder:hover {
+.btn-backToOrder:hover, .btn-backToOrderHistory:hover {
   transform: translateY(-2px);
   box-shadow: 0 8px 20px rgba(152, 19, 88, 0.35);
 }

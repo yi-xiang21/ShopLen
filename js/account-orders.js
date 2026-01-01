@@ -1,6 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
     loadMyOrders();
-    cancelOrders();
 });
 
 // Hàm format tiền tệ
@@ -31,7 +30,9 @@ async function loadMyOrders() {
 
         data.data.forEach(order => {
             // Render đơn hàng
-            const date = new Date(order.ngay_dat_hang).toLocaleDateString('vi-VN');
+            if (order.trang_thai !== 'hoan_thanh') 
+            {
+                const date = new Date(order.ngay_dat_hang).toLocaleDateString('vi-VN');
             const html = 
             `
             <div class="order-item">
@@ -52,38 +53,12 @@ async function loadMyOrders() {
             </div>
             `
             container.innerHTML += html;
+            }
+            
         });
     } catch (error) {
         console.error(error);
     }
-}
-
-async function cancelOrders() {
-    document.querySelector('.orders-wrapper').addEventListener('click', async (e) => {
-        if (e.target.classList.contains('delOrder-btn')) {
-            const orderItem = e.target.closest('.order-item');
-            const orderId = orderItem.querySelector('.order-id').innerText;
-            if (confirm(`Bạn có chắc chắn muốn huỷ đơn hàng ${orderId}?`)) {
-                try {
-                    const token = localStorage.getItem('token') || sessionStorage.getItem('token');
-                    const res = await fetch(getApiUrl(`/orders/${orderId}/cancel`), {
-                        method: 'PUT',
-                        headers: { 'Authorization': `Bearer ${token}` }
-                    });
-                    const result = await res.json();
-                    if (result.status === 'success') {
-                        alert('Huỷ đơn hàng thành công!');
-                        loadMyOrders();
-                    } else {
-                        alert('Huỷ đơn hàng thất bại: ' + result.message);
-                    }
-                } catch (error) {
-                    console.error(error);
-                    alert('Đã có lỗi xảy ra khi huỷ đơn hàng.');
-                }
-            }
-        }
-    });
 }
 
 // Xem chi tiết đơn hàng

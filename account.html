@@ -102,12 +102,55 @@
                 </div>
             </section>
             <section class="main-section" data-section="cart">
-                <div id="cart-history">
+                <div id="cart-history" style="display: block;">
                     <h2 class="section-title">Lịch Sử Mua Hàng</h2>
                     <div id="History-items">
                         
                     </div>
                 </div>
+                <div class="order-detail-wrapperHistory" style="display:none">
+                    <div class="order-detail-headerHistory">
+                        <h2>Chi Tiết Đơn Hàng</h2>
+                        <span class="order-status pending"></span>
+                    </div>
+
+                    <div class="order-section">
+                        <h3>Thông tin đơn hàng</h3>
+                        <div class="order-info-gridHistory">
+                            
+                        </div>
+                    </div>
+
+                    <!-- THÔNG TIN NGƯỜI NHẬN -->
+                    <div class="order-section">
+                        <h3>Thông tin giao hàng</h3>
+                        <div class="order-info-gridHistory">
+                            
+                        </div>
+                        <p class="order-noteHistory">
+                            
+                        </p>
+                    </div>
+                    <div class="order-section">
+                        <h3>Sản phẩm đã đặt</h3>  
+                        <div class="order-productHistory">
+                            
+                        </div>
+                    </div>
+
+                    <!-- TỔNG TIỀN -->
+                    <div class="order-total-box">
+                        <p class="temp-totalHistory">Tạm tính: <span></span></p>
+                        <p>Phí vận chuyển: <span>0 đ</span></p>
+                        <p class="final-totalHistory">Tổng cộng: <span>367.000 đ</span></p>
+                    </div>
+
+                    <!-- ACTION -->
+                    <div class="order-actions">
+                        <button class="btn-backToOrderHistory">Quay về</button>
+                    </div>
+                </div>
+                
 
             </section>
             <section class="main-section" data-section="order">
@@ -410,7 +453,7 @@
     <script src="js/footer.js"></script>
     <script src="js/js.js"></script>
     <script src="js/ai-integration.js"></script>
-    <script src="js/history_Buy.js"></script>
+    <script src="js/account-historyBuy.js"></script>
     <script src="js/account-orders.js"></script>
 
 </body>

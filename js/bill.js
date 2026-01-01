@@ -340,7 +340,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 
                 if (result.status === 'success') {
                     alert("Đặt hàng thành công! Mã đơn: " + result.orderId);
-                    window.location.reload(); // Load lại trang để reset form 
+                    window.location.href = 'cart.html';
                 } else {
                     alert("Lỗi: " + result.message);
                 }
