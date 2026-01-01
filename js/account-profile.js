@@ -21,15 +21,13 @@
   function requireAuth(roleCheck = false) {
     const token = getToken();
     if (!token) {
-      alert('Vui lòng đăng nhập để xem thông tin tài khoản.');
       window.location.href = 'login.html';
       return false;
     }
     if (roleCheck) {
       const role = (localStorage.getItem('userRole') || sessionStorage.getItem('userRole') || '').toLowerCase();
       if (roleCheck && role !== roleCheck) {
-        alert('Bạn không có quyền truy cập mục này.');
-        window.location.href = 'index.html';
+        window.location.href = '404.html';
         return false;
       }
     }

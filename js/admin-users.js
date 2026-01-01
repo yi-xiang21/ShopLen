@@ -107,13 +107,11 @@
     const token = getToken();
     const role = getRole();
     if (!token) {
-      alert("Vui lòng đăng nhập để truy cập trang quản trị.");
-      window.location.href = "login.html";
+      window.location.href = "404.html";
       return;
     }
     if (role !== "admin") {
-      alert("Bạn không có quyền admin để truy cập mục này.");
-      window.location.href = "index.html";
+      window.location.href = "404.html";
       return;
     }
 
@@ -297,8 +295,7 @@
           return;
         }
         if (err.message === "FORBIDDEN") {
-          alert("Bạn không có quyền admin để truy cập danh sách người dùng.");
-          window.location.href = "index.html";
+          window.location.href = "404.html";
           return;
         }
         if (tbody)

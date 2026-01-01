@@ -23,12 +23,11 @@
   let products = [];
   let editingId = null;
 
-  // Kiểm tra quyền admin: nếu chưa đăng nhập / không phải admin => đá về login/home
+  // Kiểm tra quyền admin: nếu chưa đăng nhập / không phải admin => chuyển hướng 404
   function ensureAuth() {
     const token = getToken();
     if (!token) {
-      alert("Vui lòng đăng nhập để truy cập trang quản trị.");
-      window.location.href = "login.html";
+      window.location.href = "404.html";
       return false;
     }
     const role = (
@@ -37,8 +36,7 @@
       ""
     ).toLowerCase();
     if (role !== "admin") {
-      alert("Bạn không có quyền admin.");
-      window.location.href = "index.html";
+      window.location.href = "404.html";
       return false;
     }
     return true;

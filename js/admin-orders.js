@@ -46,8 +46,6 @@ function setupEventListeners() {
             const orderId = maDonHangElement ? maDonHangElement.getAttribute('data-order-id') : null;
             const newStatus = select ? select.value : null;
             
-            console.log('Cập nhật trạng thái đơn hàng:', orderId, newStatus);
-            
             if (!orderId || !newStatus) {
                 alert('Thiếu thông tin đơn hàng hoặc trạng thái mới');
                 return;
@@ -226,7 +224,6 @@ function renderOrderDetails(orderDetail) {
 }
 
 function renderOrderList(orders) {
-    console.log('Đơn hàng tải về: ', orders);
     const container = document.getElementById('order-items');
     if (!container) return;
 

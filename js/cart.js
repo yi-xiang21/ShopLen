@@ -23,7 +23,6 @@ async function initCart() {
             
             if (data.status === 'success') {
                 cartData = data.cart || [];
-                console.log(cartData);
             } else {
                 console.error("Lỗi tải giỏ hàng server:", data);
                 cartData = [];

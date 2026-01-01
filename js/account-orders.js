@@ -57,7 +57,14 @@ async function loadMyOrders() {
             
         });
     } catch (error) {
-        console.error(error);
+        // Xử lý lỗi
+        const container = document.querySelector('.orders-wrapper');
+        container.innerHTML = `
+        <p>Không thể tải đơn hàng.</p>
+        <button onclick="loadOrders()" style="margin-top: 10px; padding: 8px 16px;">
+            Thử lại
+        </button>
+    `;
     }
 }
 

@@ -14,8 +14,18 @@ async function fetchHistoryBuy() {
     const donhang = await res.json();    
     // Kiểm tra nếu data là mảng và có phần tử
     if (!donhang.data || !Array.isArray(donhang.data) || donhang.data.length === 0) {
-      console.log("Không có đơn hàng nào");
-      return;
+        const historyList = document.getElementById("History-items");
+        historyList.innerHTML = `
+        <div style="text-align: center; padding: 40px; color: #666;">
+            <p>Bạn chưa có đơn hàng nào.</p>
+            <p style="font-size: 14px; margin-top: 10px;">
+                <a href="shop.html" style="color: #8B4513; text-decoration: underline;">
+                    Tiếp tục mua sắm
+                </a>
+            </p>
+        </div>
+        `;
+        return;
     }
     
     const historyList = document.getElementById("History-items");

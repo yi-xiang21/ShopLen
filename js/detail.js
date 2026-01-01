@@ -30,7 +30,6 @@ async function loadProduct() {
 
     // Sử dụng trực tiếp dữ liệu từ API
     currentProduct = productData.product;
-    console.log(currentProduct);
 
     selectedVariant = null;
 
@@ -487,15 +486,9 @@ function addToCart() {
           alert("Lỗi code (getApiUrl?): " + e);
       }
   } else {
-      // Nếu chưa đăng nhập, cảnh báo rõ ràng
-      const continueGuest = confirm("BẠN CHƯA ĐĂNG NHẬP!\n\nSản phẩm chỉ được lưu trên máy này và KHÔNG ĐƯỢC LƯU VÀO DỮ LIỆU CỦA TRANG WEB.\n\nBạn có muốn đăng nhập ngay để lưu giỏ hàng thật không?");
-      if (continueGuest) {
-          window.location.href = 'login.html'; // Chuyển trang đăng nhập nếu user muốn
-      } else {
-          alert("Đã lưu tạm vào máy khách.");
-      }
+      // Nếu chưa đăng nhập, lưu vào LocalStorage
+
   }
-  // ----------------------------------------------------------------
 
   // Cập nhật số lượng giỏ hàng
   if (typeof updateCartCount === "function") {

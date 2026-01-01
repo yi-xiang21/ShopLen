@@ -17,6 +17,8 @@ function formatCurrency(value) {
 function convertProduct(product) {
 	let finalPrice = Number(product.price);
 	let imageUrl = product.imageUrl || 'img/default.jpg';
+	// Thu thập kích cỡ từ biến thể để lọc
+	const sizes = new Set();
     if (product.variants && Array.isArray(product.variants) && product.variants.length > 0) {
         const firstVariant = product.variants[0];
 
@@ -24,6 +26,11 @@ function convertProduct(product) {
         if (extraPrice > 0) {
             finalPrice = extraPrice;
         }
+
+		product.variants.forEach(v => {
+			if (v.kich_co) sizes.add(String(v.kich_co).toLowerCase());
+			if (v.size) sizes.add(String(v.size).toLowerCase());
+		});
 
         imageUrl = 
             firstVariant.images?.[0]?.imageUrl ||
@@ -37,7 +44,8 @@ function convertProduct(product) {
 		name: product.name,
 		price: finalPrice,
 		categoryId: product.categoryId,
-		imageUrl: imageUrl
+		imageUrl: imageUrl,
+		sizes: Array.from(sizes)
 	};
 }
 
@@ -81,7 +89,6 @@ async function fetchShopProducts() {
 		shopProductsState.currentPage = 0;
 		renderShopProducts();
 	} catch (err) {
-		console.error(err);
 		const list = document.getElementById('product-list');
 		if (list) list.innerHTML = '<p style="color:red;">Không thể tải sản phẩm.</p>';
 	}
@@ -113,30 +120,52 @@ function prev() {
 
 // Hàm lọc sản phẩm theo mức giá và danh mục
 function filter() {
-	const minInput = document.getElementById('mincost')?.value.trim();
-	const maxInput = document.getElementById('maxcost')?.value.trim();
+	// Giá tiền từ select range
+	let minCost = null;
+	let maxCost = null;
+	const priceSelect = document.getElementById('rangePriceSelect');
+	if (priceSelect) {
+		const idx = priceSelect.selectedIndex;
+		// Map theo thứ tự option trong HTML
+		const ranges = [
+			[0, 50000],
+			[50000, 100000],
+			[100000, 150000],
+			[150000, 200000],
+			[200000, 250000],
+			[250000, 300000]
+		];
+		const chosen = ranges[idx];
+		if (chosen) {
+			[minCost, maxCost] = chosen;
+		}
+	}
 
+	// Loại sản phẩm
 	const findInput = document.querySelector('input[name="find"]:checked');
 	const findID = findInput ? findInput.value : null;
 
-	let minCost = minInput ? Number(minInput) : null;
-	let maxCost = maxInput ? Number(maxInput) : null;
-
-	// Đảo ngược giá trị min và max nếu min > max
-	if (minCost !== null && maxCost !== null && minCost > maxCost) {
-		[minCost, maxCost] = [maxCost, minCost];
-	}
+	// Kích cỡ
+	const sizeCheckboxes = document.querySelectorAll('.filter-material input[type="checkbox"]:checked');
+	const selectedSizes = Array.from(sizeCheckboxes).map(cb => cb.parentElement.textContent.trim().toLowerCase());
 	
-	// Lọc sản phẩm theo giá
+	// Lọc sản phẩm theo giá / loại / kích cỡ
 	shopProductsState.filtered = shopProductsState.all.filter(product => {
-		const price = Number(product.price); // Lọc theo giá
+		const price = Number(product.price);
 
-		// if (!Number.isFinite(price)) return false;
 		if (minCost !== null && price < minCost) return false;
 		if (maxCost !== null && price > maxCost) return false;
 
-		// Lọc theo loại sản phẩm (cần chỉnh sửa thành loại sản phẩm)
+		// Loại sản phẩm
 		if (findID != null && product.categoryId != findID) return false;
+
+		// Kích cỡ
+		if (selectedSizes.length > 0) {
+			if (!product.sizes || product.sizes.length === 0) return false;
+			const hasMatch = product.sizes.some(sz => selectedSizes.includes(String(sz).toLowerCase()));
+			if (!hasMatch) return false;
+		}
+
 		return true;
 	});
 

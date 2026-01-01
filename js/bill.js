@@ -1,4 +1,10 @@
 document.addEventListener("DOMContentLoaded", async function () {
+  // Chặn truy cập khi chưa đăng nhập
+  const token = getToken();
+  if (!token) {
+    window.location.href = '404.html';
+    return;
+  }
   // Khởi tạo hàm xử lý địa chỉ khác
   initAddressLogic();
 
@@ -358,7 +364,7 @@ document.addEventListener("DOMContentLoaded", () => {
             try {
                 showLoading();
                 
-                // BƯỚC 1: Thu thập dữ liệu thông tin giao hàng
+                // Thu thập dữ liệu thông tin giao hàng
                 const name = document.getElementById('name').value;
                 const phone = document.getElementById('phone').value;
                 const address = document.getElementById('address').value;
@@ -415,7 +421,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     paymentMethod: 'momo'
                 };
 
-                // BƯỚC 2: Tạo đơn hàng
+                // Tạo đơn hàng
                 const createRes = await fetch(getApiUrl('/orders/create'), {
                     method: 'POST',
                     headers: {
@@ -426,7 +432,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 });
 
                 const orderResult = await createRes.json();
-                console.log("Order Create Response:", orderResult);
 
                 if (orderResult.status !== 'success') {
                     alert("Lỗi tạo đơn hàng: " + orderResult.message);
@@ -434,7 +439,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     return;
                 }
 
-                // BƯỚC 3: Gọi MoMo API với orderId từ database
+                // Gọi MoMo API với orderId từ database
                 const momoRes = await fetch(getApiUrl("/api/payment/momo"), {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
@@ -445,10 +450,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 });
 
                 const momoData = await momoRes.json();
-                console.log("MoMo Response:", momoData);
 
                 if (momoData.payUrl) {
-                    // BƯỚC 4: Redirect tới MoMo payment
+                    // Redirect tới MoMo payment
                     window.location.href = momoData.payUrl;
                 } else {
                     alert("Không tạo được link thanh toán MoMo");
