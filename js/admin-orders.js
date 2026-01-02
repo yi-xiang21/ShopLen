@@ -32,7 +32,6 @@ async function loadOrders() {
             renderOrderList(data.data);
         }
     } catch (err) {
-        console.error("Lỗi tải đơn: ", err);
     }
 }
 
@@ -74,8 +73,7 @@ function setupEventListeners() {
                     alert('❌ Lỗi cập nhật trạng thái: ' + (data.message || ''));
                 }
             } catch (err) {
-                console.error("Lỗi cập nhật trạng thái đơn hàng: ", err);
-                alert('❌ Có lỗi xảy ra khi cập nhật trạng thái đơn hàng');
+                alert('Có lỗi xảy ra khi cập nhật trạng thái đơn hàng');
             }
         }
     });
@@ -95,7 +93,6 @@ async function viewOrderDetails(orderId) {
             alert('Lỗi: ' + (data.message || 'Không thể tải chi tiết đơn hàng'));
         }
     } catch (err) {
-        console.error("Lỗi xem chi tiết đơn hàng: ", err);
         alert('Có lỗi xảy ra khi tải chi tiết đơn hàng');
     }
 }

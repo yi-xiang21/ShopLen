@@ -65,7 +65,6 @@
       if (data.status !== 'success') throw new Error(data.message || 'Không thể tải thông tin tài khoản');
       fillProfile(data.user || {});
     } catch (err) {
-      console.error(err);
       alert(err.message || 'Không thể tải thông tin tài khoản');
     }
   }

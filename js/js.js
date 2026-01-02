@@ -100,7 +100,6 @@ document.addEventListener('DOMContentLoaded', function() {
           body: JSON.stringify({ username, password })
         });
         const data = await res.json();
-        console.log(data);
         if (data.status === 'success') {
           const storage = remember ? localStorage : sessionStorage;
           storage.setItem('isLoggedIn', 'true');
@@ -148,7 +147,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     localStorage.removeItem('cart'); 
                 }
              } catch (err) {
-                 console.error("Lỗi gộp giỏ hàng:", err);
              }
           }
 

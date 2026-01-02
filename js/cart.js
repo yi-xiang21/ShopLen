@@ -24,7 +24,6 @@ async function initCart() {
             if (data.status === 'success') {
                 cartData = data.cart || [];
             } else {
-                console.error("Lỗi tải giỏ hàng server:", data);
                 cartData = [];
             }
         } else {
@@ -33,7 +32,6 @@ async function initCart() {
             cartData = local ? JSON.parse(local) : [];
         }
     } catch (err) {
-        console.error("Init Cart Error:", err);
         cartData = [];
     }
 
@@ -137,7 +135,6 @@ async function performUpdate(index, newQty) {
                 alert("Lỗi cập nhật giỏ hàng: " + data.message);
             }
         } catch (e) {
-            console.error(e);
             alert("Lỗi kết nối server");
         }
     } else {

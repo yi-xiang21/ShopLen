@@ -88,7 +88,6 @@ async function viewOrderDetail(orderId) {
             document.querySelector('.order-detail-wrapper').style.display = 'block';
         }
     } catch (error) {
-        console.error(error);
     }
 }
 

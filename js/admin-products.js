@@ -131,7 +131,6 @@ function renderCards() {
       products = data.products || [];
       renderCards();
     } catch (err) {
-      console.error(err);
       alert(err.message || "Không thể tải sản phẩm");
     }
   }
@@ -576,7 +575,6 @@ function renderCards() {
             alert(data.message || "Không thể tải thông tin sản phẩm");
           }
         } catch (err) {
-          console.error(err);
           alert("Lỗi khi tải thông tin sản phẩm");
         }
       }
@@ -622,7 +620,6 @@ function renderCards() {
           }
           
           const data = await res.json();
-          console.log("Status update response:", data);
           if (data.status !== "success") {
             throw new Error(data.message || "Không thể cập nhật trạng thái");
           }

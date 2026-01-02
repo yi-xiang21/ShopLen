@@ -140,7 +140,6 @@
       renderCategories();
 	  renderProductTypes();
     } catch (err) {
-      console.error(err);
       alert(err.message || "Không thể tải danh mục");
     }
   }
@@ -224,7 +223,6 @@
       hideForm();
       fetchCategories();
     } catch (err) {
-      console.error(err);
       alert(err.message || "Có lỗi xảy ra");
     }
   }
@@ -243,7 +241,6 @@
       alert("Xóa danh mục thành công!");
       fetchCategories();
     } catch (err) {
-      console.error(err);
       alert(err.message || "Có lỗi xảy ra");
     }
   }

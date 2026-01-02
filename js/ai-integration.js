@@ -31,7 +31,6 @@ class SimpleAIChat {
             const data = await response.json();
             return data.candidates[0].content.parts[0].text;
         } catch (error) {
-            console.error('Lỗi AI:', error);
             return 'Xin lỗi, tôi không thể trả lời câu hỏi này lúc này.';
         }
     }

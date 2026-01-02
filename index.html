@@ -313,7 +313,6 @@
                 const res = await fetch(endpoint);
                 const data = await res.json();
                 const allProducts = data.products || [];
-                console.log(allProducts);
 
                 const filteredProducts = allProducts.filter(product => {
                     const typeProduct = product.type;
@@ -341,7 +340,6 @@
                     </div>
                 `).join('');
             } catch (err) {
-                console.error('Error loading products:', err);
                 container.innerHTML = '<p style="color:red; padding:16px;">Không thể tải sản phẩm.</p>';
             }
         })();

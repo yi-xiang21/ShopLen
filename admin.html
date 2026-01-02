@@ -58,7 +58,7 @@
                         <button class="btn btn-next" onclick="next()">Tiếp</button>
                     </div>
                 </div>
-                <!-- chon loai de hien thi form nhap tuong ung -->
+                <!-- Chọn loại sản phẩm -->
                 <div id="selecttype" style="display: none;">
                     <h3>Vui lòng chọn loại sản phẩm bạn muốn thêm</h3>
                     <select id="productType" name="productType">
@@ -67,14 +67,14 @@
                         <option value="2">Workshop</option>
                     </select>
                     <div id="actionforselect">
-                        <button class="btn" id="btnSelectType">chon</button>
+                        <button class="btn" id="btnSelectType">Chọn</button>
                         <button class="btn btn-back" id="btnBackToList">Quay lại</button>
                     </div>
                 </div>
-                <!-- noi chua form nhap sp chung -->
+
                 <div id="add-product-view" style="display: none;">
                     <h3>Thêm sản phẩm mới</h3>
-                    <!-- form khi chon type la len -->
+                    <!-- Form chọn sản phẩm -->
                     <form id="productForm" enctype="multipart/form-data" style="display: none;">
                         <div class="gridItemForm">
                             <div class="form-section">
@@ -220,7 +220,7 @@
     </main>
 
     <script>
-        //hien thi tung side tuong ung
+        // Hiển thị từng slide tương ứng
         function setupSidebarTabs() {
             const menuItems = document.querySelectorAll('.sidebar-menu li');
             const sections = document.querySelectorAll('.main-section');
