@@ -1,4 +1,4 @@
-//Quản lý Tài Khoản Người dùng
+// Quản lý Tài Khoản Người dùng
 (function () {
   function getToken() {
     return (
@@ -27,7 +27,7 @@
     return fetch(url, Object.assign({}, options, { headers }));
   }
 
-  //Get user
+  // Get user
   async function fetchUsers() {
     const res = await api("/users");
     if (res.status === 401) throw new Error("UNAUTHORIZED");
@@ -36,7 +36,7 @@
     return res.json();
   }
 
-  //Render user hiển thị
+  // Render user hiển thị
   function renderUsers(users) {
     const tbody = document.querySelector("#usersTable tbody");
     if (!tbody) return;
@@ -60,10 +60,10 @@
       .join("");
   }
 
-  //Lấy dữ liệu form
+  // Lấy dữ liệu form
   function getFormData(form) {
     const data = Object.fromEntries(new FormData(form).entries());
-    //Xóa các trường rỗng
+    // Xóa các trường rỗng
     Object.keys(data).forEach((k) => {
       if (data[k] === "") delete data[k];
     });
@@ -103,7 +103,7 @@
     )
       return;
 
-    //Kiểm tra token và quyền
+    // Kiểm tra token và quyền
     const token = getToken();
     const role = getRole();
     if (!token) {
@@ -115,7 +115,7 @@
       return;
     }
 
-    //Tạo giao diện quản lý
+    // Tạo giao diện quản lý
     const container = document.querySelector(
       '.main-section[data-section="account-management"]'
     );
@@ -181,7 +181,7 @@
     const form = document.getElementById("userForm");
     const btnAdd = document.getElementById("btnAddUser");
 
-    //Mở modal
+    // Mở modal
     function openModal(title, user) {
       document.getElementById("modalTitle").textContent = title;
       form.reset();
@@ -199,11 +199,11 @@
       modal.style.display = "none";
     }
 
-    //Button Add, Cancel
+    // Button Add, Cancel
     btnAdd.addEventListener("click", () => openModal("Add User"));
     form.querySelector(".btn-cancel").addEventListener("click", closeModal);
 
-    //Button Submit
+    // Button Submit
     form.addEventListener("submit", async function (e) {
       e.preventDefault();
       const id = form.elements.id.value;
@@ -236,7 +236,7 @@
       }
     });
 
-    //Xử lý Edit, Delete
+    // Xử lý Edit, Delete
     document.addEventListener("click", async function (e) {
       if (e.target.classList.contains("btn-edit-user")) {
         const tr = e.target.closest("tr");
@@ -282,7 +282,7 @@
       }
     });
 
-    //Hàm load danh sách
+    // Hàm load danh sách
     async function reload() {
       try {
         const data = await fetchUsers();

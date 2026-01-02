@@ -408,22 +408,20 @@ function renderCards() {
       });
     }
 
-    //kiem tra dau vao cua size
+    // Kiểm tra dữ liệu đầu vào của size
     function checkDonVi(inputSize) {
-      //Chuyển toàn bộ về chữ thường để tránh lỗi
+      // Chuyển toàn bộ về chữ thường để tránh lỗi
       let sizeChuan = inputSize.toLowerCase();
 
-      //Cắt 2 ký tự cuối cùng bằng hàm slice(-2)
+      // Cắt 2 ký tự cuối cùng bằng hàm slice(-2)
       let haiKyTuCuoi = sizeChuan.slice(-2);
 
-      //Kiểm tra xem có đúng là 'gr' không
+      // Kiểm tra xem có đúng là 'gr' không
       if (haiKyTuCuoi === "gr") {
-        if (isNaN(sizeChuan.slice(0, -2))) 
-        {
+        if (isNaN(sizeChuan.slice(0, -2))) {
           return false;
         }
-        else
-        {
+        else {
           return true;
         }
       } else {
@@ -460,7 +458,7 @@ function renderCards() {
 
             // Thu thập hình ảnh từ biến thể
             const imageInputs = item.querySelectorAll(".variant-image-input");
-            let checkFileImage = false; // tao bien ktra ìput file co rong ko
+            let checkFileImage = false; // Tạo biến kiểm tra input file có rỗng không
             const imageUrls = [];
             imageInputs.forEach((input, imgIdx) => {
               const file = input.files[0];
@@ -480,7 +478,7 @@ function renderCards() {
                 checkFileImage = true;
               }
             });
-            //ktra neu ko co du lieu hinh thi xuat loi
+            // Kiểm tra nếu không có hình ảnh nào được chọn hoặc nhập
             if(!checkFileImage) {
               throw new Error("Vui lòng chọn ít nhất một hình ảnh cho biến thể.");
             }
@@ -490,7 +488,7 @@ function renderCards() {
               // Hàm checkDonVi kiểm tra đuôi 'gr'
               if (checkDonVi(size)!== true) {
                 item.querySelector(".variantSize").value = "";
-                throw new Error(`Vui long nhap dung dinh dang vd:125gr `); // Dừng hàm submit ngay lập tức
+                throw new Error(`Vui lòng nhập đúng định dạng vd:125gr `); // Dừng hàm submit ngay lập tức
               }
             }
 
@@ -512,6 +510,7 @@ function renderCards() {
               variants.push(variantData);
             }
           });
+
           // Thêm các field text từ form
           formData.append("name", form.productName.value.trim());
           formData.append("categoryId", form.productCategory.value);

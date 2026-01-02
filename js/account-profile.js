@@ -1,4 +1,4 @@
-// Get account profile user
+// Lấy thông tin tài khoản User
 (function () {
   function getToken() {
     return localStorage.getItem('token') || sessionStorage.getItem('token') || '';

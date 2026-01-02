@@ -70,7 +70,6 @@ function renderShopProducts() {
     list.innerHTML = '<p style="padding:16px;">Không có sản phẩm.</p>';
     return;
   }
-  console.log("Hiển thị sản phẩm:", showProducts);
 
   // Hiển thị danh sách sản phẩm
   list.innerHTML = showProducts.map((product) => `

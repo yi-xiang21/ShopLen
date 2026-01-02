@@ -1,7 +1,7 @@
-//lay id tai khoan cua acount dang dang nhap
+// Lấy id tài khoản của User đang đăng nhập
 const idKhach = localStorage.getItem("userId");
 
-//render lich su mua hang
+// Render lịch sử mua hàng
 async function fetchHistoryBuy() {
   try {
     const token =
@@ -37,7 +37,6 @@ async function fetchHistoryBuy() {
 
         // Chỉ render nếu trạng thái là success
         if (donHang.trang_thai !== 'hoan_thanh') {
-          console.log("Đơn hàng không hoàn thành, bỏ qua.");
           continue;
         }
         // Lấy chi tiết đơn hàng
@@ -46,7 +45,6 @@ async function fetchHistoryBuy() {
         });
 
         const chiTietDonHang = await res1.json();
-        console.log("Chi tiet don hang:", chiTietDonHang);
         
 
         const HistoryItem = document.createElement("div");
@@ -95,11 +93,11 @@ async function fetchHistoryBuy() {
 
         historyList.appendChild(HistoryItem);
       } catch (error) {
-        console.error(`Lỗi khi lấy chi tiết đơn hàng ${donHang.ma_don_hang}:`, error);
+
       }
     }
   } catch (error) {
-    console.error("That bai:", error);
+
   }
 }
 
@@ -123,7 +121,7 @@ async function renderDetailHistory(orderId) {
             document.querySelector('.order-detail-wrapperHistory').style.display = 'block';
         }
     } catch (error) {
-        console.error(error);
+
     }
 }
 

@@ -41,7 +41,7 @@ async function initCart() {
     updateTotalPrice();
 }
 
-// gan duogn dan bo sung url cho img
+// Gán đường dẫn hình ảnh sản phẩm
 function resolveImage(url) {
     if (!url) return 'img/default.png';
     if (url.startsWith('http')) return url;

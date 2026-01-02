@@ -40,19 +40,19 @@
     return true;
   }
 
-  //Render danh mục lên sản phẩm  
+  // Render danh mục sản phẩm  
   function renderProductTypes() {
-    // map slect trên sort ds products
+    // Map select filter danh mục
     const selectElement = document.getElementById("selectCatelogy");
-    // map select trên form thêm/sửa sản phẩm
+    // Map select thêm/sửa sản phẩm
     const productCategorys = document.getElementById("productCategory");
     if (!selectElement || !categories) return;
     if (!productCategorys || !categories) return;
-    // nếu không có danh mục thì ghi option này
+    // Nếu không có danh mục nào
     if (!categories.length) {
       selectElement.innerHTML ='<option value="">Chưa có danh mục nào</option>';
     }
-    // nếu là slect sort ds products thì bể sung thêm option tất cả rồi cộng vs option trong db
+    // Nếu có danh mục thì render
     if(selectElement){
       selectElement.innerHTML ='<option value="">Tất cả danh mục</option>';
       const optionsHTML = categories.map((cate) => {
@@ -61,14 +61,14 @@
       .join(""); // Nối các phần tử mảng thành 1 chuỗi HTML
       selectElement.innerHTML += optionsHTML;
     }
-    // nếu là select trên form thêm/sửa sản phẩm thì chỉ cần render option trong db
+    // Nếu có danh mục thì render cho form thêm/sửa sản phẩm
     const optionsProductsHTML = categories.map((category) => {
       return `<option value="${category.id}">${category.name}</option>`;
     }).join("");
     productCategorys.innerHTML = optionsProductsHTML;
   }
 
-  // Render danh sách danh mục giống như managemant-catagogy.js
+  // Render danh sách danh mục
   function renderCategories() {
     const categoryList = document.getElementById("category-list");
     if (!categoryList) return;

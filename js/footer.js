@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-  // tránh chèn 2 lần
+  // Tránh chèn 2 lần
   if (document.querySelector('footer.footer[data-inserted="true"]')) return;
 
   const footerHTML = `

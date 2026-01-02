@@ -44,12 +44,12 @@ async function loadProduct() {
   }
 }
 
-// Helper lấy URL ảnh từ object hoặc string
+// Lấy URL ảnh từ object hoặc string
 function getImageUrl(img) {
-  if (!img) return "khong co hinh anh";
+  if (!img) return "Không có hình ảnh";
   return typeof img === "string"
     ? img
-    : img.imageUrl || img.imagePath || "khong co hinh anh";
+    : img.imageUrl || img.imagePath || "Không có hình ảnh";
 }
 
 // Render thumbnails

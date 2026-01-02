@@ -14,7 +14,7 @@ function updateMenuVisibility() {
     if (logoutLi) logoutLi.style.display = 'block';
     if (logginli) logginli.style.display = 'none';
     if (registerli) registerli.style.display = 'none';
-    // chỉ admin mới thấy nút Admin
+    // Chỉ admin mới thấy nút Admin
     if (adminLi) adminLi.style.display = role === 'admin' ? 'block' : 'none';
     if (accountLi) accountLi.style.display = role === 'admin' ? 'none' : 'block';
   } else {
@@ -26,12 +26,12 @@ function updateMenuVisibility() {
   }
 }
 
-//hien thi menu acount khi dang nhap
+// Hiển thị menu account khi đăng nhập
 document.addEventListener('DOMContentLoaded', function() {
   updateMenuVisibility();
 });
 
-//khi logout xoa localStorage
+// Khi logout xóa localStorage
 document.addEventListener('DOMContentLoaded', function() {
   // Xử lý sự kiện click vào nút "Log out"
   const logoutBtn = document.querySelector('.go-logout');
@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 });
 
-//an hien mat khau 
+// Ẩn hiện mật khẩu
 document.addEventListener('DOMContentLoaded', function() {
   // Ẩn/hiện mật khẩu cho tất cả icon mắt
   document.querySelectorAll('.input-eye').forEach(function(eyeIcon) {
@@ -80,7 +80,7 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 
-///ktra dang nhap
+// Kiểm tra đăng nhập
 document.addEventListener('DOMContentLoaded', function() {
   // Xử lý submit form đăng nhập
   const loginForm = document.querySelector('.login-form');
@@ -122,7 +122,7 @@ document.addEventListener('DOMContentLoaded', function() {
             storage.setItem('token', data.token);
           }
 
-          // =========================Logic gộp giỏ hàng cho user khi đăng nhập=======================
+          // Logic gộp giỏ hàng cho user khi đăng nhập
           const localCart = JSON.parse(localStorage.getItem('cart') || '[]');
           
           if (localCart.length > 0) {
@@ -151,7 +151,6 @@ document.addEventListener('DOMContentLoaded', function() {
                  console.error("Lỗi gộp giỏ hàng:", err);
              }
           }
-          // =============================================================================
 
           // Cập nhật menu ngay lập tức
           updateMenuVisibility();
@@ -168,7 +167,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
-  //ktra dang ky
+  // Kiểm tra đăng ký
   const registerForm = document.querySelector('.register-form');
   if (registerForm) {
     registerForm.addEventListener('submit', async function(e) {
@@ -210,7 +209,7 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 });
 
-//an hien dropdown user menu
+// Ẩn hiện dropdown user menu
 document.addEventListener('DOMContentLoaded', function() {
 
   // Dropdown user menu

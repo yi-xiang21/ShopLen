@@ -1,4 +1,4 @@
-// duong dan breadcrumb
+// Đường dẫn breadcrumb
 const breadcrumb = document.getElementById('breadcrumb');
 if (breadcrumb) {
   const path = window.location.pathname.split("/").pop();

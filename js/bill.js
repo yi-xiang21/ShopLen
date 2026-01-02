@@ -45,7 +45,7 @@ async function loadCities() {
       });
     }
   } catch (err) {
-    console.error("Lỗi khi tải thành phố:", err);
+
   }
 }
 
@@ -68,7 +68,6 @@ async function loadWard(cityId) {
       });
     }
   } catch (err) {
-    console.error("Lỗi khi tải phường:", err);
     wardSelect.innerHTML = '<option value="">Lỗi khi tải dữ liệu</option>';
   }
 }
@@ -117,7 +116,7 @@ async function loadOrderSummary() {
         window.currentCartItems = cartItems;
       }
     } catch (error) {
-      console.error("Lỗi khi lấy giỏ hàng:", error);
+
     }
   } else {
     const local = localStorage.getItem("cart");
@@ -238,11 +237,11 @@ async function fillUserInfo() {
         document.getElementById("address").value = u.address || "";
     }
   } catch (error) {
-    console.error("Lỗi lấy thông tin user");
+    
   }
 }
 
-//hien thi meo
+// Hiển thị mèo
 function showLoading() {
     const overlay = document.getElementById("loadingOverlay");
     if (overlay) overlay.style.display = "flex"; // Dùng flex để căn giữa
@@ -351,7 +350,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     alert("Lỗi: " + result.message);
                 }
             } catch (err) {
-                console.error(err);
                 alert("Lỗi kết nối khi đặt hàng");
             } finally {
                 hideLoading();
@@ -460,7 +458,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
 
             } catch (err) {
-                console.error("Momo Error:", err);
                 alert("Lỗi: " + err.message);
                 hideLoading();
             }
@@ -557,7 +554,6 @@ document.getElementById('placeOrderBtn').addEventListener('click', async () => {
         }
 
     } catch (error) {
-        console.error('Lỗi đặt hàng:', error);
         alert('Có lỗi xảy ra khi đặt hàng');
     }
 });
