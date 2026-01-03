@@ -326,7 +326,10 @@ function loadRelatedProducts() {
 }
 
 function getRelatedProducts() {
-  return allProducts.filter((p) => p.id != currentProduct.id).slice(0, 10);
+  allProducts = allProducts.filter(p => p.status === true); // Chỉ lấy sản phẩm đang bán
+  {
+    return allProducts.filter((p) => p.id != currentProduct.id ).slice(0, 10);
+  }
 }
 
 // Điều hướng đến trang chi tiết sản phẩm
