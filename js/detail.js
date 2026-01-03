@@ -380,6 +380,33 @@ function addToCart() {
     (v) => v.id == selectedVariant
   );
 
+  // Kiểm tra tồn kho
+  if (selectedVariantData) {
+    const stockAvailable = selectedVariantData.stock || 0;
+    
+    // Kiểm tra số lượng trong giỏ hàng hiện tại
+    let cart = JSON.parse(localStorage.getItem("cart") || "[]");
+    const existingItem = cart.find(
+      (item) =>
+        item.ma_san_pham == currentProduct.id &&
+        item.ma_bien_the == selectedVariant
+    );
+    
+    const currentCartQuantity = existingItem ? existingItem.quantity : 0;
+    const totalQuantity = currentCartQuantity + quantity;
+    
+    // Kiểm tra vượt quá tồn kho
+    if (totalQuantity > stockAvailable) {
+      const remainingStock = stockAvailable - currentCartQuantity;
+      if (remainingStock <= 0) {
+        alert(`Sản phẩm này đã hết hàng trong kho!`);
+      } else {
+        alert(`Không thể thêm ${quantity} sản phẩm!`);
+      }
+      return;
+    }
+  }
+
   let finalPrice = Number(currentProduct.price) || 0;
 
   if (selectedVariantData) {
