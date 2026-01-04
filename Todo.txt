@@ -1,0 +1,58 @@
+I. Quản lý tài khoản người dùng 
+
+    - Cập nhật ảnh đại diện / hình nền trang cá nhân người dùng.
+
+    - Chức năng cho phép người dùng thay đổi mật khẩu (có xác thực).
+
+II. Quản lý đơn hàng & dữ liệu mua hàng
+
+    - Điều chỉnh thiết kế CSDL: Lưu snapshot dữ liệu sản phẩm tại thời điểm mua vào bảng chi tiết đơn hàng
+
+Đảm bảo khi chỉnh sửa hoặc xóa sản phẩm trong hệ thống không ảnh hưởng đến lịch sử đơn hàng và không gây trùng khóa.
+
+III. Khuyến mãi – Voucher – Gamification
+
+    - Xây dựng trang quản lý khuyến mãi cho admin.
+
+    - Xây dựng chức năng vòng quay may mắn (gamification) để tăng tương tác người dùng.
+
+    - Chức năng nhập mã voucher trong quá trình thanh toán.
+
+    Cập nhật CSDL voucher: Thêm trạng thái true / false (hoạt động / ngừng hoạt động) Khi người dùng 
+
+    sử dụng voucher → chỉ cập nhật trạng thái, không xóa voucher khỏi CSDL.
+
+IV. Quản lý hệ thống & phân quyền
+
+    - Xây dựng trang quản lý kho  .
+
+V. Social & tương tác người dùng
+
+    - Xây dựng trang social nội bộ cho website, bao gồm:
+
+        - Đăng bài, upload hình ảnh, chia sẻ nội dung.
+
+        - Xem story.
+
+        - Chat và kết bạn giữa người dùng.
+
+    - Thiết kế CSDL phục vụ việc:
+
+        - Thu thập hành vi người dùng.
+
+        - Phân tích và đề xuất sản phẩm theo hành vi.
+
+VI. Đánh giá sản phẩm 
+
+    - Chức năng đánh giá chi tiết từng sản phẩm (sao, nội dung đánh giá).
+
+    - Trang quản lý đánh giá sản phẩm cho admin (duyệt, ẩn, xóa đánh giá).
+
+VII. Kiểm duyệt nội dung 
+    (dua AI vao de train kiem duyet tu dong )
+
+    Trang quản lý kiểm duyệt:
+
+        - Bài đăng social.
+
+        - Bình luận của người dùng dảm bảo nội dung phù hợp trước khi hiển thị công khai.
