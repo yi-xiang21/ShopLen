@@ -1,3 +1,7 @@
+*bo sung
+xoa don hang , hien thi danh muc , viet dashboard doanh thu , viet chuc nang xuat hoa hon , xuat toast cac thong bao 
+
+
 I. Quản lý tài khoản người dùng 
 
     - Cập nhật ảnh đại diện / hình nền trang cá nhân người dùng.
