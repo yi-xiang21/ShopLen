@@ -138,6 +138,31 @@ function prev() {
   }
 }
 
+// Ham render danh mục vào select
+async function renderCategoryOptions(categories) {
+  const catalogSelect = document.getElementById("catalogSelect");
+  if (!catalogSelect) return;
+  catalogSelect.innerHTML = '<option value="">Tất cả</option>' + categories.map(category => `
+    <option value="${category.id}">${category.name}</option>
+  `).join('');
+}
+
+// Hàm lấy danh mục từ API
+async function getApiCatalogy() {
+  try {
+      const res = await fetch(
+        typeof getApiUrl === "function" ? getApiUrl("/categories") : "/categories"
+      );
+      const data = await res.json();
+      if (data.status !== "success")
+        throw new Error(data.message || "Không thể tải danh mục");
+      renderCategoryOptions(data.categories || []);
+    } catch (err) {
+      console.error(err);
+      alert(err.message || "Không thể tải danh mục");
+    }
+}
+
 // Hàm lọc sản phẩm theo mức giá và danh mục
 function filter() {
   // Giá tiền từ select range
@@ -165,6 +190,10 @@ function filter() {
   const findInput = document.querySelector('input[name="find"]:checked');
   const findID = findInput ? findInput.value : null;
 
+  // Danh Sách danh mục
+  const catalogSelect = document.getElementById("catalogSelect");
+  const selectedCatalogId = catalogSelect ? catalogSelect.value : null;
+
   // Kích cỡ
   const sizeCheckboxes = document.querySelectorAll(
     '.filter-material input[type="checkbox"]:checked'
@@ -190,6 +219,9 @@ function filter() {
         selectedSizes.includes(String(sz).toLowerCase())
       );
       if (!hasMatch) return false;
+    }
+    if (selectedCatalogId) {
+      if (product.categoryId != selectedCatalogId) return false;
     }
 
     return true;
@@ -223,6 +255,7 @@ function find(event) {
 // Gắn sự kiện DOMContentLoaded để chạy khi DOM được tải xong (DOMContextLoaded là sự kiện được sử dụng để chạy mã khi toàn bộ nội dung của trang (bao gồm cả HTML và tài nguyên liên quan) đã được tải xong. Nó gắn các sự kiện vào các nút sắp xếp và bắt đầu quá trình lấy sản phẩm từ API.)
 document.addEventListener("DOMContentLoaded", () => {
   fetchShopProducts();
+  getApiCatalogy();
   // Gắn sự kiện cho nút Lọc
   const btnFilter = document.getElementById("sort-button-default");
   if (btnFilter) {

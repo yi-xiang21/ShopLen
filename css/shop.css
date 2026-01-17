@@ -186,6 +186,12 @@ main, .footer {
   margin: 0 5px;
 }
 
+#catalogSelect {
+    width: 100%;
+    padding: 5px;
+    border-radius: 10px;
+    border: 1px solid #e1306c;
+}
 /* --- Product List Grid (Đã tối ưu) --- */
 #shop .shop-buy .shopproitem {
   flex: 1; /* Chiếm phần còn lại */

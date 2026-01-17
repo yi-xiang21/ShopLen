@@ -1,12 +1,13 @@
 *bo sung
-xoa don hang user (xong) , hien thi danh muc , viet dashboard doanh thu  , viet chuc nang xuat hoa hon , xuat toast cac thong bao (xong) (chua toast khi dat hang va hien thi sl khi co don hang moi dat)
+xoa don hang user (xong) , hien thi danh muc  , viet dashboard doanh thu  , viet chuc nang xuat hoa hon , xuat toast cac thong bao (xong) (chua toast khi dat hang va hien thi sl tren anh dai dien khi co don hang moi dat)
 
 
 I. Quản lý tài khoản người dùng 
 
-    - Cập nhật ảnh đại diện / hình nền trang cá nhân người dùng.
+    - Cập nhật ảnh đại diện / hình nền trang cá nhân người dùng (thêm trường hình ảnh trong account đẻ lưu hình nền ng dùng chọn làm hình địa diện).
 
     - Chức năng cho phép người dùng thay đổi mật khẩu (có xác thực) (xong).
+    - không xóa user phía ng dùng chỉ đóng true false (thêm db trạng thái tk để tắt mở ).
 
 II. Quản lý đơn hàng & dữ liệu mua hàng
 
