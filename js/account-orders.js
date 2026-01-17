@@ -27,7 +27,7 @@ async function loadMyOrders() {
             container.innerHTML = '<p>Bạn không có đơn hàng nào.</p>';
             return;
         }
-
+        console.log(data.data);
         data.data.forEach(order => {
             // Render đơn hàng
             if (order.trang_thai !== 'hoan_thanh') 
@@ -43,7 +43,7 @@ async function loadMyOrders() {
                     </div>
                     <div class="order-actions">
                         <button class="btn viewOrder-btn" onclick="viewOrderDetail('${order.ma_don_hang}')">Xem chi tiết</button>
-                        ${order.trang_thai === 'cho_xu_ly' ? '<button class="btn delOrder-btn" style="display: block;">Huỷ đơn</button>' : ''}
+                        ${order.trang_thai === 'cho_xu_ly' ? `<button class="btn delOrder-btn" onclick="cancelOrder('${order.ma_don_hang}')" style="display: block;">Huỷ đơn</button>`   : ''}
                     </div>
                 </div>
                 <div class="order-info">
@@ -57,7 +57,7 @@ async function loadMyOrders() {
             
         });
     } catch (error) {
-        // Xử lý lỗi
+        showError('Lỗi', 'Không thể tải danh sách đơn hàng. Vui lòng thử lại.');
         const container = document.querySelector('.orders-wrapper');
         container.innerHTML = `
         <p>Không thể tải đơn hàng.</p>
@@ -91,6 +91,43 @@ async function viewOrderDetail(orderId) {
     }
 }
 
+// Huỷ đơn hàng
+async function cancelOrder(orderId) {
+    const confirmed = await showConfirm(
+        'Huỷ đơn hàng',
+        'Bạn có chắc chắn muốn huỷ đơn hàng này?',
+        {
+            type: 'warning',
+            confirmText: 'Huỷ',
+            cancelText: 'Giữ lại',
+            confirmClass: 'danger'
+        }
+    );
+    if (!confirmed) return;
+
+    const token = localStorage.getItem('token') || sessionStorage.getItem('token');
+    try {
+        const res = await fetch(getApiUrl(`/orders/${orderId}/cancel`), {
+            method: 'PUT',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            }
+        });
+
+        const data = await res.json();
+        if (data.status === 'success') {
+            showSuccess('Thành công', 'Đơn hàng đã được huỷ.');
+            loadMyOrders();
+        } else {
+            showError('Lỗi', data.message || 'Không thể huỷ đơn hàng.');
+        }
+    } catch (err) {
+        showError('Lỗi', 'Đã xảy ra lỗi. Vui lòng thử lại.');
+    }
+}
+
+// Render chi tiết đơn hàng
 function renderOrderDetail(order, items) {
     const infoGrids = document.querySelectorAll('.order-detail-wrapper .order-info-grid');
 
@@ -158,6 +195,7 @@ function renderOrderDetail(order, items) {
 
 // Màu sắc trạng thái
 function getStatusColor(status) {
+    
     if(status === 'hoan_thanh') return 'completed';
     if(status === 'da_huy') return 'cancelled';
     if(status === 'dang_giao') return 'shipping';

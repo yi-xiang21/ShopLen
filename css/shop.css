@@ -196,7 +196,7 @@ main, .footer {
 #shop .shop-buy .shopproitem .shopitem {
   display: grid;
   grid-template-columns: repeat(4, 1fr); /* 4 cột đều nhau */
-  gap: 30px;
+  gap: 50px;
   padding: 0 10px;
 }
 

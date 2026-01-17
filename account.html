@@ -12,6 +12,8 @@
     <link rel="stylesheet" href="css/account.css">
     <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
     <link rel="stylesheet" href="css/animation.css">
+    <link rel="stylesheet" href="css/mess.css">
+    <script src="js/notification.js"></script>
     <title>peace chill</title>
 </head>
 
@@ -374,37 +376,55 @@
 
             // Validation
             if (newPassword !== confirmPassword) {
-                alert('Mật khẩu mới không khớp!');
+                showError('Mật khẩu không khớp', 'Mật khẩu mới và xác nhận phải giống nhau');
                 return;
             }
 
             if (newPassword.length < 8) {
-                alert('Mật khẩu mới phải có ít nhất 8 ký tự!');
+                showWarning('Mật khẩu yếu', 'Mật khẩu mới phải có ít nhất 8 ký tự');
                 return;
             }
 
             if (currentPassword === newPassword) {
-                alert('Mật khẩu mới phải khác mật khẩu hiện tại!');
+                showWarning('Mật khẩu trùng lặp', 'Mật khẩu mới phải khác mật khẩu hiện tại');
                 return;
             }
 
             try {
-                // Simulate API call
-                await new Promise(resolve => setTimeout(resolve, 1000));
+                const loading = showLoading('Đang đổi mật khẩu...', 'Vui lòng đợi');
 
-                // In real app, you would send this to your backend
-                console.log('Password change request:', {
-                    currentPassword,
-                    newPassword
+                const token = localStorage.getItem('token') || sessionStorage.getItem('token');
+                if (!token) {
+                    loading.close();
+                    showWarning('Phiên hết hạn', 'Vui lòng đăng nhập lại');
+                    setTimeout(() => window.location.href = 'login.html', 1200);
+                    return;
+                }
+
+                const apiUrl = typeof getApiUrl === 'function' ? getApiUrl('/users/me/password') : '/users/me/password';
+                const res = await fetch(apiUrl, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({ currentPassword, newPassword })
                 });
 
-                alert('Mật khẩu được thay đổi thành công!');
-                e.target.reset();
-                document.getElementById('strengthFill').style.width = '0%';
-                document.getElementById('strengthText').textContent = 'Độ mạnh mật khẩu';
+                const data = await res.json();
+                loading.close();
+
+                if (res.ok && data.status === 'success') {
+                    showSuccess('Thành công', data.message || 'Mật khẩu đã được đổi');
+                    e.target.reset();
+                    document.getElementById('strengthFill').style.width = '0%';
+                    document.getElementById('strengthText').textContent = 'Độ mạnh mật khẩu';
+                } else {
+                    showError('Không thể đổi mật khẩu', data.message || 'Vui lòng kiểm tra lại thông tin');
+                }
 
             } catch (error) {
-                alert('Không thể thay đổi mật khẩu. Vui lòng thử lại.');
+                showError('Lỗi hệ thống', 'Không thể đổi mật khẩu. Vui lòng thử lại.');
                 console.error('Password change error:', error);
             }
         }

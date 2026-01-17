@@ -36,8 +36,13 @@ document.addEventListener('DOMContentLoaded', function() {
   // Xử lý sự kiện click vào nút "Log out"
   const logoutBtn = document.querySelector('.go-logout');
   if (logoutBtn) {
-    logoutBtn.addEventListener('click', function(e) {
+    logoutBtn.addEventListener('click', async function(e) {
       e.preventDefault();
+      
+      // Xác nhận đăng xuất
+      const confirmed = await confirmAction('Đăng xuất', 'Bạn có chắc chắn muốn đăng xuất?');
+      if (!confirmed) return;
+      
       // Xóa thông tin đăng nhập khỏi localStorage và sessionStorage
       localStorage.removeItem('isLoggedIn');
       localStorage.removeItem('userRole');
@@ -55,8 +60,10 @@ document.addEventListener('DOMContentLoaded', function() {
       
       // Cập nhật menu
       updateMenuVisibility();
-      alert('Đăng xuất thành công!');
-      window.location.href = 'index.html';
+      showSuccess('Đã đăng xuất', 'Hẹn gặp lại bạn!');
+      setTimeout(() => {
+        window.location.href = 'index.html';
+      }, 1000);
     });
   }
 });
@@ -92,6 +99,8 @@ document.addEventListener('DOMContentLoaded', function() {
       const password = loginForm.querySelector('input[type="password"], input[type="text"][placeholder="Password"]').value;
       const remember = loginForm.querySelector('input[type="checkbox"]').checked;
 
+      const loading = showLoading('Đang đăng nhập...', 'Vui lòng đợi');
+      
       try {
         const apiUrl = getApiUrl('/auth/login');
         const res = await fetch(apiUrl, {
@@ -100,6 +109,8 @@ document.addEventListener('DOMContentLoaded', function() {
           body: JSON.stringify({ username, password })
         });
         const data = await res.json();
+        loading.close();
+        
         if (data.status === 'success') {
           const storage = remember ? localStorage : sessionStorage;
           storage.setItem('isLoggedIn', 'true');
@@ -153,13 +164,16 @@ document.addEventListener('DOMContentLoaded', function() {
           // Cập nhật menu ngay lập tức
           updateMenuVisibility();
           
-          alert('Đăng nhập thành công!');
-          window.location.href = 'index.html';
+          showSuccess('Đăng nhập thành công!', 'Chào mừng bạn quay trở lại');
+          setTimeout(() => {
+            window.location.href = 'index.html';
+          }, 1000);
         } else {
-          alert(data.message || 'Đăng nhập thất bại!');
+          showError('Đăng nhập thất bại', data.message || 'Tên đăng nhập hoặc mật khẩu không đúng');
         }
       } catch (err) {
-        alert('Lỗi kết nối máy chủ!');
+        loading.close();
+        showError('Lỗi kết nối', 'Không thể kết nối đến máy chủ. Vui lòng thử lại');
         
       }
     });
@@ -180,7 +194,7 @@ document.addEventListener('DOMContentLoaded', function() {
       const confirmPassword = registerForm.querySelector('input[name="confirmPassword"]').value;
       // Kiểm tra mật khẩu và xác nhận mật khẩu
       if (password !== confirmPassword) {
-        alert('Mật khẩu và xác nhận mật khẩu không khớp!');
+        showError('Mật khẩu không khớp', 'Mật khẩu và xác nhận mật khẩu phải giống nhau');
         registerForm.querySelector('input[name="confirmPassword"]').value = '';
         registerForm.querySelector('input[name="password"]').value = '';
         return;
@@ -188,6 +202,8 @@ document.addEventListener('DOMContentLoaded', function() {
       const address = '';
       const city = '';
 
+      const loading = showLoading('Đang đăng ký...', 'Vui lòng đợi');
+      
       try {
         const apiUrl = getApiUrl('/auth/register');
         const res = await fetch(apiUrl, {
@@ -196,12 +212,19 @@ document.addEventListener('DOMContentLoaded', function() {
           body: JSON.stringify({ name, firstName, lastName, username, password, email, phone, address, city })
         });
         const data = await res.json();
-        alert(data.message);
+        loading.close();
+        
         if (data.status === 'success') {
-          window.location.href = 'login.html';
+          showSuccess('Đăng ký thành công!', data.message || 'Bạn có thể đăng nhập ngay bây giờ');
+          setTimeout(() => {
+            window.location.href = 'login.html';
+          }, 1500);
+        } else {
+          showError('Đăng ký thất bại', data.message || 'Vui lòng kiểm tra lại thông tin');
         }
       } catch (err) {
-        alert('Lỗi kết nối máy chủ!');
+        loading.close();
+        showError('Lỗi kết nối', 'Không thể kết nối đến máy chủ. Vui lòng thử lại');
       }
     });
   }

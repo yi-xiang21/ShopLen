@@ -125,7 +125,7 @@ function renderOrderDetails(orderDetail) {
                             <option value="dang_xu_ly">Đang xử lý</option>
                             <option value="dang_giao">Đang vận chuyển</option>
                             <option value="hoan_thanh">Hoàn thành</option>
-                            <option value="huy_don">Hủy đơn</option>
+                            <option value="da_huy">Hủy đơn</option>
                         </select>
                         <button class="btn btn-primary" id="btn-updateStatus">Cập nhật trạng thái</button>
                     </div>

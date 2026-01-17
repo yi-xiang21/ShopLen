@@ -1279,6 +1279,11 @@ input:checked+.toggle-slider:before {
   color: #b71c1c;
 }
 
+.status-text.shipping {
+  background: #e0f7fa;
+  color: #f75f00;
+}
+
 /* Tổng tiền */
 .order-total {
   font-size: 17px;

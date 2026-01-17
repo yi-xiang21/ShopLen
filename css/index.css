@@ -67,6 +67,40 @@ header ul li img {
   cursor: pointer;
 }
 
+/* sl gio hang */
+.cart-count {
+  position: absolute;
+  top: -8px;
+  right: -10px;
+  background: linear-gradient(135deg, #ff6b6b, #ee5a6f);
+  color: white;
+  font-size: 11px;
+  font-weight: 700;
+  min-width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px;
+  box-shadow: 0 2px 6px rgba(238, 90, 111, 0.4);
+  animation: cartPulse 2s ease-in-out infinite;
+  z-index: 10;
+}
+
+.cart-count:empty {
+  display: none;
+}
+
+@keyframes cartPulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
 /* Dropdown user menu */
 .user-menu-li {
   position: relative;

@@ -1,0 +1,417 @@
+/* ============================================
+   NOTIFICATION SYSTEM - Hệ thống thông báo
+   ============================================ */
+
+/* Container chứa tất cả thông báo */
+.notification-container {
+    position: fixed;
+    top: 100px;
+    right: 20px;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-width: 400px;
+}
+
+/* Notification cơ bản */
+.notification {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    background: white;
+    border-left: 4px solid;
+    min-width: 320px;
+    max-width: 400px;
+    animation: slideIn 0.3s ease-out;
+    transition: all 0.3s ease;
+}
+
+.notification:hover {
+    transform: translateX(-5px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Icon thông báo */
+.notification-icon {
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+}
+
+/* Nội dung thông báo */
+.notification-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.notification-title {
+    font-weight: 600;
+    font-size: 15px;
+    margin: 0;
+    color: #1a1a1a;
+}
+
+.notification-message {
+    font-size: 14px;
+    margin: 0;
+    color: #000000;
+    line-height: 1.4;
+}
+
+/* Nút đóng */
+.notification-close {
+    flex-shrink: 0;
+    background: none;
+    border: none;
+    font-size: 20px;
+    color: #060202;
+    cursor: pointer;
+    padding: 0;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    transition: all 0.2s;
+}
+
+.notification-close:hover {
+    background: rgba(0, 0, 0, 0.1);
+    color: #333;
+}
+
+/* ============================================
+   NOTIFICATION TYPES - Các loại thông báo
+   ============================================ */
+
+/* Thành công - Success */
+.notification.success {
+    border-left-color: #14ba82;
+}
+
+.notification.success .notification-icon {
+    color: #000000;
+}
+
+.notification.success {
+    background: linear-gradient(to right, rgb(247, 240, 240), rgb(231, 215, 221));
+}
+
+/* Lỗi - Error */
+.notification.error {
+    border-left-color: #e12525;
+}
+
+.notification.error .notification-icon {
+    color: #000000;
+}
+
+.notification.error {
+    background: linear-gradient(to right, rgb(250, 250, 250), rgb(230, 131, 146));
+}
+
+/* Cảnh báo - Warning */
+.notification.warning {
+    border-left-color: #f59e0b;
+}
+
+.notification.warning .notification-icon {
+    color: #f59e0b;
+}
+
+.notification.warning {
+    background: linear-gradient(to right, rgba(245, 158, 11, 0.1), white);
+}
+
+/* Thông tin - Info */
+.notification.info {
+    border-left-color: #3b82f6;
+}
+
+.notification.info .notification-icon {
+    color: #3b82f6;
+}
+
+.notification.info {
+    background: linear-gradient(to right, rgba(59, 130, 246, 0.1), white);
+}
+
+/* ============================================
+   CONFIRM DIALOG - Hộp thoại xác nhận
+   ============================================ */
+
+/* Overlay nền tối */
+.confirm-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.2s ease-out;
+}
+
+/* Dialog xác nhận */
+.confirm-dialog {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    max-width: 440px;
+    width: 90%;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    animation: scaleIn 0.3s ease-out;
+}
+
+/* Header của dialog */
+.confirm-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.confirm-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    flex-shrink: 0;
+}
+
+.confirm-icon.warning {
+    background: rgba(245, 158, 11, 0.1);
+    color: #f59e0b;
+}
+
+.confirm-icon.danger {
+    background: rgba(239, 68, 68, 0.1);
+    color: #ef4444;
+}
+
+.confirm-icon.info {
+    background: rgba(59, 130, 246, 0.1);
+    color: #3b82f6;
+}
+
+.confirm-title {
+    font-size: 20px;
+    font-weight: 600;
+    margin: 0;
+    color: #1a1a1a;
+}
+
+/* Nội dung dialog */
+.confirm-body {
+    margin-bottom: 24px;
+}
+
+.confirm-message {
+    font-size: 15px;
+    line-height: 1.6;
+    color: #666;
+    margin: 0;
+}
+
+/* Footer với các nút */
+.confirm-footer {
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+}
+
+.confirm-btn {
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s;
+    min-width: 80px;
+}
+
+.confirm-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.confirm-btn:active {
+    transform: translateY(0);
+}
+
+.confirm-btn.cancel {
+    background: #f3f4f6;
+    color: #666;
+}
+
+.confirm-btn.cancel:hover {
+    background: #e5e7eb;
+}
+
+.confirm-btn.confirm {
+    background: #ce3f7f;
+    color: white;
+}
+
+.confirm-btn.confirm:hover {
+    background: #ed0000;
+}
+
+.confirm-btn.danger {
+    background: #ef4444;
+    color: white;
+}
+
+.confirm-btn.danger:hover {
+    background: #dc2626;
+}
+
+
+
+.notification-loading {
+    border-left-color: #3b82f6;
+}
+
+.notification-loading .notification-icon {
+    color: #3b82f6;
+}
+
+.spinner {
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(59, 130, 246, 0.2);
+    border-top-color: #3b82f6;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+
+@keyframes slideIn {
+    from {
+        transform: translateX(400px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideOut {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(400px);
+        opacity: 0;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        transform: scale(0.9);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.notification.slideOut {
+    animation: slideOut 0.3s ease-out forwards;
+}
+
+/* ============================================
+   RESPONSIVE - Tương thích thiết bị
+   ============================================ */
+
+@media (max-width: 768px) {
+    .notification-container {
+        top: 10px;
+        right: 10px;
+        left: 10px;
+        max-width: none;
+    }
+
+    .notification {
+        min-width: auto;
+        max-width: none;
+    }
+
+    .confirm-dialog {
+        margin: 20px;
+        max-width: none;
+    }
+}
+
+/* ============================================
+   PROGRESS BAR - Thanh tiến trình
+   ============================================ */
+
+.notification-progress {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 0 0 8px 8px;
+    overflow: hidden;
+}
+
+.notification-progress-bar {
+    height: 100%;
+    background: currentColor;
+    transition: width 0.1s linear;
+}
+
+.notification.success .notification-progress-bar {
+    background: #10b981;
+}
+
+.notification.error .notification-progress-bar {
+    background: #ef4444;
+}
+
+.notification.warning .notification-progress-bar {
+    background: #f59e0b;
+}
+
+.notification.info .notification-progress-bar {
+    background: #3b82f6;
+}

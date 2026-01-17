@@ -57,15 +57,17 @@
     try {
       const res = await api('/users/me');
       if (res.status === 401) {
-        alert('Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.');
-        window.location.href = 'login.html';
+        showWarning('Phiên hết hạn', 'Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.');
+        setTimeout(() => {
+          window.location.href = 'login.html';
+        }, 1500);
         return;
       }
       const data = await res.json();
       if (data.status !== 'success') throw new Error(data.message || 'Không thể tải thông tin tài khoản');
       fillProfile(data.user || {});
     } catch (err) {
-      alert(err.message || 'Không thể tải thông tin tài khoản');
+      showError('Lỗi tải dữ liệu', err.message || 'Không thể tải thông tin tài khoản');
     }
   }
 
@@ -76,8 +78,10 @@
       body: JSON.stringify(payload)
     });
     if (res.status === 401) {
-      alert('Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.');
-      window.location.href = 'login.html';
+      showWarning('Phiên hết hạn', 'Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.');
+      setTimeout(() => {
+        window.location.href = 'login.html';
+      }, 1500);
       return;
     }
     const data = await res.json();
@@ -105,8 +109,10 @@
         city: form.city.value.trim()
       };
       try {
+        const loading = showLoading('Đang lưu...', 'Vui lòng đợi');
         await saveProfile(payload);
-        alert('Lưu thông tin thành công!');
+        loading.close();
+        showSuccess('Thành công!', 'Thông tin tài khoản đã được cập nhật');
         // Update name/email
         const fullName = `${payload.firstName} ${payload.lastName}`.trim();
         if (fullName) {
@@ -119,7 +125,7 @@
         }
         loadProfile();
       } catch (err) {
-        alert(err.message || 'Không thể lưu thông tin');
+        showError('Lỗi lưu dữ liệu', err.message || 'Không thể lưu thông tin. Vui lòng thử lại');
       }
     });
   });

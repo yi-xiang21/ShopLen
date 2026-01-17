@@ -150,8 +150,9 @@ body {
 
 #grid-item {
     display: grid;
-    grid-template-columns: repeat(4, 2fr);
-    gap: 20px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+    align-items: stretch;
 }
 
 .card-item {
@@ -162,40 +163,56 @@ body {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     display: flex;
     flex-direction: column;
+    height: 100%;
+    min-height: 280px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .card-item img {
-    width: auto;
+    width: 100%;
+    height: 140px;
     border-radius: 8px;
     object-fit: cover;
-    height: 130px;
+    margin-bottom: 8px;
 }
 
 .card-item .item-name {
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 600;
     color: #333;
-    margin: 3% 0;
+    margin: 0 0 6px 0;
+    line-height: 1.3;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .card-item .item-price {
     font-size: 14px;
     color: #6b1f3a;
-    font-weight: 500;
-    margin: 3% 0;
+    font-weight: 600;
+    margin: 0 0 4px 0;
 }
 
-.card-item .item-category,
-.card-item .item-stock {
-    font-size: 13px;
-    color: #777;
-    margin: 3% 0;
+.card-item .item-category {
+    font-size: 14px;
+    color: #000000;
+    margin: 0 0 4px 0;
+    padding: 2px 0;
 }
 
 .card-item .card-actions {
-    margin-top: auto;
+    margin-top: 1px;
     display: flex;
-    gap: 10px;
+    gap: 8px;
+    padding-top: 8px;
 }
 
 .card-item .btn-edit {
@@ -203,6 +220,12 @@ body {
     background-color: #fff;
     color: #6b1f3a;
     border: 1px solid #2e0101;
+    padding: 6px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 500;
+    transition: all 0.2s ease;
 }
 
 .card-item .btn-edit:hover {
@@ -216,6 +239,12 @@ body {
     background-color: #fff;
     color: #a10000;
     border: 1px solid #a10000;
+    padding: 6px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 500;
+    transition: all 0.2s ease;
 }
 
 .card-item .btn-delete:hover,

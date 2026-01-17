@@ -192,6 +192,7 @@ function renderOrderDetailHistory(order, items) {
 
 // Màu sắc trạng thái
 function getStatusColor(status) {
+    
     if(status === 'hoan_thanh') return 'completed';
     if(status === 'da_huy') return 'cancelled';
     if(status === 'dang_giao') return 'shipping';
