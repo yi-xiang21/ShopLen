@@ -14,6 +14,8 @@
     <link rel="stylesheet" href="css/animation.css">
     <link rel="stylesheet" href="css/mess.css">
     <script src="js/notification.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
     <title>peace chill</title>
 </head>
 
@@ -43,8 +45,9 @@
             <!-- Main Content -->
             <section class="main-section active" data-section="overview">
                 <div class="main-header">
-                    <div class="main-avatar-wrap">
-                        <div class="main-avatar"></div>
+                    <div class="avatar-wrapper">
+                        <img id="preview" />
+                        <input type="file" id="fileInput" accept="image/*" hidden />
                     </div>
                     <div>
                         <div class="main-name"></div>
@@ -257,6 +260,28 @@
             </section>
         </div>
     </main>
+
+    <!-- Modal Crop Avatar -->
+    <div id="cropModal" class="crop-modal" style="display:none;">
+        <div class="crop-overlay"></div>
+        <div class="crop-container">
+            <div class="crop-header">
+                <h3>Chỉnh Sửa Ảnh Đại Diện</h3>
+                <button type="button" class="crop-close-btn" id="closeCropModal">
+                    <i class="bi bi-x-lg"></i>
+                </button>
+            </div>
+            <div class="crop-body">
+                <img id="cropImage" style="max-width: 100%;" />
+            </div>
+            <div class="crop-footer">
+                <button type="button" class="crop-cancel-btn" id="cancelCrop">Hủy</button>
+                <button type="button" class="crop-save-btn" id="saveCropBtn">
+                    <i class="bi bi-check-circle"></i> Lưu Ảnh
+                </button>
+            </div>
+        </div>
+    </div>
 
     <script>
         function setupSidebarTabs() {

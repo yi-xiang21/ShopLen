@@ -4,7 +4,7 @@ xoa don hang user (xong) , hien thi danh muc (xong) , viet dashboard doanh thu  
 
 I. Quản lý tài khoản người dùng 
 
-    - Cập nhật ảnh đại diện / hình nền trang cá nhân người dùng (thêm trường hình ảnh trong account đẻ lưu hình nền ng dùng chọn làm hình địa diện).
+    - Cập nhật ảnh đại diện / hình nền trang cá nhân người dùng (thêm trường hình ảnh trong account đẻ lưu hình nền ng dùng chọn làm hình địa diện) (xong).
 
     - Chức năng cho phép người dùng thay đổi mật khẩu (có xác thực) (xong).
     - không xóa user phía ng dùng chỉ đóng true false (thêm db trạng thái tk để tắt mở ).
