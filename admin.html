@@ -8,10 +8,11 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
     <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="css/admin.css">
     <link rel="stylesheet" href="css/animation.css">
-        <link rel="stylesheet" href="css/mess.css">
+    <link rel="stylesheet" href="css/mess.css">
     <script src="js/notification.js"></script>
     <title>peace chill</title>
 </head>
@@ -30,8 +31,8 @@
             </div>
             <aside class="admin-sidebar">
                 <ul class="sidebar-menu">
-                    <li class="active" data-section="product-management"><i class="bi bi-wrench"></i>Quản lý sản phẩm
-                    </li>
+                    <li class="active" data-section="dashboard-management"><i class="bi bi-speedometer2"></i> Dashboard</li>
+                    <li  data-section="product-management"><i class="bi bi-wrench"></i>Quản lý sản phẩm</li>
                     <li data-section="order-management"><i class="bi bi-cart"></i>Quản lý đơn hàng</li>
                     <li data-section="account-management"><i class="bi bi-person"></i> Quản lý tài khoản</li>
                     <li data-section="category-management"><i class="bi-list-nested"></i> Quản lý danh mục</li>
@@ -39,7 +40,102 @@
             </aside>
 
             <!-- Main Content -->
-            <section class="main-section active" data-section="product-management">
+             <section class="main-section active" data-section="dashboard-management">
+                <h2 class="section-title">Dashboard</h2>
+                <div id="dashboard-content">
+                    <div class="dashboard-metrics">
+                        <div class="metric-card metric-orders">
+                            <div class="metric-header">
+                                <h3>Tổng đơn hàng</h3>
+                                <i class="bi bi-cart-check"></i>
+                            </div>
+                            <p class="metric-value" id="total-orders">0</p>
+                            <div class="metric-sub-stats">
+                                <div class="sub-stat-item">
+                                    <span class="sub-stat-label">Thành công</span>
+                                    <span class="sub-stat-value success" id="completed-orders">0</span>
+                                </div>
+                                <div class="sub-stat-divider"></div>
+                                <div class="sub-stat-item">
+                                    <span class="sub-stat-label">Đã hủy</span>
+                                    <span class="sub-stat-value cancelled" id="cancelled-orders">0</span>
+                                </div>
+                            </div>
+                            <div class="metric-sub-stats">
+                                <div class="sub-stat-item">
+                                    <span class="sub-stat-label">Đang xử lý</span>
+                                    <span class="sub-stat-value processing" id="processing-orders">0</span>
+                                </div>
+                                <div class="sub-stat-divider"></div>
+                                <div class="sub-stat-item">
+                                    <span class="sub-stat-label">Đang vận chuyển</span>
+                                    <span class="sub-stat-value shipping" id="shipping-orders">0</span>
+                                </div>
+                            </div>
+                            <div class="metric-sub-stats">
+                                <div class="sub-stat-item">
+                                    <span class="sub-stat-label">Chờ xác nhận</span>
+                                    <span class="sub-stat-value pending" id="pending-orders">0</span>
+                                </div>
+                            </div>
+                            <div class="metric-date-picker">
+                                <label for="order-date">Chọn ngày:</label>
+                                <input type="date" id="order-date" class="date-input">
+                            </div>
+                        </div>
+                        <div class="metric-right-column">
+                            <div class="metric-card metric-customers">
+                                <div class="metric-header">
+                                    <h3>Tổng khách hàng</h3>
+                                    <i class="bi bi-people"></i>
+                                </div>
+                                <p class="metric-value" id="total-customers">0</p>
+                                <p class="metric-label">Tất cả thời gian</p>
+                            </div>
+                            <div class="metric-card metric-revenue">
+                                <div class="metric-header">
+                                    <h3>Doanh thu hôm nay</h3>
+                                    <i class="bi bi-cash-coin"></i>
+                                </div>
+                                <p class="metric-value" id="today-revenue">0 VNĐ</p>
+                                <p class="metric-label" id="revenue-change">+0% so với hôm qua</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dashboard-chart-container">
+                        <div class="chart-header">
+                            <h3>Doanh thu theo giờ</h3>
+                            <div class="chart-legend">
+                                <span class="legend-item"><span class="legend-dot"></span>Thu nhập (VNĐ)</span>
+                            </div>
+                        </div>
+                        <div class="chart-wrapper">
+                            <canvas id="salesChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="dashboard-content-row">
+                        <div class="dashboard-section dashboard-top-products">
+                            <div class="section-header">
+                                <h3>Top 3 sản phẩm bán chạy</h3>
+                                <span class="section-date" id="top-products-date">Hôm nay</span>
+                            </div>
+                            <div class="products-list" id="top-products-list">
+                                <!-- Top sản phẩm sẽ được render từ JavaScript -->
+                            </div>
+                        </div>
+                        <div class="dashboard-section dashboard-recent-orders">
+                            <div class="section-header">
+                                <h3>5 đơn hàng gần nhất</h3>
+                                <a href="#" class="view-all" onclick="goToOrderManagement(event)">Xem tất cả</a>
+                            </div>
+                            <div class="orders-list" id="recent-orders-list">
+                                <!-- Đơn hàng gần đây sẽ được render từ JavaScript -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="main-section" data-section="product-management">
                 <h2 class="section-title">
                     <p>Quản lý sản phẩm</p>
                     <button id="btn-add">+ Thêm sản phẩm</button>
@@ -243,6 +339,31 @@
             });
         }
 
+        // Chuyển đến section Quản lý đơn hàng khi bấm "Xem tất cả"
+        function goToOrderManagement(event) {
+            event.preventDefault();
+            const menuItems = document.querySelectorAll('.sidebar-menu li');
+            const sections = document.querySelectorAll('.main-section');
+
+            // Xóa active ở tất cả menu items
+            menuItems.forEach(li => li.classList.remove('active'));
+            
+            // Ẩn tất cả sections
+            sections.forEach(sec => sec.classList.remove('active'));
+
+            // Active item "Quản lý đơn hàng" trong sidebar
+            const orderMenuItem = document.querySelector('[data-section="order-management"]');
+            if (orderMenuItem) {
+                orderMenuItem.classList.add('active');
+            }
+
+            // Hiện section Quản lý đơn hàng
+            const orderSection = document.querySelector('.main-section[data-section="order-management"]');
+            if (orderSection) {
+                orderSection.classList.add('active');
+            }
+        }
+
         document.addEventListener('DOMContentLoaded', function () {
             setupSidebarTabs();
         });
@@ -250,6 +371,7 @@
 
     </script>
     <script src="js/config.js"></script>
+    <script src="js/admin-dashboard.js"></script>
     <script src="js/admin-products.js"></script>
     <script src="js/admin-users.js"></script>
     <script src="js/admin-categories.js"></script>

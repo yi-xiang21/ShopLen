@@ -1,6 +1,6 @@
 *bo sung
-xoa don hang user (xong) , hien thi danh muc (xong) , viet dashboard doanh thu  , viet chuc nang xuat hoa hon , xuat toast cac thong bao (xong) (chua toast khi dat hang va hien thi sl tren anh dai dien khi co don hang moi dat)
-
+xoa don hang user (xong) , hien thi danh muc (xong) , viet dashboard gd (xong) , do du lieu len dashboard (xong chua test cac truong hop ), viet chuc nang xuat hoa hon , xuat toast cac thong bao (xong) (chua toast khi dat hang va hien thi sl tren anh dai dien khi co don hang moi dat)
+tim kiem ma don , loc trang thai don , tim danh muc
 
 I. Quản lý tài khoản người dùng 
 

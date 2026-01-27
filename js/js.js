@@ -43,6 +43,22 @@ document.addEventListener('DOMContentLoaded', function() {
       const confirmed = await confirmAction('Đăng xuất', 'Bạn có chắc chắn muốn đăng xuất?');
       if (!confirmed) return;
       
+      try {
+        const token = localStorage.getItem('token') || sessionStorage.getItem('token');
+        if (token) {
+          await fetch(getApiUrl('/auth/logout'), {
+            method: 'POST',
+            headers: {
+              'Authorization': `Bearer ${token}`,
+              'Content-Type': 'application/json'
+            }
+          });
+        }
+      } catch (error) {
+        console.error('Lỗi gọi API logout:', error);
+        // Vẫn tiếp tục logout nếu API lỗi
+      }
+      
       // Xóa thông tin đăng nhập khỏi localStorage và sessionStorage
       localStorage.removeItem('isLoggedIn');
       localStorage.removeItem('userRole');
